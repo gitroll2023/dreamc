@@ -25,6 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <meta name="google-site-verification" content="yf0JSFJN2j5gJnrr7P9jIHsikohEbg0ZffzlCmo_nLw" />
+      </head>
       <body className="min-h-screen bg-background font-pretendard antialiased">
         <div className="relative flex min-h-screen flex-col">
           <Header />
