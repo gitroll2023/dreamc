@@ -196,7 +196,7 @@ export default function HistoryPage() {
                     특히 청년들이 떠나간 지역은 활력을 잃고, 문화적 인프라마저 사라지고 있습니다.
                   </p>
                   <p className="text-lg leading-relaxed mb-6">
-                    드림캐쳐는 <strong>"지역 청년들도 즐길 수 있는 문화가 있어야 한다"</strong>는 
+                    드림캐쳐는 <strong>&ldquo;지역 청년들도 즐길 수 있는 문화가 있어야 한다&rdquo;</strong>는 
                     신념으로 시작되었습니다. 서울이 아니어도, 대도시가 아니어도 청년들이 
                     자신의 꿈을 키우고 문화를 즐길 수 있는 환경을 만들고자 합니다.
                   </p>

@@ -98,7 +98,7 @@ export default function CouponPage() {
               </h3>
               <ol className="space-y-2 text-muted-foreground">
                 <li>1. 지역 서포터즈로부터 받은 쿠폰 코드를 준비합니다</li>
-                <li>2. 아래 '쿠폰 입력하기' 버튼을 클릭합니다</li>
+                <li>2. 아래 &apos;쿠폰 입력하기&apos; 버튼을 클릭합니다</li>
                 <li>3. 쿠폰 코드를 입력하여 유효성을 확인합니다</li>
                 <li>4. 원하는 프로그램을 선택하여 예약합니다</li>
                 <li>5. 예약 당일 드림캐쳐를 방문하여 체험을 즐깁니다</li>

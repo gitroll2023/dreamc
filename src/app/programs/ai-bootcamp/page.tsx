@@ -272,7 +272,7 @@ export default function AIBootcampPage() {
                       </div>
                     </div>
                     <p className="text-sm leading-relaxed italic min-h-[80px]">
-                      "{isEnglish ? review.reviewEn : review.reviewKr}"
+                      &ldquo;{isEnglish ? review.reviewEn : review.reviewKr}&rdquo;
                     </p>
                     <div className="flex mt-4">
                       {[...Array(review.rating)].map((_, i) => (
@@ -638,7 +638,7 @@ export default function AIBootcampPage() {
             <Alert className="max-w-2xl mx-auto mb-4">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription className="text-sm">
-                <strong>프로그램명 안내:</strong> "AI 시대에서 살아남기 인문학 부트캠프"는 가칭이며, 
+                <strong>프로그램명 안내:</strong> &ldquo;AI 시대에서 살아남기 인문학 부트캠프&rdquo;는 가칭이며, 
                 정식 명칭은 프로그램 시작 전 확정되어 안내될 예정입니다.
               </AlertDescription>
             </Alert>

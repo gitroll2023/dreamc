@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
     };
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     setError('');
 
@@ -114,7 +114,6 @@ export default function AdminDashboard() {
         setStats(result.stats);
         
         // 성공적으로 데이터를 가져오면 세션이 연장됨 (미들웨어에서 처리)
-        resetSessionTimers();
       } else {
         setError(result.error || '데이터를 불러오는데 실패했습니다.');
       }
@@ -123,7 +122,7 @@ export default function AdminDashboard() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [router]);
 
   // 세션 타이머 리셋 함수
   const resetSessionTimers = () => {
