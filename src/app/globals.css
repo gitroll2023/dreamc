@@ -1,33 +1,226 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 217 91% 60%; /* #2563EB - 신뢰감을 주는 파란색 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 210 40% 96.1%; /* #F8F9FA - 깨끗한 회색 */
+    --secondary-foreground: 0 0% 9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 25 95% 53%; /* #F97316 - 청년의 열정을 상징하는 주황색 */
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
+    --chart-1: 
+    12 76% 61%;
+    --chart-2: 
+    173 58% 39%;
+    --chart-3: 
+    197 37% 24%;
+    --chart-4: 
+    43 74% 66%;
+    --chart-5: 
+    27 87% 67%;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 217 32.6% 17.5%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 32.6% 17.5%;
+    --input: 217 32.6% 17.5%;
+    --ring: 217 91% 60%;
+    --chart-1: 
+    220 70% 50%;
+    --chart-2: 
+    160 60% 45%;
+    --chart-3: 
+    30 80% 55%;
+    --chart-4: 
+    280 65% 60%;
+    --chart-5: 
+    340 75% 55%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-pretendard;
+  }
+}
+
+/* Dream Catcher Pattern Styles */
+.dreamcatcher-pattern {
+  background-image: 
+    radial-gradient(circle at 20% 80%, hsla(217, 91%, 60%, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, hsla(25, 95%, 53%, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, hsla(217, 91%, 60%, 0.02) 0%, transparent 50%);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, hsla(217, 91%, 60%, 0.1) 0%, hsla(25, 95%, 53%, 0.05) 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 rounded-md;
+  transition: background-color 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/30;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus Styles */
+.focus-visible:focus {
+  @apply outline-none ring-2 ring-primary ring-offset-2;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Print Styles - 인쇄 시 깔끔하게 1페이지로 */
+@media print {
+  /* 불필요한 요소 숨기기 */
+  header,
+  footer,
+  nav,
+  button,
+  .no-print,
+  [role="navigation"],
+  [role="banner"],
+  [role="contentinfo"],
+  section.bg-secondary\/30,
+  .absolute,
+  .fixed,
+  .sticky {
+    display: none !important;
+  }
+  
+  /* 페이지 설정 */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+  
+  /* 본문 스타일 */
+  body {
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    color: black !important;
+    background: white !important;
+  }
+  
+  /* 메인 컨텐츠만 표시 */
+  main {
+    display: block !important;
+  }
+  
+  /* 여백 조정 */
+  .container,
+  section {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  /* 카드 스타일 단순화 */
+  div[class*="card"],
+  div[class*="Card"] {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* 배지 스타일 */
+  div[class*="badge"],
+  div[class*="Badge"] {
+    border: 1px solid #666 !important;
+    padding: 2px 6px !important;
+  }
+  
+  /* 텍스트 색상 */
+  h1, h2, h3, h4, h5, h6, p, span, div, li {
+    color: black !important;
+  }
+  
+  /* 링크 */
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+  
+  /* 페이지 나누기 방지 */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+  }
+  
+  /* 배경 제거 */
+  * {
+    background-image: none !important;
+    background-color: white !important;
+  }
+  
+  /* 인쇄 시 공지사항 목록만 표시 */
+  .space-y-4 > div {
+    page-break-inside: avoid !important;
   }
 }

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "neon": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@neondatabase/mcp-server-neon", "start", "napi_xf9r0j7t65127wc2c2vfxgbhmphhxk8bh9363be83kxpvo9hpjdmyifz3zqspxb1"]
+    }
+  }
+}
