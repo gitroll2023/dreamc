@@ -1,52 +1,74 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Calendar, Sparkles, Eye, ChevronRight } from 'lucide-react';
+
+interface Announcement {
+  id: string;
+  category: string;
+  title: string;
+  preview: string;
+  content: string;
+  views: number;
+  date: string;
+  publishedAt: string;
+}
 
 export default function CommunityPage() {
-  // 하드코딩된 공지사항 데이터
-  const announcements = [
-    {
-      id: 1,
-      category: 'important',
-      title: '드림캐쳐 2025년 1월 프로그램 안내',
-      preview: '새해를 맞아 다양한 체험 프로그램을 준비했습니다. 많은 참여 부탁드립니다.',
-      date: '2024.12.20',
-      views: 152
-    },
-    {
-      id: 2,
-      category: 'notice',
-      title: '연말 특별 이벤트 - 쿠폰 추가 발급',
-      preview: '12월 한정으로 체험 쿠폰을 추가 발급합니다. 지역 서포터즈를 통해 신청해주세요.',
-      date: '2024.12.15',
-      views: 89
-    },
-    {
-      id: 3,
-      category: 'recruitment',
-      title: 'AI 부트캠프 2기 모집 시작',
-      preview: 'AI 시대에서 살아남기 인문학 부트캠프 2기를 모집합니다. 관심있는 청년들의 많은 지원 바랍니다.',
-      date: '2024.12.10',
-      views: 234
-    },
-    {
-      id: 4,
-      category: 'event',
-      title: '크리스마스 특별 프로그램',
-      preview: '크리스마스를 맞아 특별한 베이킹 클래스와 향수 만들기 체험을 준비했습니다.',
-      date: '2024.12.05',
-      views: 178
-    },
-    {
-      id: 5,
-      category: 'notice',
-      title: '홈페이지 리뉴얼 안내',
-      preview: '더 나은 서비스를 위해 홈페이지를 새롭게 단장했습니다.',
-      date: '2024.12.01',
-      views: 95
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // 공지사항 목록 가져오기
+  useEffect(() => {
+    fetchAnnouncements();
+  }, [selectedCategory]);
+
+  const fetchAnnouncements = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/announcements?category=${selectedCategory}`);
+      const data = await response.json();
+      setAnnouncements(data);
+    } catch (error) {
+      console.error('Failed to fetch announcements:', error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  // 공지사항 클릭 시 상세 정보 가져오고 조회수 증가
+  const handleAnnouncementClick = async (announcement: Announcement) => {
+    try {
+      // API 호출로 조회수 증가 및 최신 정보 가져오기
+      const response = await fetch(`/api/announcements/${announcement.id}`);
+      const updatedAnnouncement = await response.json();
+      
+      // 모달 열기
+      setSelectedAnnouncement(updatedAnnouncement);
+      
+      // 목록 업데이트 (조회수 반영)
+      setAnnouncements(prev => 
+        prev.map(a => a.id === updatedAnnouncement.id ? updatedAnnouncement : a)
+      );
+    } catch (error) {
+      console.error('Failed to fetch announcement details:', error);
+      // 에러 발생 시에도 기본 정보로 모달 열기
+      setSelectedAnnouncement(announcement);
+    }
+  };
+
+  const categories = [
+    { value: 'all', label: '전체' },
+    { value: 'important', label: '중요' },
+    { value: 'notice', label: '공지' },
+    { value: 'recruitment', label: '모집' },
+    { value: 'event', label: '행사' }
   ];
 
   const getCategoryBadge = (category: string) => {
@@ -77,43 +99,116 @@ export default function CommunityPage() {
               공지사항
             </h1>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-              드림캐쳐의 새로운 소식과 공지사항을 확인하세요
+              드림캐쳐의 새로운 소식과 공지사항을 확인하세요.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Announcements List */}
+      {/* Main Content */}
       <section className="py-12 md:py-16 lg:py-20">
-        <div className="container max-w-4xl mx-auto px-4">
-          <div className="space-y-4">
-            {announcements.map(announcement => (
-              <Card key={announcement.id} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      {getCategoryBadge(announcement.category)}
-                      <span className="text-sm text-muted-foreground flex items-center">
-                        <Calendar className="w-3 h-3 mr-1" />
-                        {announcement.date}
-                      </span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">
-                      조회 {announcement.views}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {announcement.title}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {announcement.preview}
-                  </p>
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="space-y-6">
+            {/* Category Filter */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {categories.map(cat => (
+                <Button
+                  key={cat.value}
+                  variant={selectedCategory === cat.value ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setSelectedCategory(cat.value)}
+                >
+                  {cat.label}
+                </Button>
+              ))}
+            </div>
+
+            {/* Announcements List */}
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <p className="mt-4 text-muted-foreground">공지사항을 불러오는 중...</p>
+              </div>
+            ) : announcements.length === 0 ? (
+              <Card>
+                <CardContent className="p-12 text-center">
+                  <p className="text-muted-foreground">등록된 공지사항이 없습니다.</p>
                 </CardContent>
               </Card>
-            ))}
+            ) : (
+              <div className="space-y-4">
+                {announcements.map(announcement => (
+                  <Card 
+                    key={announcement.id} 
+                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => handleAnnouncementClick(announcement)}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          {getCategoryBadge(announcement.category)}
+                          <span className="text-sm text-muted-foreground flex items-center">
+                            <Calendar className="w-3 h-3 mr-1" />
+                            {announcement.date}
+                          </span>
+                        </div>
+                        <span className="text-sm text-muted-foreground flex items-center">
+                          <Eye className="w-3 h-3 mr-1" />
+                          {announcement.views}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2 hover:text-primary transition-colors">
+                        {announcement.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-3">
+                        {announcement.preview}
+                      </p>
+                      <Button variant="ghost" size="sm" className="p-0 h-auto font-normal">
+                        자세히 보기 <ChevronRight className="w-4 h-4 ml-1" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Announcement Detail Modal */}
+      <Dialog open={!!selectedAnnouncement} onOpenChange={() => setSelectedAnnouncement(null)}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          {selectedAnnouncement && (
+            <>
+              <DialogHeader>
+                <div className="flex items-start gap-3 mb-2">
+                  {getCategoryBadge(selectedAnnouncement.category)}
+                  <span className="text-sm text-muted-foreground flex items-center">
+                    <Calendar className="w-3 h-3 mr-1" />
+                    {selectedAnnouncement.date}
+                  </span>
+                </div>
+                <DialogTitle className="text-xl font-bold">
+                  {selectedAnnouncement.title}
+                </DialogTitle>
+              </DialogHeader>
+              
+              <div className="mt-4 whitespace-pre-wrap text-sm leading-relaxed">
+                {selectedAnnouncement.content}
+              </div>
+              
+              <div className="flex items-center justify-between mt-6 pt-4 border-t">
+                <span className="text-sm text-muted-foreground">
+                  조회수 {selectedAnnouncement.views}
+                </span>
+                <Button onClick={() => setSelectedAnnouncement(null)}>
+                  닫기
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
