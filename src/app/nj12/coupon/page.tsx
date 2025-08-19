@@ -65,25 +65,16 @@ export default function CouponPage() {
     
     setDownloading(true);
     try {
-      // 모바일에서도 PC와 동일한 크기로 캡처하기 위해 설정
       const canvas = await html2canvas(couponRef.current, {
+        backgroundColor: '#FFFFFF',
+        scale: 2,
         logging: false,
-        useCORS: true,
-        width: 600,
-        height: 500,
-        backgroundColor: 'white',  // 흰색 배경 명시
-        scale: 3,  // 더 높은 해상도
-        allowTaint: true,
-        foreignObjectRendering: false,
-        imageTimeout: 0,
-        removeContainer: false,
-        windowWidth: 1920,
-        windowHeight: 1080
+        useCORS: true
       });
       
       const link = document.createElement('a');
       link.download = `dreamcatcher-coupon-${couponCode}.png`;
-      link.href = canvas.toDataURL('image/png', 1.0);  // 최고 품질로 설정
+      link.href = canvas.toDataURL('image/png');
       link.click();
     } catch (error) {
       console.error('Download error:', error);
@@ -148,21 +139,17 @@ export default function CouponPage() {
             <div className="flex justify-center">
               <div 
                 ref={couponRef}
-                className="relative rounded-3xl overflow-hidden"
+                className="relative overflow-hidden"
                 style={{ 
                   width: '600px',
                   height: '500px',
                   maxWidth: '100%',
-                  backgroundColor: 'white',  // 명시적으로 흰색 배경 설정
-                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                  backgroundColor: '#FFFFFF',  // 명시적으로 흰색 배경 설정
+                  border: '2px solid #e5e7eb',
+                  borderRadius: '24px'
                 }}
               >
-                {/* 배경 패턴 */}
-                <div className="absolute inset-0" style={{ opacity: 0.03 }}>
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(37, 99, 235, 0.05) 35px, rgba(37, 99, 235, 0.05) 70px)`,
-                  }}></div>
-                </div>
+                {/* 배경 패턴 - 다운로드 시 제거됨 */}
 
                 {/* 좌측 장식 */}
                 <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-primary via-accent to-primary"></div>
@@ -192,7 +179,7 @@ export default function CouponPage() {
                           </div>
                           <div>
                             <span className="text-2xl font-bold text-primary">드림캐쳐</span>
-                            <p className="text-xs text-gray-500">청년 문화 커뮤니티</p>
+                            <p className="text-xs text-gray-800">청년 문화 커뮤니티</p>
                           </div>
                         </div>
                       </div>
@@ -200,7 +187,7 @@ export default function CouponPage() {
                       {/* 수령인 이름 */}
                       <div className="text-right">
                         <p className="text-lg font-bold text-gray-800">{recipientName}님</p>
-                        <p className="text-sm text-gray-600">초대합니다</p>
+                        <p className="text-sm text-gray-900">초대합니다</p>
                       </div>
                     </div>
 
@@ -209,7 +196,7 @@ export default function CouponPage() {
                       <h1 className="text-3xl font-bold text-gray-800">
                         오프라인 1회 체험권
                       </h1>
-                      <p className="text-sm text-gray-600 mt-1">
+                      <p className="text-sm text-gray-900 mt-1">
                         드림캐쳐의 모든 체험 프로그램을 1회 무료로 참여하실 수 있습니다
                       </p>
                     </div>
@@ -217,7 +204,7 @@ export default function CouponPage() {
                     {/* 프로그램 목록 */}
                     <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg p-3">
                       <p className="text-xs font-semibold text-gray-700 mb-1">이용 가능 프로그램</p>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-gray-600" style={{ fontSize: '11px' }}>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-gray-900" style={{ fontSize: '11px' }}>
                         <span>✨ 향수 만들기</span>
                         <span>🍰 홈베이킹 클래스</span>
                         <span>🎨 퍼스널컬러 진단</span>
@@ -231,10 +218,10 @@ export default function CouponPage() {
                   {/* 하단 영역 */}
                   <div className="space-y-3">
                     {/* 쿠폰 코드 */}
-                    <div className="bg-gray-50 rounded-lg px-4 py-3 border-2 border-dashed border-gray-300">
+                    <div className="rounded-lg px-4 py-3 border-2 border-dashed border-gray-400" style={{ backgroundColor: '#f9fafb' }}>
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-xs text-gray-500 mb-1">쿠폰 코드</p>
+                          <p className="text-xs text-gray-800 mb-1">쿠폰 코드</p>
                           <span className="text-xl font-bold tracking-wider text-primary">
                             {couponCode}
                           </span>
@@ -245,20 +232,20 @@ export default function CouponPage() {
 
                     {/* 날짜 정보 */}
                     <div className="flex justify-between items-center pt-2 border-t">
-                      <div className="text-xs text-gray-500 space-y-0.5">
+                      <div className="text-xs text-gray-800 space-y-0.5">
                         <p>• 1인 1회 사용 가능</p>
                         <p>• 타인 양도 금지</p>
                       </div>
                       <div className="text-right">
                         <div className="flex gap-4">
                           <div>
-                            <p className="text-xs text-gray-400">발급일</p>
+                            <p className="text-xs text-gray-700">발급일</p>
                             <p className="text-sm font-semibold text-gray-700">
                               {issueDate}
                             </p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-400">만료일</p>
+                            <p className="text-xs text-gray-700">만료일</p>
                             <p className="text-sm font-semibold text-red-600">
                               {expiryDate}
                             </p>
@@ -315,7 +302,7 @@ export default function CouponPage() {
 
             {/* 안내 메시지 */}
             <div className="bg-white/80 backdrop-blur rounded-lg p-4 text-center max-w-2xl mx-auto">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-900">
                 쿠폰을 이미지로 저장하여 카카오톡이나 문자로 전달하세요.<br />
                 받으신 분은 드림캐쳐의 모든 체험 프로그램을 1회 무료로 참여하실 수 있습니다.
               </p>
@@ -348,7 +335,7 @@ export default function CouponPage() {
               </div>
               
               <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-900">
                   <strong>수령인:</strong> {recipientName}님<br />
                   <strong>쿠폰 코드:</strong> {couponCode}
                 </p>
