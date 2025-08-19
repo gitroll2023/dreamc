@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Download, Sparkles, Gift, Star, RefreshCw, Ticket, Calendar, Hash, Trash2, X, AlertTriangle } from 'lucide-react';
+import { Download, Sparkles, Gift, Star, Ticket, Calendar, Hash, Trash2, X, AlertTriangle } from 'lucide-react';
 import html2canvas from 'html2canvas';
 
 export default function CouponPage() {
@@ -277,16 +277,6 @@ export default function CouponPage() {
                     이미지 다운로드
                   </>
                 )}
-              </Button>
-              
-              <Button 
-                onClick={resetCoupon}
-                variant="outline"
-                size="lg"
-                className="gap-2"
-              >
-                <RefreshCw className="w-4 h-4" />
-                새로 발급하기
               </Button>
               
               <Button 
