@@ -69,7 +69,7 @@ export default function CouponPage() {
         scale: 2,
         logging: false,
         useCORS: true
-      });
+      } as any);
       
       const link = document.createElement('a');
       link.download = `dreamcatcher-coupon-${couponCode}.png`;
