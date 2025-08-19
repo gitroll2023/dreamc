@@ -66,7 +66,7 @@ export default function CouponPage() {
     setDownloading(true);
     try {
       const canvas = await html2canvas(couponRef.current, {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#FFFFFF' as any,
         scale: 2,
         logging: false,
         useCORS: true

@@ -27,6 +27,7 @@ export default function CommunityPage() {
   // 공지사항 목록 가져오기
   useEffect(() => {
     fetchAnnouncements();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   const fetchAnnouncements = async () => {

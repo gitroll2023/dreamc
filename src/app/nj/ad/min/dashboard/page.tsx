@@ -93,6 +93,7 @@ export default function AdminDashboard() {
       clearTimeout(warningTimer);
       clearTimeout(logoutTimer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = useCallback(async () => {
