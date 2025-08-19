@@ -71,15 +71,22 @@ export default function CouponPage() {
         useCORS: true,
         width: 600,
         height: 500,
-        backgroundColor: '#ffffff',  // 흰색 배경 명시
-        scale: 2  // 고해상도를 위해 2배 스케일
+        backgroundColor: 'white',  // 흰색 배경 명시
+        scale: 3,  // 더 높은 해상도
+        allowTaint: true,
+        foreignObjectRendering: false,
+        imageTimeout: 0,
+        removeContainer: false,
+        windowWidth: 1920,
+        windowHeight: 1080
       });
       
       const link = document.createElement('a');
       link.download = `dreamcatcher-coupon-${couponCode}.png`;
-      link.href = canvas.toDataURL();
+      link.href = canvas.toDataURL('image/png', 1.0);  // 최고 품질로 설정
       link.click();
     } catch (error) {
+      console.error('Download error:', error);
     } finally {
       setDownloading(false);
     }
@@ -141,18 +148,19 @@ export default function CouponPage() {
             <div className="flex justify-center">
               <div 
                 ref={couponRef}
-                className="relative rounded-3xl shadow-2xl overflow-hidden"
+                className="relative rounded-3xl overflow-hidden"
                 style={{ 
                   width: '600px',
                   height: '500px',
                   maxWidth: '100%',
-                  backgroundColor: '#ffffff'  // 명시적으로 흰색 배경 설정
+                  backgroundColor: 'white',  // 명시적으로 흰색 배경 설정
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }}
               >
                 {/* 배경 패턴 */}
-                <div className="absolute inset-0 opacity-5">
+                <div className="absolute inset-0" style={{ opacity: 0.03 }}>
                   <div className="absolute inset-0" style={{
-                    backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(37, 99, 235, 0.1) 35px, rgba(37, 99, 235, 0.1) 70px)`,
+                    backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(37, 99, 235, 0.05) 35px, rgba(37, 99, 235, 0.05) 70px)`,
                   }}></div>
                 </div>
 
