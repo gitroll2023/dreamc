@@ -70,7 +70,9 @@ export default function CouponPage() {
         logging: false,
         useCORS: true,
         width: 600,
-        height: 500
+        height: 500,
+        backgroundColor: '#ffffff',  // 흰색 배경 명시
+        scale: 2  // 고해상도를 위해 2배 스케일
       });
       
       const link = document.createElement('a');
@@ -139,11 +141,12 @@ export default function CouponPage() {
             <div className="flex justify-center">
               <div 
                 ref={couponRef}
-                className="relative bg-white rounded-3xl shadow-2xl overflow-hidden"
+                className="relative rounded-3xl shadow-2xl overflow-hidden"
                 style={{ 
                   width: '600px',
                   height: '500px',
-                  maxWidth: '100%'
+                  maxWidth: '100%',
+                  backgroundColor: '#ffffff'  // 명시적으로 흰색 배경 설정
                 }}
               >
                 {/* 배경 패턴 */}
