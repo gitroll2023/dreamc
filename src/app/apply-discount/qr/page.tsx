@@ -1,0 +1,290 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { 
+  Smartphone, QrCode, ExternalLink, Download, 
+  Users, ArrowRight, Share2, Printer,
+  CheckCircle2, ArrowLeft, Gift
+} from 'lucide-react';
+import Link from 'next/link';
+
+export default function ApplyDiscountQRPage() {
+  const [applyUrl, setApplyUrl] = useState('');
+
+  useEffect(() => {
+    // 현재 도메인 기반으로 URL 생성
+    const baseUrl = window.location.origin;
+    setApplyUrl(`${baseUrl}/apply-discount`);
+  }, []);
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleDownload = () => {
+    const svg = document.getElementById('apply-discount-qr-code');
+    if (svg) {
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // QR 코드에 여백 추가
+        const padding = 40;
+        canvas.width = img.width + padding * 2;
+        canvas.height = img.height + padding * 2;
+        
+        // 흰색 배경
+        if (ctx) {
+          ctx.fillStyle = 'white';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, padding, padding);
+        }
+        
+        const pngFile = canvas.toDataURL('image/png');
+        
+        const downloadLink = document.createElement('a');
+        downloadLink.download = 'dreamcatcher-apply-discount-qr.png';
+        downloadLink.href = pngFile;
+        downloadLink.click();
+      };
+      
+      img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background">
+      {/* Simple Navigation */}
+      <div className="absolute top-4 left-4 print:hidden">
+        <Link href="/">
+          <Button variant="ghost" size="sm" className="inline-flex items-center">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            홈으로
+          </Button>
+        </Link>
+      </div>
+
+      {/* Header */}
+      <section className="py-8 md:py-12 border-b">
+        <div className="container max-w-4xl mx-auto px-4">
+          <div className="text-center">
+            <Badge className="mb-4" variant="secondary">
+              <QrCode className="w-3 h-3 mr-1" />
+              QR 코드
+            </Badge>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              드림캐쳐 체험단 신청
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              QR 코드를 스캔하여 할인 혜택을 받으세요
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section className="py-12">
+        <div className="container max-w-4xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* QR Code Card */}
+            <Card className="print:border-2 print:border-black">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">체험단 신청 QR 코드</CardTitle>
+                <CardDescription>
+                  스마트폰 카메라로 스캔하세요
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center space-y-6">
+                <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg w-full max-w-sm">
+                  {applyUrl && (
+                    <QRCodeSVG
+                      id="apply-discount-qr-code"
+                      value={applyUrl}
+                      size={200}
+                      level="M"
+                      includeMargin={false}
+                      imageSettings={{
+                        src: "",
+                        x: undefined,
+                        y: undefined,
+                        height: 0,
+                        width: 0,
+                        excavate: false,
+                      }}
+                      className="w-full h-auto max-w-[200px] mx-auto"
+                    />
+                  )}
+                </div>
+                
+                <div className="text-center space-y-2 w-full">
+                  <p className="text-sm text-muted-foreground">
+                    또는 아래 링크로 직접 접속
+                  </p>
+                  <div className="flex items-center gap-2 justify-center">
+                    <code className="px-3 py-1 bg-secondary rounded text-xs sm:text-sm break-all max-w-full">
+                      {applyUrl || 'Loading...'}
+                    </code>
+                  </div>
+                </div>
+
+                {/* Action Buttons - Hidden in print */}
+                <div className="flex gap-2 print:hidden">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleDownload}
+                    className="inline-flex items-center"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    다운로드
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handlePrint}
+                    className="inline-flex items-center"
+                  >
+                    <Printer className="w-4 h-4 mr-2" />
+                    인쇄
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Information Card */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-primary" />
+                    체험단 신청 안내
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-sm font-semibold text-primary">1</span>
+                      </div>
+                      <div>
+                        <p className="font-medium">QR 코드 스캔</p>
+                        <p className="text-sm text-muted-foreground">
+                          스마트폰 카메라로 QR 코드를 스캔하세요
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-sm font-semibold text-primary">2</span>
+                      </div>
+                      <div>
+                        <p className="font-medium">정보 입력</p>
+                        <p className="text-sm text-muted-foreground">
+                          간단한 정보와 프로그램을 선택해주세요
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-sm font-semibold text-primary">3</span>
+                      </div>
+                      <div>
+                        <p className="font-medium">할인 혜택 적용</p>
+                        <p className="text-sm text-muted-foreground">
+                          90% 할인된 가격으로 체험 가능합니다
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-accent/30 bg-gradient-to-br from-accent/5 to-background">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Gift className="w-5 h-5 text-accent" />
+                    특별 혜택
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    나주시 청년들을 위한 특별 할인 혜택을 
+                    제공하고 있습니다.
+                  </p>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary" />
+                      정상가 10,000원 → 1,000원 (90% 할인)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary" />
+                      다양한 프로그램 선택 가능
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary" />
+                      토/일요일 시간대 선택
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <div className="flex gap-3 print:hidden">
+                <Link href="/apply-discount" className="flex-1">
+                  <Button className="w-full inline-flex items-center justify-center">
+                    직접 신청하기
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Button
+                  variant="outline"
+                  className="inline-flex items-center"
+                  onClick={() => {
+                    navigator.share?.({
+                      title: '드림캐쳐 체험단 신청',
+                      text: '나주 청년을 위한 특별 할인 혜택',
+                      url: applyUrl
+                    });
+                  }}
+                >
+                  <Share2 className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Print Styles - QR 코드만 인쇄 */}
+      <style jsx global>{`
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          #apply-discount-qr-code, #apply-discount-qr-code * {
+            visibility: visible;
+          }
+          #apply-discount-qr-code {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+          @page {
+            size: A4;
+            margin: 0;
+          }
+          body {
+            background: white !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}

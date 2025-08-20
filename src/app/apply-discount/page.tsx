@@ -15,6 +15,7 @@ export default function ApplyDiscountPage() {
     phone1: '010',
     phone2: '',
     phone3: '',
+    ageGroup: '',
     interestedPrograms: [] as string[],
     preferredDay: '',
     preferredTimes: [] as string[],
@@ -44,6 +45,16 @@ export default function ApplyDiscountPage() {
     { id: 'saturday_evening', label: '토요일 저녁 (18:00-21:00)' },
     { id: 'sunday_afternoon', label: '일요일 오후 (15:00-18:00)' },
     { id: 'sunday_evening', label: '일요일 저녁 (18:00-21:00)' },
+  ];
+
+  // 연령대 선택 옵션
+  const ageGroups = [
+    { id: '10s', label: '10대', emoji: '🎒' },
+    { id: '20s', label: '20대', emoji: '🎓' },
+    { id: '30s', label: '30대', emoji: '💼' },
+    { id: '40s', label: '40대', emoji: '👔' },
+    { id: '50s', label: '50대', emoji: '🌟' },
+    { id: '60plus', label: '60대 이상', emoji: '👑' },
   ];
 
   // 서포터즈 목록 - 재미있는 표현으로
@@ -99,6 +110,11 @@ export default function ApplyDiscountPage() {
       return;
     }
 
+    if (!formData.ageGroup) {
+      setError('연령대를 선택해주세요.');
+      return;
+    }
+
     if (formData.interestedPrograms.length === 0) {
       setError('체험 프로그램을 선택해주세요.');
       return;
@@ -120,6 +136,7 @@ export default function ApplyDiscountPage() {
         body: JSON.stringify({
           ...formData,
           phone: fullPhone,
+          ageGroup: formData.ageGroup,
           location: '나주',
           supporterGroup: '나주',
         }),
@@ -162,6 +179,7 @@ export default function ApplyDiscountPage() {
                   phone1: '010',
                   phone2: '',
                   phone3: '',
+                  ageGroup: '',
                   interestedPrograms: [],
                   preferredDay: '',
                   preferredTimes: [],
@@ -269,6 +287,42 @@ export default function ApplyDiscountPage() {
                 </div>
               </div>
 
+              {/* 연령대 선택 */}
+              <div>
+                <Label>연령대 *</Label>
+                <div className="mt-3 grid grid-cols-3 gap-2">
+                  {ageGroups.map(age => (
+                    <button
+                      key={age.id}
+                      type="button"
+                      onClick={() => {
+                        setFormData(prev => ({ 
+                          ...prev, 
+                          ageGroup: age.id,
+                          // 10대가 선택되고 칵테일이 선택되어 있으면 선택 해제
+                          interestedPrograms: age.id === '10s' && prev.interestedPrograms.includes('cocktail') 
+                            ? [] 
+                            : prev.interestedPrograms
+                        }));
+                      }}
+                      className={`p-3 rounded-lg border transition-all ${
+                        formData.ageGroup === age.id
+                          ? 'border-primary bg-primary/5 ring-2 ring-primary'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className="text-2xl mb-1">{age.emoji}</div>
+                        <div className="text-sm font-medium">{age.label}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-2">
+                  * 연령대를 선택해주세요
+                </p>
+              </div>
+
               {/* 지역 선택 (나주 고정) */}
               <div>
                 <Label>활동 지역</Label>
@@ -303,7 +357,7 @@ export default function ApplyDiscountPage() {
                     <div
                       key={program.id}
                       className={`p-3 rounded-lg border-2 transition-all ${
-                        !program.available 
+                        !program.available || (program.id === 'cocktail' && formData.ageGroup === '10s')
                           ? 'opacity-50 cursor-not-allowed border-gray-200 bg-gray-50'
                           : formData.interestedPrograms.includes(program.id)
                           ? 'border-primary bg-primary/5 cursor-pointer'
@@ -311,7 +365,8 @@ export default function ApplyDiscountPage() {
                       }`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (program.available && !e.defaultPrevented) {
+                        const isDisabled = !program.available || (program.id === 'cocktail' && formData.ageGroup === '10s');
+                        if (!isDisabled && !e.defaultPrevented) {
                           handleProgramToggle(program.id);
                         }
                       }}
@@ -322,14 +377,17 @@ export default function ApplyDiscountPage() {
                             type="radio"
                             name="program"
                             checked={formData.interestedPrograms.includes(program.id)}
-                            disabled={!program.available}
+                            disabled={!program.available || (program.id === 'cocktail' && formData.ageGroup === '10s')}
                             onChange={() => {}}
                             onClick={(e) => e.stopPropagation()}
                             className="w-4 h-4 border-gray-300 text-primary focus:ring-primary disabled:opacity-50"
                           />
                           <div>
                             <span className="font-medium">{program.name}</span>
-                            {program.description && (
+                            {program.id === 'cocktail' && formData.ageGroup === '10s' && (
+                              <p className="text-xs text-red-500 mt-0.5">미성년자는 선택할 수 없습니다</p>
+                            )}
+                            {program.description && !(program.id === 'cocktail' && formData.ageGroup === '10s') && (
                               <p className="text-xs text-muted-foreground mt-0.5">{program.description}</p>
                             )}
                           </div>

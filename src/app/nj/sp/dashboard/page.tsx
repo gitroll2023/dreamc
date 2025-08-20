@@ -19,14 +19,16 @@ import {
   Users, Phone, Calendar, Clock, MapPin, 
   CheckCircle, XCircle, RefreshCw, LogOut, 
   Search, Filter, Gift, MessageSquare,
-  ChevronDown, ChevronUp, Send, Copy
+  ChevronDown, ChevronUp, Send, Copy, Megaphone, ClipboardList
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 interface OutreachContact {
   id: string;
   name: string;
   phone: string;
+  ageGroup?: string;
   interestedPrograms: string[];
   location: string;
   preferredDay?: string;
@@ -77,6 +79,15 @@ const timeSlotNames: Record<string, string> = {
   weekend_evening: '주말 저녁',
 };
 
+const ageGroupNames: Record<string, string> = {
+  '10s': '10대',
+  '20s': '20대',
+  '30s': '30대',
+  '40s': '40대',
+  '50s': '50대',
+  '60plus': '60대 이상',
+};
+
 export default function SupportersDashboard() {
   const router = useRouter();
   const { toast } = useToast();
@@ -86,9 +97,12 @@ export default function SupportersDashboard() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterProgram, setFilterProgram] = useState('all');
+  const [filterSupporter, setFilterSupporter] = useState('all');
+  const [filterDateRange, setFilterDateRange] = useState('all');
   const [selectedContact, setSelectedContact] = useState<OutreachContact | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('today');
+  const [showScriptModal, setShowScriptModal] = useState(false);
 
   useEffect(() => {
     fetchContacts();
@@ -98,7 +112,7 @@ export default function SupportersDashboard() {
 
   useEffect(() => {
     filterData();
-  }, [contacts, searchTerm, filterProgram, activeTab]);
+  }, [contacts, searchTerm, filterProgram, filterSupporter, filterDateRange, activeTab]);
 
   const fetchContacts = async () => {
     try {
@@ -128,11 +142,21 @@ export default function SupportersDashboard() {
   const filterData = () => {
     let filtered = [...contacts];
 
-    // 탭 필터링 (오늘, 이번주, 전체)
+    // 날짜 범위 필터링
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
+    if (filterDateRange === 'today') {
+      filtered = filtered.filter(c => new Date(c.createdAt) >= today);
+    } else if (filterDateRange === 'week') {
+      filtered = filtered.filter(c => new Date(c.createdAt) >= weekAgo);
+    } else if (filterDateRange === 'month') {
+      filtered = filtered.filter(c => new Date(c.createdAt) >= monthAgo);
+    }
+
+    // 탭 필터링 (추가 레거시 지원)
     if (activeTab === 'today') {
       filtered = filtered.filter(c => new Date(c.createdAt) >= today);
     } else if (activeTab === 'week') {
@@ -153,6 +177,11 @@ export default function SupportersDashboard() {
       filtered = filtered.filter(c => 
         c.interestedPrograms.includes(filterProgram)
       );
+    }
+
+    // 서포터즈 필터링
+    if (filterSupporter !== 'all') {
+      filtered = filtered.filter(c => c.supporterName === filterSupporter);
     }
 
     setFilteredContacts(filtered);
@@ -223,10 +252,27 @@ export default function SupportersDashboard() {
               <h1 className="text-xl font-bold">신청자 관리</h1>
               <p className="text-sm text-muted-foreground">드림캐쳐 나주 서포터즈</p>
             </div>
-            <Button variant="ghost" size="sm" onClick={handleLogout}>
-              <LogOut className="w-4 h-4 mr-2" />
-              로그아웃
-            </Button>
+            <div className="flex gap-2">
+              <Link href="/nj/sp/quick">
+                <Button variant="default" size="sm">
+                  ⚡ 빠른 링크
+                </Button>
+              </Link>
+              <Link href="/nj/sp/guide">
+                <Button variant="outline" size="sm">
+                  <ClipboardList className="w-4 h-4 mr-2" />
+                  활동 가이드
+                </Button>
+              </Link>
+              <Button variant="outline" size="sm" onClick={() => setShowScriptModal(true)}>
+                <Megaphone className="w-4 h-4 mr-2" />
+                홍보 멘트
+              </Button>
+              <Button variant="ghost" size="sm" onClick={handleLogout}>
+                <LogOut className="w-4 h-4 mr-2" />
+                로그아웃
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -290,36 +336,67 @@ export default function SupportersDashboard() {
       {/* 필터 및 검색 */}
       <div className="container mx-auto px-4 pb-4">
         <Card>
-          <CardContent className="p-4">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    placeholder="이름, 연락처, 서포터즈 검색..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </div>
+          <CardContent className="p-4 space-y-4">
+            {/* 첫 번째 줄: 검색 */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="이름, 연락처, 서포터즈 검색..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            
+            {/* 두 번째 줄: 필터들 */}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <select
+                value={filterDateRange}
+                onChange={(e) => setFilterDateRange(e.target.value)}
+                className="px-3 py-2 border rounded-lg bg-white text-sm"
+              >
+                <option value="all">전체 기간</option>
+                <option value="today">오늘</option>
+                <option value="week">일주일</option>
+                <option value="month">한달</option>
+              </select>
+              
+              <select
+                value={filterSupporter}
+                onChange={(e) => setFilterSupporter(e.target.value)}
+                className="px-3 py-2 border rounded-lg bg-white text-sm"
+              >
+                <option value="all">모든 서포터즈</option>
+                <option value="☀️ 햇살 서포터즈">☀️ 햇살</option>
+                <option value="⭐ 별빛 서포터즈">⭐ 별빛</option>
+                <option value="🌈 무지개 서포터즈">🌈 무지개</option>
+                <option value="🌸 꽃길 서포터즈">🌸 꽃길</option>
+                <option value="😊 미소 서포터즈">😊 미소</option>
+                <option value="💝 하트 서포터즈">💝 하트</option>
+                <option value="🌙 드림 서포터즈">🌙 드림</option>
+                <option value="🍀 행운 서포터즈">🍀 행운</option>
+                <option value="❓ 잘 모름 (QR로 접속)">❓ 잘 모름</option>
+              </select>
+              
               <select
                 value={filterProgram}
                 onChange={(e) => setFilterProgram(e.target.value)}
-                className="px-4 py-2 border rounded-lg bg-white"
+                className="px-3 py-2 border rounded-lg bg-white text-sm"
               >
                 <option value="all">모든 프로그램</option>
                 {Object.entries(programNames).map(([key, name]) => (
                   <option key={key} value={key}>{name}</option>
                 ))}
               </select>
-              <Button onClick={fetchContacts} variant="outline" size="icon">
+              
+              <Button onClick={fetchContacts} variant="outline" size="sm" className="ml-auto">
                 <RefreshCw className="w-4 h-4" />
               </Button>
             </div>
           </CardContent>
         </Card>
       </div>
+
 
       {/* 메인 콘텐츠 */}
       <div className="container mx-auto px-4 pb-8">
@@ -348,6 +425,14 @@ export default function SupportersDashboard() {
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-medium">{contact.name}</span>
+                              {contact.ageGroup && (
+                                <Badge 
+                                  variant={contact.ageGroup === '10s' ? 'destructive' : 'secondary'} 
+                                  className="text-xs"
+                                >
+                                  {ageGroupNames[contact.ageGroup] || contact.ageGroup}
+                                </Badge>
+                              )}
                               {contact.couponSent && (
                                 <Badge variant="outline" className="text-xs">
                                   <CheckCircle className="w-3 h-3 mr-1" />
@@ -407,17 +492,26 @@ export default function SupportersDashboard() {
                           <div className="pt-3 border-t space-y-3">
                             <div className="grid grid-cols-2 gap-4 text-sm">
                               <div>
+                                <span className="text-muted-foreground">연령대: </span>
+                                <Badge 
+                                  variant={contact.ageGroup === '10s' ? 'destructive' : 'secondary'} 
+                                  className="ml-1"
+                                >
+                                  {contact.ageGroup ? ageGroupNames[contact.ageGroup] : '미지정'}
+                                </Badge>
+                              </div>
+                              <div>
                                 <span className="text-muted-foreground">서포터즈: </span>
                                 <Badge variant="outline" className="ml-1">
                                   {contact.supporterName || '미지정'}
                                 </Badge>
                               </div>
-                              <div>
-                                <span className="text-muted-foreground">마케팅 동의: </span>
-                                <span className="font-medium">
-                                  {contact.marketingAgreed ? '동의' : '미동의'}
-                                </span>
-                              </div>
+                            </div>
+                            <div className="text-sm">
+                              <span className="text-muted-foreground">마케팅 동의: </span>
+                              <span className="font-medium">
+                                {contact.marketingAgreed ? '동의' : '미동의'}
+                              </span>
                             </div>
                             {contact.notes && (
                               <div className="text-sm">
@@ -479,8 +573,12 @@ export default function SupportersDashboard() {
                   <p className="font-medium">{selectedContact.phone}</p>
                 </div>
                 <div>
-                  <Label className="text-xs">지역</Label>
-                  <p className="font-medium">{selectedContact.location}</p>
+                  <Label className="text-xs">연령대</Label>
+                  <Badge 
+                    variant={selectedContact.ageGroup === '10s' ? 'destructive' : 'secondary'}
+                  >
+                    {selectedContact.ageGroup ? ageGroupNames[selectedContact.ageGroup] : '미지정'}
+                  </Badge>
                 </div>
                 <div className="col-span-2">
                   <Label className="text-xs">가능 시간대</Label>
@@ -562,6 +660,75 @@ export default function SupportersDashboard() {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* 홍보 멘트 모달 */}
+      <Dialog open={showScriptModal} onOpenChange={setShowScriptModal}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Megaphone className="w-5 h-5 text-primary" />
+              서포터즈 홍보 멘트 가이드
+            </DialogTitle>
+            <DialogDescription>현장에서 사용할 수 있는 표준 홍보 멘트입니다</DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 mt-4">
+            <div>
+              <h4 className="font-semibold text-sm mb-2 text-primary">📱 인사 & 후킹</h4>
+              <div className="bg-gray-50 p-3 rounded-lg text-sm space-y-1">
+                <p>안녕하세요!</p>
+                <p>전남에서 각 지역에 청년 문화 프로젝트를 기획하고있는</p>
+                <p className="font-medium text-primary">드림캐쳐 나주 서포터즈입니다! 30초만 들어주세요~</p>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-sm mb-2 text-primary">💬 메인 멘트</h4>
+              <div className="bg-gray-50 p-3 rounded-lg text-sm space-y-2">
+                <p>혹시 주말에 뭐하고 놀지 고민되신 적 있으신가요?</p>
+                <p className="text-primary font-medium">
+                  저희가 커피값(5천원)으로 즐길 수 있는
+                  칵테일 만들기, 베이킹, 보드게임 같은
+                  문화 체험 프로그램을 준비했어요!
+                </p>
+                <p>원래 여수에서 시작해서 목포, 화순으로 확대되었고,
+                8월부터 나주에서도 시작하게 되었습니다!</p>
+                <p>지금 청년들의 의견을 듣고 더 재밌는 프로그램을
+                만들기 위해 체험단을 모집하고 있어요.</p>
+                <p className="bg-yellow-50 p-2 rounded border border-yellow-200">
+                  체험 후 저희 프로그램에 간단한 피드백만 주시면
+                  추첨을 통해 커피나 베라 기프티콘도 드립니다!
+                </p>
+                <p className="font-medium">
+                  정가 4~8만원 프로그램을
+                  커피값 정도로 체험할 수 있는 기회인데,
+                  한 번 해보실 생각 있으신가요?
+                </p>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-sm mb-2 text-primary">✅ 클로징 (연락처 수집)</h4>
+              <div className="bg-gray-50 p-3 rounded-lg text-sm space-y-2">
+                <p className="font-medium">연락처 남겨주시면 체험 쿠폰과
+                프로그램 안내 보내드릴게요!</p>
+                <p className="text-muted-foreground">
+                  저희가 다른 지역에서도 한것도 들어보니까
+                  홈페이지에서 예약을 받아서 해보기도 했다고하는데
+                  노쇼(No Show: 예약해놓고 안오는것)가 많아서 
+                  직접 예약 도와드리고 있어요~
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <p className="text-xs text-blue-700">
+                💡 Tip: 이 멘트를 기본으로 사용하되, 상황에 맞게 자연스럽게 변형해서 사용하세요!
+              </p>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

@@ -169,6 +169,7 @@ model OutreachContact {
   id                String   @id @default(cuid())
   name              String
   phone             String
+  ageGroup          String?  // 연령대 (10s, 20s, 30s, 40s, 50s, 60plus)
   interestedPrograms String[] // 관심 프로그램 배열
   location          String   @default("나주")
   preferredDay      String?  // 평일/주말/둘다

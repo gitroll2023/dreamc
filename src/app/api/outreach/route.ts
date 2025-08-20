@@ -10,6 +10,7 @@ export async function POST(request: NextRequest) {
     const {
       name,
       phone,
+      ageGroup,
       interestedPrograms,
       location,
       preferredDay,
@@ -42,6 +43,7 @@ export async function POST(request: NextRequest) {
     const contactData: any = {
       name,
       phone,
+      ageGroup: ageGroup || null,
       interestedPrograms,
       location: location || '나주',
       preferredDay: preferredDay || '',
