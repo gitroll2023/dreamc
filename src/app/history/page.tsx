@@ -110,7 +110,7 @@ export default function HistoryPage() {
     },
     {
       title: '지역별 운영팀',
-      description: '각 지역의 운영팀이 현지 상황을 반영하여 프로그램을 운영합니다.'
+      description: '각 지역의 운영팀이 현지 상황을 반영하여 프로그램을 운영합니다.',
       icon: <Users className="h-5 w-5" />
     },
     {
