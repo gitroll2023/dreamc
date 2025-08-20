@@ -17,23 +17,21 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: [
-      { url: 'http://dreamcatcher.sslab.cloud/favicon.ico', sizes: 'any' },
-      { url: 'http://dreamcatcher.sslab.cloud/og-icon.png', type: 'image/png' },
-    ],
-    apple: 'http://dreamcatcher.sslab.cloud/og-icon.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/og-icon.png',
     other: [
       {
         rel: 'icon',
         type: 'image/png',
         sizes: '192x192',
-        url: 'http://dreamcatcher.sslab.cloud/icon-192.png',
+        url: '/icon-192.png',
       },
       {
         rel: 'icon',
         type: 'image/png',
         sizes: '512x512',
-        url: 'http://dreamcatcher.sslab.cloud/icon-512.png',
+        url: '/icon-512.png',
       },
     ],
   },
