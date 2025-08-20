@@ -33,24 +33,24 @@ export default function ApplyPage() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    // 기본 ?�보
+    // 기본 ?�보
     name: '',
     birthYear: '',
     gender: '',
     phone: '',
     email: '',
     
-    // 지??�??�정
+    // 지??�??�정
     location: '',
     startMonth: '',
     attendanceType: '', // online or offline
     
-    // 추�? ?�보
+    // 추�? ?�보
     occupation: '',
     motivation: '',
     expectations: '',
     
-    // ?�의?�항
+    // ?�의?�항
     termsAgree: false,
     privacyAgree: false,
     marketingAgree: false,
@@ -108,12 +108,12 @@ export default function ApplyPage() {
           router.push('/programs/ai-bootcamp');
         }, 3000);
       } else {
-        alert('?�청 처리 �??�류가 발생?�습?�다. ?�시 ?�도?�주?�요.');
+        alert('?�청 처리 �??�류가 발생?�습?�다. ?�시 ?�도?�주?�요.');
         setIsSubmitting(false);
       }
     } catch (error) {
       
-      alert('?�청 처리 �??�류가 발생?�습?�다. ?�시 ?�도?�주?�요.');
+      alert('?�청 처리 �??�류가 발생?�습?�다. ?�시 ?�도?�주?�요.');
       setIsSubmitting(false);
     }
   };
@@ -144,15 +144,15 @@ export default function ApplyPage() {
           <div className="text-center">
             <Badge className="mb-4" variant="secondary">
               <Sparkles className="w-3 h-3 mr-1" />
-              ?�력 ?�로그램
+              ?�력 ?�로그램
             </Badge>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">?�문??부?�캠???�청</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">?�문??부?�캠???�청</h1>
             <p className="text-sm text-muted-foreground mb-2">Application Form</p>
             <p className="text-xs text-muted-foreground mb-4 italic">
-              ??"AI ?��??�서 ?�아?�기 ?�문??부?�캠????가�?��?�다
+              ??"AI ?��??�서 ?�아?�기 ?�문??부?�캠????가�?��?�다
             </p>
             <p className="text-lg text-muted-foreground">
-              2�??�청???�성 (2025??9???�주 ?�작)
+              2�??�청???�성 (2025??9???�주 ?�작)
             </p>
           </div>
         </div>
@@ -183,10 +183,10 @@ export default function ApplyPage() {
           </div>
           <div className="text-center mb-4">
             <p className="text-sm text-muted-foreground">
-              {step === 1 && '기본 ?�보'}
-              {step === 2 && '?�강 ?�보'}
-              {step === 3 && '추�? ?�보'}
-              {step === 4 && '?��? ?�의'}
+              {step === 1 && '기본 ?�보'}
+              {step === 2 && '?�강 ?�보'}
+              {step === 3 && '추�? ?�보'}
+              {step === 4 && '?��? ?�의'}
             </p>
           </div>
         </div>
@@ -197,61 +197,61 @@ export default function ApplyPage() {
         <div className="container max-w-4xl mx-auto px-4">
           <Card className="shadow-xl">
             <CardContent className="p-8">
-              {/* Step 1: 기본 ?�보 */}
+              {/* Step 1: 기본 ?�보 */}
               {step === 1 && (
                 <div className="space-y-6">
                   <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <User className="w-8 h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold mb-1">기본 ?�보�??�력?�주?�요</h2>
+                    <h2 className="text-2xl font-bold mb-1">기본 ?�보�??�력?�주?�요</h2>
                     <p className="text-xs text-muted-foreground mb-2">Please Enter Your Basic Information</p>
-                    <p className="text-muted-foreground">?�확???�보�??�력?�주?�요</p>
+                    <p className="text-muted-foreground">?�확???�보�??�력?�주?�요</p>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="name">?�름 *</Label>
+                      <Label htmlFor="name">?�름 *</Label>
                       <Input
                         id="name"
-                        placeholder="?�길??
+                        placeholder="?�길??
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="birthYear">출생?�도 *</Label>
+                      <Label htmlFor="birthYear">출생년도 *</Label>
                       <Select value={formData.birthYear} onValueChange={(value) => handleInputChange('birthYear', value)}>
                         <SelectTrigger>
-                          <SelectValue placeholder="출생?�도 ?�택" />
+                          <SelectValue placeholder="출생년도 선택" />
                         </SelectTrigger>
                         <SelectContent>
                           {Array.from({ length: 80 }, (_, i) => 2005 - i).map(year => (
-                            <SelectItem key={year} value={year.toString()}>{year}??/SelectItem>
+                            <SelectItem key={year} value={year.toString()}>{year}년</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div className="space-y-2">
-                      <Label>?�별 *</Label>
+                      <Label>성별 *</Label>
                       <RadioGroup value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
                         <div className="flex space-x-4">
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="male" id="male" />
-                            <Label htmlFor="male" className="font-normal">?�성</Label>
+                            <Label htmlFor="male" className="font-normal">남성</Label>
                           </div>
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="female" id="female" />
-                            <Label htmlFor="female" className="font-normal">?�성</Label>
+                            <Label htmlFor="female" className="font-normal">여성</Label>
                           </div>
                         </div>
                       </RadioGroup>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone">?�락�?*</Label>
+                      <Label htmlFor="phone">연락처 *</Label>
                       <Input
                         id="phone"
                         type="tel"
@@ -260,11 +260,11 @@ export default function ApplyPage() {
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         maxLength={13}
                       />
-                      <p className="text-xs text-muted-foreground">010?�로 ?�작?�는 11?�리 ?��???번호�??�력?�주?�요</p>
+                      <p className="text-xs text-muted-foreground">010으로 시작하는 11자리 휴대폰 번호를 입력해주세요</p>
                     </div>
 
                     <div className="md:col-span-2 space-y-2">
-                      <Label htmlFor="email">?�메??(?�택)</Label>
+                      <Label htmlFor="email">이메일 (선택)</Label>
                       <Input
                         id="email"
                         type="email"
@@ -277,53 +277,53 @@ export default function ApplyPage() {
                 </div>
               )}
 
-              {/* Step 2: ?�강 ?�보 */}
+              {/* Step 2: ?�강 ?�보 */}
               {step === 2 && (
                 <div className="space-y-6">
                   <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Calendar className="w-8 h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold mb-1">?�강 ?�보�??�택?�주?�요</h2>
+                    <h2 className="text-2xl font-bold mb-1">?�강 ?�보�??�택?�주?�요</h2>
                     <p className="text-xs text-muted-foreground mb-2">Please Select Your Course Information</p>
-                    <p className="text-muted-foreground">?�망?�는 ?�강 방식???�택?�주?�요</p>
+                    <p className="text-muted-foreground">?�망?�는 ?�강 방식???�택?�주?�요</p>
                   </div>
 
                   <div className="space-y-6">
                     <Alert className="mb-4 flex items-center gap-2">
                       <AlertCircle className="h-4 w-4 flex-shrink-0" />
                       <AlertDescription className="flex-1">
-                        <strong>2025??9???�주?�서 2기�? ?�작?�니??</strong><br/>
-                        1기의 ?�공?�인 ?�료 ?�후, 2026??3???�식 ?�칭 ??마�?�??�범 ?�영?�니??
+                        <strong>2025??9???�주?�서 2기�? ?�작?�니??</strong><br/>
+                        1기의 ?�공?�인 ?�료 ?�후, 2026??3???�식 ?�칭 ??마�?�??�범 ?�영?�니??
                       </AlertDescription>
                     </Alert>
                     
                     <div className="space-y-2">
-                      <Label>?�작 ??*</Label>
+                      <Label>?�작 ??*</Label>
                       <RadioGroup value={formData.startMonth} onValueChange={(value) => handleInputChange('startMonth', value)}>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-muted/50">
                             <RadioGroupItem value="9" id="month9" />
                             <Label htmlFor="month9" className="font-normal cursor-pointer">
-                              2025??9??(2�?
+                              2025??9??(2�?
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">
                             <RadioGroupItem value="10" id="month10" disabled />
                             <Label htmlFor="month10" className="font-normal">
-                              2025??10??(?�정)
+                              2025??10??(?�정)
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">
                             <RadioGroupItem value="11" id="month11" disabled />
                             <Label htmlFor="month11" className="font-normal">
-                              2025??11??(?�정)
+                              2025??11??(?�정)
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">
                             <RadioGroupItem value="12" id="month12" disabled />
                             <Label htmlFor="month12" className="font-normal">
-                              2025??12??(?�정)
+                              2025??12??(?�정)
                             </Label>
                           </div>
                         </div>
@@ -332,40 +332,40 @@ export default function ApplyPage() {
                         <Alert className="mt-2 flex items-center gap-2">
                           <AlertCircle className="h-4 w-4 flex-shrink-0" />
                           <AlertDescription className="flex-1">
-                            2기는 ?�주?�에?�만 진행?�니?? 10?��????�른 지??��?�도 ?�차?�으�??�픈 ?�정?�니??
+                            2기는 ?�주?�에?�만 진행?�니?? 10?��????�른 지??��?�도 ?�차?�으�??�픈 ?�정?�니??
                           </AlertDescription>
                         </Alert>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label>?�강 지??*</Label>
+                      <Label>?�강 지??*</Label>
                       <RadioGroup value={formData.location} onValueChange={(value) => handleInputChange('location', value)}>
                         <div className="grid grid-cols-2 gap-4">
                           <div className={`flex items-center space-x-2 p-4 border rounded-lg ${formData.startMonth === '9' ? 'hover:bg-muted/50' : 'opacity-50'}`}>
                             <RadioGroupItem value="naju" id="naju" disabled={formData.startMonth !== '9'} />
                             <Label htmlFor="naju" className={`font-normal ${formData.startMonth === '9' ? 'cursor-pointer' : ''}`}>
-                              ?�주??{formData.startMonth === '9' && '(가??'}
+                              ?�주??{formData.startMonth === '9' && '(가??'}
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">
                             <RadioGroupItem value="yeosu" id="yeosu" disabled />
-                            <Label htmlFor="yeosu" className="font-normal">?�수??/Label>
+                            <Label htmlFor="yeosu" className="font-normal">여수시</Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">
                             <RadioGroupItem value="mokpo" id="mokpo" disabled />
-                            <Label htmlFor="mokpo" className="font-normal">목포??/Label>
+                            <Label htmlFor="mokpo" className="font-normal">목포시</Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">
                             <RadioGroupItem value="hwasun" id="hwasun" disabled />
-                            <Label htmlFor="hwasun" className="font-normal">?�순�?/Label>
+                            <Label htmlFor="hwasun" className="font-normal">화순군</Label>
                           </div>
                         </div>
                       </RadioGroup>
                     </div>
 
                     <div className="space-y-2">
-                      <Label>?�강 방식 *</Label>
+                      <Label>?�강 방식 *</Label>
                       <RadioGroup value={formData.attendanceType} onValueChange={(value) => handleInputChange('attendanceType', value)}>
                         <div className="grid md:grid-cols-2 gap-4">
                           <div 
@@ -377,10 +377,10 @@ export default function ApplyPage() {
                             <div className="flex items-start space-x-2">
                               <RadioGroupItem value="offline" id="offline" />
                               <div className="flex-1">
-                                <Label htmlFor="offline" className="text-lg font-semibold cursor-pointer">?�프?�인 ?�강</Label>
+                                <Label htmlFor="offline" className="text-lg font-semibold cursor-pointer">?�프?�인 ?�강</Label>
                                 <p className="text-sm text-muted-foreground mt-2">
-                                  ?��? 교육?�에??직접 참여<br/>
-                                  ?�규�?모임 참여 가??                                </p>
+                                  ?��? 교육?�에??직접 참여<br/>
+                                  ?�규�?모임 참여 가??                                </p>
                               </div>
                             </div>
                           </div>
@@ -393,10 +393,10 @@ export default function ApplyPage() {
                             <div className="flex items-start space-x-2">
                               <RadioGroupItem value="online" id="online" />
                               <div className="flex-1">
-                                <Label htmlFor="online" className="text-lg font-semibold cursor-pointer">?�라???�강</Label>
+                                <Label htmlFor="online" className="text-lg font-semibold cursor-pointer">?�라???�강</Label>
                                 <p className="text-sm text-muted-foreground mt-2">
-                                  ?� 지??��???�격 참여<br/>
-                                  ?�시�??�트리밍 ?�공
+                                  ?� 지??��???�격 참여<br/>
+                                  ?�시�??�트리밍 ?�공
                                 </p>
                               </div>
                             </div>
@@ -408,46 +408,46 @@ export default function ApplyPage() {
                 </div>
               )}
 
-              {/* Step 3: 추�? ?�보 */}
+              {/* Step 3: 추�? ?�보 */}
               {step === 3 && (
                 <div className="space-y-6">
                   <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <FileText className="w-8 h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold mb-1">추�? ?�보�??�력?�주?�요</h2>
+                    <h2 className="text-2xl font-bold mb-1">추가 정보를 입력해주세요</h2>
                     <p className="text-xs text-muted-foreground mb-2">Please Enter Additional Information</p>
-                    <p className="text-muted-foreground">???��? ?�로그램 ?�공???�한 ?�보?�니??/p>
+                    <p className="text-muted-foreground">더 나은 프로그램 제공을 위한 정보입니다</p>
                   </div>
 
                   <div className="space-y-6">
                     <div className="space-y-2">
-                      <Label htmlFor="occupation">?�재 직업/?�분 *</Label>
+                      <Label htmlFor="occupation">현재 직업/신분 *</Label>
                       <Input
                         id="occupation"
-                        placeholder="?? ?�?�생, 직장?? ?�리?�서, ?�영????
+                        placeholder="예: 대학생, 직장인, 프리랜서, 자영업자"
                         value={formData.occupation}
                         onChange={(e) => handleInputChange('occupation', e.target.value)}
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="motivation">지???�기 *</Label>
+                      <Label htmlFor="motivation">지원동기 *</Label>
                       <Textarea
                         id="motivation"
-                        placeholder="AI ?�문??부?�캠?�에 참여?�고???�는 ?�유�??�유�?�� ?�성?�주?�요"
+                        placeholder="AI ?�문??부?�캠?�에 참여?�고???�는 ?�유�??�유�?�� ?�성?�주?�요"
                         rows={4}
                         value={formData.motivation}
                         onChange={(e) => handleInputChange('motivation', e.target.value)}
                       />
-                      <p className="text-xs text-muted-foreground">최소 50???�상 ?�성?�주?�요</p>
+                      <p className="text-xs text-muted-foreground">최소 50자 이상 작성해주세요</p>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="expectations">?�로그램???�해 기�??�는 ??*</Label>
+                      <Label htmlFor="expectations">?�로그램???�해 기�??�는 ??*</Label>
                       <Textarea
                         id="expectations"
-                        placeholder="?�로그램???�해 ?�고???�는 �? 배우�??��? �??�을 ?�성?�주?�요"
+                        placeholder="?�로그램???�해 ?�고???�는 �? 배우�??��? �??�을 ?�성?�주?�요"
                         rows={4}
                         value={formData.expectations}
                         onChange={(e) => handleInputChange('expectations', e.target.value)}
@@ -457,16 +457,16 @@ export default function ApplyPage() {
                 </div>
               )}
 
-              {/* Step 4: ?��? ?�의 */}
+              {/* Step 4: ?��? ?�의 */}
               {step === 4 && (
                 <div className="space-y-6">
                   <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Shield className="w-8 h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold mb-1">?��????�의?�주?�요</h2>
+                    <h2 className="text-2xl font-bold mb-1">?��????�의?�주?�요</h2>
                     <p className="text-xs text-muted-foreground mb-2">Please Agree to the Terms</p>
-                    <p className="text-muted-foreground">?�래 ?��????�인?�고 ?�의?�주?�요</p>
+                    <p className="text-muted-foreground">?�래 ?��????�인?�고 ?�의?�주?�요</p>
                   </div>
 
                   <div className="space-y-4">
@@ -480,15 +480,15 @@ export default function ApplyPage() {
                         />
                         <div className="flex-1">
                           <Label htmlFor="termsAgree" className="text-base font-semibold cursor-pointer">
-                            ?�용?��? ?�의 (?�수)
+                            ?�용?��? ?�의 (?�수)
                           </Label>
                           <div className="mt-2 p-4 bg-muted rounded-lg max-h-32 overflow-y-auto text-sm text-muted-foreground">
-                            <p>??�?(목적)</p>
-                            <p>�??��??� ?�림캐쳐 AI ?�문??부?�캠???�비???�용??관??조건 �??�차�?규정?�을 목적?�로 ?�니??</p>
-                            <p className="mt-2">??�?(?�로그램 ?�용)</p>
-                            <p>1. ?�로그램?� 6개월 과정?�로 진행?�니??</p>
-                            <p>2. �?2~3???�업??진행?�니??</p>
-                            <p>3. ?�프?�인�??�라???�업??병행?�니??</p>
+                            <p>??�?(목적)</p>
+                            <p>�??��??� ?�림캐쳐 AI ?�문??부?�캠???�비???�용??관??조건 �??�차�?규정?�을 목적?�로 ?�니??</p>
+                            <p className="mt-2">??�?(?�로그램 ?�용)</p>
+                            <p>1. ?�로그램?� 6개월 과정?�로 진행?�니??</p>
+                            <p>2. �?2~3???�업??진행?�니??</p>
+                            <p>3. ?�프?�인�??�라???�업??병행?�니??</p>
                           </div>
                         </div>
                       </div>
@@ -504,13 +504,13 @@ export default function ApplyPage() {
                         />
                         <div className="flex-1">
                           <Label htmlFor="privacyAgree" className="text-base font-semibold cursor-pointer">
-                            개인?�보 ?�집 �??�용 ?�의 (?�수)
+                            개인?�보 ?�집 �??�용 ?�의 (?�수)
                           </Label>
                           <div className="mt-2 p-4 bg-muted rounded-lg max-h-32 overflow-y-auto text-sm text-muted-foreground">
-                            <p>1. ?�집??��: ?�름, ?�락�? ?�메?? ?�년?�일, ?�별</p>
-                            <p>2. ?�집목적: ?�로그램 ?�영 �??�내</p>
-                            <p>3. 보유기간: ?�로그램 종료 ??1??/p>
-                            <p>4. ?�의�?거�???권리가 ?�으�? 거�? ???�로그램 참여가 ?�한?????�습?�다.</p>
+                            <p>1. ?�집??��: ?�름, ?�락�? ?�메?? ?�년?�일, ?�별</p>
+                            <p>2. ?�집목적: ?�로그램 ?�영 �??�내</p>
+                            <p>3. 보유기간: 프로그램 종료 후 1년</p>
+                            <p>4. ?�의�?거�???권리가 ?�으�? 거�? ???�로그램 참여가 ?�한?????�습?�다.</p>
                           </div>
                         </div>
                       </div>
@@ -526,10 +526,10 @@ export default function ApplyPage() {
                         />
                         <div className="flex-1">
                           <Label htmlFor="marketingAgree" className="text-base font-semibold cursor-pointer">
-                            마�????�보 ?�신 ?�의 (?�택)
+                            마�????�보 ?�신 ?�의 (?�택)
                           </Label>
                           <p className="text-sm text-muted-foreground mt-2">
-                            ?�로그램 관???�용???�보?� ?�벤???�식??받아보실 ???�습?�다.
+                            ?�로그램 관???�용???�보?� ?�벤???�식??받아보실 ???�습?�다.
                           </p>
                         </div>
                       </div>
@@ -539,7 +539,7 @@ export default function ApplyPage() {
                   <Alert className="flex items-center gap-2">
                     <AlertCircle className="h-4 w-4 flex-shrink-0" />
                     <AlertDescription className="flex-1">
-                      ?�수 ??��???�의?��? ?�으?�면 ?�청??불�??�합?�다.
+                      ?�수 ??��???�의?��? ?�으?�면 ?�청??불�??�합?�다.
                     </AlertDescription>
                   </Alert>
                 </div>
@@ -556,7 +556,7 @@ export default function ApplyPage() {
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  ?�전
+                  ?�전
                 </Button>
 
                 {step < totalSteps ? (
@@ -565,7 +565,7 @@ export default function ApplyPage() {
                     disabled={!isStepValid()}
                     className="flex items-center gap-2"
                   >
-                    ?�음
+                    ?�음
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 ) : (
@@ -575,7 +575,7 @@ export default function ApplyPage() {
                     className="flex items-center gap-2"
                     size="lg"
                   >
-                    {isSubmitting ? '처리�?..' : '?�청 ?�료'}
+                    {isSubmitting ? '처리�?..' : '?�청 ?�료'}
                     {!isSubmitting && <CheckCircle2 className="w-4 h-4" />}
                   </Button>
                 )}
@@ -587,8 +587,8 @@ export default function ApplyPage() {
           <Alert className="mt-8 flex items-center gap-2">
             <Clock className="h-4 w-4 flex-shrink-0" />
             <AlertDescription className="flex-1">
-              ?�청???�성?� ??5-10�??�도 ?�요?�니?? 
-              ?�성 �??�이지�?벗어?�면 ?�력???�보가 ?�?�되지 ?�으??주의?�주?�요.
+              ?�청???�성?� ??5-10�??�도 ?�요?�니?? 
+              ?�성 �??�이지�?벗어?�면 ?�력???�보가 ?�?�되지 ?�으??주의?�주?�요.
             </AlertDescription>
           </Alert>
         </div>
@@ -601,17 +601,17 @@ export default function ApplyPage() {
             <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
               <CheckCircle2 className="w-6 h-6 text-green-600" />
             </div>
-            <DialogTitle className="text-center text-xl">?�청???�료?�었?�니??</DialogTitle>
+            <DialogTitle className="text-center text-xl">?�청???�료?�었?�니??</DialogTitle>
             <DialogDescription className="text-center pt-2">
               <p className="mb-2">
-                <strong>{formData.name}</strong>?�의 ?�문??부?�캠???�청??
-                ?�공?�으�??�수?�었?�니??
+                <strong>{formData.name}</strong>?�의 ?�문??부?�캠???�청??
+                ?�공?�으�??�수?�었?�니??
               </p>
               <p className="text-sm text-muted-foreground">
-                ?�력?�신 ?�락처로 ?�내 메시지�?발송?�드리겠?�니??
+                ?�력?�신 ?�락처로 ?�내 메시지�?발송?�드리겠?�니??
               </p>
               <p className="text-xs text-muted-foreground mt-4">
-                ?�시 ??부?�캠???�이지�??�동?�니??..
+                ?�시 ??부?�캠???�이지�??�동?�니??..
               </p>
             </DialogDescription>
           </DialogHeader>
