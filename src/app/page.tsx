@@ -2,10 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import Link from "next/link"
-import { ArrowRight, Users, Sparkles, Heart, MapPin, Calendar, CheckCircle } from "lucide-react"
+import { ArrowRight, Users, Sparkles, Heart, MapPin, Calendar, CheckCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 interface Announcement {
   id: string;
@@ -21,6 +28,7 @@ interface Announcement {
 export default function Home() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showNoShowModal, setShowNoShowModal] = useState(false);
 
   // 최신 공지사항 4개 가져오기
   useEffect(() => {
@@ -439,9 +447,11 @@ export default function Home() {
               참여자의 피드백은 서비스 개선에 활용됩니다.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
-                체험 프로그램 참여하기
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" className="text-lg px-8" asChild>
+                <Link href="/programs">
+                  체험 프로그램 참여하기
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8" asChild>
                 <Link href="/contact">문의하기</Link>
@@ -453,6 +463,45 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* No-show 안내 모달 */}
+      <Dialog open={showNoShowModal} onOpenChange={setShowNoShowModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-amber-500" />
+              홈페이지 신청 일시 중단 안내
+            </DialogTitle>
+            <DialogDescription className="pt-4 space-y-3">
+              <p>
+                현재 <strong>노쇼(No-show)</strong> 문제로 인해 홈페이지를 통한 
+                체험 프로그램 신청을 일시적으로 중단하고 있습니다.
+              </p>
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                <p className="text-sm font-medium text-amber-900 mb-1">
+                  현장 신청 안내
+                </p>
+                <p className="text-sm text-amber-800">
+                  체험 프로그램 신청은 현재 <strong>현장에서 서포터즈의 도움</strong>으로만 
+                  접수받고 있습니다.
+                </p>
+              </div>
+              <p className="text-sm">
+                양해 부탁드리며, 빠른 시일 내에 홈페이지 신청을 재개할 수 있도록 
+                노력하겠습니다.
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={() => setShowNoShowModal(false)}>
+              확인
+            </Button>
+            <Button asChild>
+              <Link href="/contact">문의하기</Link>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

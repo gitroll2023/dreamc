@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,14 +10,34 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { 
   Sparkles, Calendar, MapPin, Users, Clock, DollarSign, 
   AlertCircle, CheckCircle, Info, BookOpen, Coffee, Palette,
   Gamepad2, PenTool, Camera, Heart
 } from 'lucide-react';
+import Link from 'next/link';
 
 // 프로그램 정보
 const programInfo: Record<string, any> = {
+  'humanities': {
+    title: '동네에서 인문학?',
+    icon: BookOpen,
+    price: '예치금 30,000원',
+    duration: '2시간',
+    location: '나주',
+    locationNote: '(추후 별도 공지)',
+    description: '철학, 역사, 문학, 예술 등 다양한 주제로 함께 생각하고 토론합니다.',
+    materials: '도서 및 자료 제공',
+    maxParticipants: 20,
+    isAvailable: true
+  },
   'cocktail': {
     title: '칵테일 파티 체험',
     icon: Heart,
@@ -88,9 +108,18 @@ const programInfo: Record<string, any> = {
 
 export default function ApplyForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const programType = searchParams.get('type') || 'baking';
   const program = programInfo[programType] || programInfo['baking'];
   const ProgramIcon = program.icon;
+  const [showNoShowModal, setShowNoShowModal] = useState(false);
+
+  // humanities가 아닌 프로그램은 모달 표시
+  useEffect(() => {
+    if (programType !== 'humanities') {
+      setShowNoShowModal(true);
+    }
+  }, [programType]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -550,6 +579,51 @@ export default function ApplyForm() {
           </Alert>
         </div>
       </section>
+
+      {/* No-show 안내 모달 */}
+      <Dialog open={showNoShowModal} onOpenChange={setShowNoShowModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-amber-500" />
+              홈페이지 신청 일시 중단 안내
+            </DialogTitle>
+            <DialogDescription className="pt-4 space-y-3">
+              <p>
+                현재 <strong>노쇼(No-show)</strong> 문제로 인해 홈페이지를 통한 
+                체험 프로그램 신청을 일시적으로 중단하고 있습니다.
+              </p>
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                <p className="text-sm font-medium text-amber-900 mb-1">
+                  현장 신청 안내
+                </p>
+                <p className="text-sm text-amber-800">
+                  체험 프로그램 신청은 현재 <strong>현장에서 서포터즈의 도움</strong>으로만 
+                  접수받고 있습니다.
+                </p>
+              </div>
+              <p className="text-sm">
+                양해 부탁드리며, 빠른 시일 내에 홈페이지 신청을 재개할 수 있도록 
+                노력하겠습니다.
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setShowNoShowModal(false);
+                router.back();
+              }}
+            >
+              이전으로
+            </Button>
+            <Button asChild>
+              <Link href="/contact">문의하기</Link>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
