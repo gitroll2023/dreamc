@@ -149,7 +149,7 @@ export default function ApplyPage() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">인문학 부트캠프 신청</h1>
             <p className="text-sm text-muted-foreground mb-2">Application Form</p>
             <p className="text-xs text-muted-foreground mb-4 italic">
-              ※ "AI 시대에서 살아남기 인문학 부트캠프"는 가칭입니다
+              ※ &quot;AI 시대에서 살아남기 인문학 부트캠프&quot;는 가칭입니다
             </p>
             <p className="text-lg text-muted-foreground">
               2기 신청서 작성 (2025년 9월 나주 시작)

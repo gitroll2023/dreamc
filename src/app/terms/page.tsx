@@ -29,7 +29,7 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-xl font-bold mb-4">제1조 (목적)</h2>
               <p className="text-muted-foreground leading-relaxed">
-                이 약관은 드림캐쳐(이하 "회사")가 제공하는 문화 체험 플랫폼 서비스(이하 "서비스")의 이용과 관련하여 
+                이 약관은 드림캐쳐(이하 &quot;회사&quot;)가 제공하는 문화 체험 플랫폼 서비스(이하 &quot;서비스&quot;)의 이용과 관련하여 
                 회사와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
               </p>
             </section>
@@ -37,7 +37,7 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-xl font-bold mb-4">제2조 (정의)</h2>
               <ol className="list-decimal pl-6 space-y-2 text-muted-foreground">
-                <li>"서비스"란 회사가 제공하는 모든 문화 체험 프로그램 및 관련 서비스를 의미합니다.</li>
+                <li>&quot;서비스&quot;란 회사가 제공하는 모든 문화 체험 프로그램 및 관련 서비스를 의미합니다.</li>
                 <li>"이용자"란 이 약관에 따라 서비스를 이용하는 회원 및 비회원을 말합니다.</li>
                 <li>"회원"이란 회사와 서비스 이용계약을 체결하고 회원 ID를 부여받은 자를 말합니다.</li>
                 <li>"프로그램"이란 회사가 제공하는 각종 문화 체험 프로그램을 의미합니다.</li>

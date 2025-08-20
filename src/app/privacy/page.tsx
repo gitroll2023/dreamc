@@ -194,7 +194,7 @@ export default function PrivacyPage() {
               <h2 className="text-xl font-bold mb-4">제7조 (이용자 및 법정대리인의 권리와 행사방법)</h2>
               <ol className="list-decimal pl-6 space-y-2 text-muted-foreground">
                 <li>이용자는 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며, 가입해지를 요청할 수 있습니다.</li>
-                <li>이용자의 개인정보 조회, 수정을 위해서는 '개인정보변경'을, 가입해지(동의철회)를 위해서는 "회원탈퇴"를 클릭하여 
+                <li>이용자의 개인정보 조회, 수정을 위해서는 &apos;개인정보변경&apos;을, 가입해지(동의철회)를 위해서는 &quot;회원탈퇴&quot;를 클릭하여 
                 본인 확인 절차를 거치신 후 직접 열람, 정정 또는 탈퇴가 가능합니다.</li>
                 <li>혹은 개인정보보호책임자에게 서면, 전화 또는 이메일로 연락하시면 지체없이 조치하겠습니다.</li>
                 <li>이용자가 개인정보의 오류에 대한 정정을 요청하신 경우에는 정정을 완료하기 전까지 당해 개인정보를 이용 또는 제공하지 않습니다.</li>
@@ -228,7 +228,7 @@ export default function PrivacyPage() {
             <section className="mb-8">
               <h2 className="text-xl font-bold mb-4">제9조 (개인정보 자동 수집 장치의 설치·운영 및 거부에 관한 사항)</h2>
               <p className="text-muted-foreground mb-4">
-                회사는 이용자에게 개별적인 맞춤서비스를 제공하기 위해 이용정보를 저장하고 수시로 불러오는 '쿠키(cookie)'를 사용합니다.
+                회사는 이용자에게 개별적인 맞춤서비스를 제공하기 위해 이용정보를 저장하고 수시로 불러오는 &apos;쿠키(cookie)&apos;를 사용합니다.
               </p>
               
               <h3 className="text-lg font-semibold mb-3">1. 쿠키의 사용 목적</h3>
