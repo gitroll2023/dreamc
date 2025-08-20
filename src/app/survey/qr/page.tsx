@@ -90,7 +90,7 @@ export default function SurveyQRPage() {
       {/* Main Content */}
       <section className="py-12">
         <div className="container max-w-4xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* QR Code Card */}
             <Card className="print:border-2 print:border-black">
               <CardHeader className="text-center">
@@ -100,12 +100,12 @@ export default function SurveyQRPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col items-center space-y-6">
-                <div className="bg-white p-8 rounded-lg shadow-lg">
+                <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg w-full max-w-sm">
                   {surveyUrl && (
                     <QRCodeSVG
                       id="survey-qr-code"
                       value={surveyUrl}
-                      size={256}
+                      size={200}
                       level="M"
                       includeMargin={false}
                       imageSettings={{
@@ -116,16 +116,17 @@ export default function SurveyQRPage() {
                         width: 0,
                         excavate: false,
                       }}
+                      className="w-full h-auto max-w-[200px] mx-auto"
                     />
                   )}
                 </div>
                 
-                <div className="text-center space-y-2">
+                <div className="text-center space-y-2 w-full">
                   <p className="text-sm text-muted-foreground">
                     또는 아래 링크로 직접 접속
                   </p>
                   <div className="flex items-center gap-2 justify-center">
-                    <code className="px-3 py-1 bg-secondary rounded text-sm">
+                    <code className="px-3 py-1 bg-secondary rounded text-xs sm:text-sm break-all max-w-full">
                       {surveyUrl || 'Loading...'}
                     </code>
                   </div>

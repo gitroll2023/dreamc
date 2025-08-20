@@ -48,7 +48,7 @@ export function Header() {
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-lg text-primary leading-5">드림캐쳐</span>
-                <span className="text-xs text-muted-foreground">체험프로그램</span>
+                <span className="text-xs text-muted-foreground tracking-[0.2em]">체험플랫폼</span>
               </div>
             </Link>
           </div>

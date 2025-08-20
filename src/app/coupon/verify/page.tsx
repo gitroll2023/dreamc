@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, XCircle, AlertCircle, Gift, Calendar, MapPin, User, Hash, Lock } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, Gift, Calendar, MapPin, User, Hash, Lock, Phone, Info, X } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CouponVerifyPage() {
@@ -13,23 +13,31 @@ export default function CouponVerifyPage() {
   const [passwordError, setPasswordError] = useState('');
   const [checkingPassword, setCheckingPassword] = useState(false);
   const [couponCode, setCouponCode] = useState('');
+  const [userPhone, setUserPhone] = useState('');
   const [verifying, setVerifying] = useState(false);
   const [verificationResult, setVerificationResult] = useState<'valid' | 'invalid' | 'expired' | 'used' | null>(null);
   const [couponDetails, setCouponDetails] = useState<any>(null);
+  const [discountInfo, setDiscountInfo] = useState<any>(null);
   const [selectedProgram, setSelectedProgram] = useState('');
   const [customProgram, setCustomProgram] = useState('');
   const [userName, setUserName] = useState('');
   const [processingUse, setProcessingUse] = useState(false);
+  const [dataAgreed, setDataAgreed] = useState(false);
+  const [marketingAgreed, setMarketingAgreed] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [useResult, setUseResult] = useState<any>(null);
 
-  // 나주지역 프로그램 목록
-  const najuPrograms = [
-    { value: 'perfume', label: '✨ 향수 만들기' },
-    { value: 'baking', label: '🍰 홈베이킹 클래스' },
-    { value: 'personal-color', label: '🎨 퍼스널컬러 진단' },
-    { value: 'board-game', label: '🎲 보드게임 카페' },
-    { value: 'calligraphy', label: '✍️ 캘리그래피' },
-    { value: 'photo', label: '📸 사진 촬영 워크샵' },
-    { value: 'other', label: '기타 (직접 입력)' },
+  // 프로그램 목록
+  const programs = [
+    { value: 'cocktail', label: '🍹 칵테일 파티 체험', price: 10000, discount: 88, regularPrice: 80000 },
+    { value: 'baking', label: '🍰 홈베이킹 클래스', price: 10000, discount: 83, regularPrice: 60000 },
+    { value: 'craft', label: '🎨 석고방향제 만들기', price: 5000, discount: 89, regularPrice: 45000 },
+    { value: 'boardgame', label: '🎲 보드게임 체험', price: 2000, discount: 33, regularPrice: 3000 },
+    { value: 'calligraphy', label: '✍️ 한글 캘리그래피', price: 5000, discount: 88, regularPrice: 40000 },
+    { value: 'photo', label: '📸 스마트폰 사진 클래스', price: 5000, discount: 90, regularPrice: 50000 },
+    { value: 'other', label: '기타 (직접 입력)', price: 10000, discount: 80, regularPrice: 50000 },
   ];
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
@@ -62,13 +70,21 @@ export default function CouponVerifyPage() {
 
   const handleVerify = async () => {
     if (!couponCode.trim()) {
-      alert('쿠폰 코드를 입력해주세요.');
+      setModalMessage('체험권 코드를 입력해주세요.');
+      setShowErrorModal(true);
+      return;
+    }
+    
+    if (!userPhone.trim()) {
+      setModalMessage('전화번호를 입력해주세요.');
+      setShowErrorModal(true);
       return;
     }
 
     setVerifying(true);
     setVerificationResult(null);
     setCouponDetails(null);
+    setDiscountInfo(null);
     
     try {
       const response = await fetch('/api/coupons/verify', {
@@ -76,7 +92,11 @@ export default function CouponVerifyPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code: couponCode }),
+        body: JSON.stringify({ 
+          code: couponCode,
+          phone: userPhone,
+          programType: selectedProgram
+        }),
       });
 
       const data = await response.json();
@@ -84,12 +104,14 @@ export default function CouponVerifyPage() {
       if (data.success) {
         setVerificationResult('valid');
         setCouponDetails(data.coupon);
+        setDiscountInfo(data.discountInfo);
       } else {
         setVerificationResult(data.status || 'invalid');
         setCouponDetails(data.coupon || null);
       }
     } catch (error) {
-      alert('쿠폰 확인 중 오류가 발생했습니다.');
+      setModalMessage('체험권 확인 중 오류가 발생했습니다.');
+      setShowErrorModal(true);
       setVerificationResult(null);
     } finally {
       setVerifying(false);
@@ -98,72 +120,88 @@ export default function CouponVerifyPage() {
 
   const handleUse = async () => {
     if (!selectedProgram) {
-      alert('체험 프로그램을 선택해주세요.');
+      setModalMessage('체험할 프로그램을 선택해주세요.');
+      setShowErrorModal(true);
       return;
     }
 
     if (selectedProgram === 'other' && !customProgram.trim()) {
-      alert('기타 프로그램을 입력해주세요.');
+      setModalMessage('프로그램명을 입력해주세요.');
+      setShowErrorModal(true);
       return;
     }
 
     if (!userName.trim()) {
-      alert('사용자 이름을 입력해주세요.');
+      setModalMessage('사용자 이름을 입력해주세요.');
+      setShowErrorModal(true);
+      return;
+    }
+    
+    if (!dataAgreed) {
+      setModalMessage('데이터 수집 동의가 필요합니다.');
+      setShowErrorModal(true);
       return;
     }
 
-    if (confirm('이 쿠폰을 사용 처리하시겠습니까?\n사용 처리 후에는 취소할 수 없습니다.')) {
-      setProcessingUse(true);
+    if (!confirm('체험권을 사용 처리하시겠습니까?\n사용 처리된 체험권은 취소할 수 없습니다.')) {
+      return;
+    }
+
+    setProcessingUse(true);
+
+    try {
+      const selectedProgramInfo = programs.find(p => p.value === selectedProgram);
+      const programTitle = selectedProgram === 'other' ? customProgram : selectedProgramInfo?.label || '';
       
-      const programName = selectedProgram === 'other' 
-        ? customProgram 
-        : najuPrograms.find(p => p.value === selectedProgram)?.label || selectedProgram;
+      const response = await fetch('/api/coupons/use', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          code: couponCode,
+          usedProgram: programTitle,
+          usedBy: userName,
+          phone: userPhone,
+          programType: selectedProgram,
+          programTitle: programTitle,
+          originalPrice: selectedProgramInfo?.regularPrice || 0,
+          discountRate: discountInfo?.discountRate || 0,
+          finalPrice: discountInfo?.finalPrice || 0,
+          dataCollectionAgreed: dataAgreed,
+          marketingAgreed: marketingAgreed
+        }),
+      });
 
-      try {
-        const response = await fetch('/api/coupons/use', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            code: couponCode,
-            usedProgram: programName,
-            usedBy: userName
-          }),
+      const data = await response.json();
+
+      if (data.success) {
+        setUseResult({
+          isFirstTime: discountInfo?.isFirstTime,
+          finalPrice: discountInfo?.finalPrice,
+          programTitle: programTitle
         });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-          setVerificationResult('used');
-          if (couponDetails) {
-            setCouponDetails({
-              ...couponDetails,
-              status: 'used',
-              usedDate: new Date().toLocaleDateString('ko-KR'),
-              usedProgram: programName,
-              usedBy: userName
-            });
-          }
-          alert('쿠폰이 사용 처리되었습니다.');
-          // 초기화
-          setSelectedProgram('');
-          setCustomProgram('');
-          setUserName('');
-        } else {
-          alert(data.error || '쿠폰 사용 처리에 실패했습니다.');
-        }
-      } catch (error) {
-        alert('쿠폰 사용 처리 중 오류가 발생했습니다.');
-      } finally {
-        setProcessingUse(false);
+        setShowSuccessModal(true);
+      } else {
+        setModalMessage(data.error || '체험권 사용 처리에 실패했습니다.');
+        setShowErrorModal(true);
       }
+    } catch (error) {
+      setModalMessage('체험권 사용 처리 중 오류가 발생했습니다.');
+      setShowErrorModal(true);
+    } finally {
+      setProcessingUse(false);
     }
   };
 
   const formatCouponCode = (value: string) => {
     // 대문자로 변환하고 특수문자 제거 (하이픈은 유지)
     return value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+  };
+
+  const formatPhoneNumber = (value: string) => {
+    // 숫자와 하이픈만 허용
+    return value.replace(/[^0-9-]/g, '');
   };
 
   // 인증되지 않은 경우 비밀번호 입력 화면
@@ -175,7 +213,7 @@ export default function CouponVerifyPage() {
             <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
               <Lock className="w-8 h-8 text-white" />
             </div>
-            <CardTitle className="text-2xl">쿠폰 확인 시스템</CardTitle>
+            <CardTitle className="text-2xl">체험권 확인 시스템</CardTitle>
             <CardDescription>
               접근 권한이 필요합니다
             </CardDescription>
@@ -231,47 +269,83 @@ export default function CouponVerifyPage() {
       <div className="max-w-2xl mx-auto space-y-8">
         {/* 헤더 */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-2">쿠폰 확인</h1>
+          <h1 className="text-3xl font-bold mb-2">할인 체험권 확인</h1>
           <p className="text-muted-foreground">
-            드림캐쳐 체험권 쿠폰 코드를 입력하여 유효성을 확인하세요
+            드림캐쳐 할인 체험권 코드를 입력하여 할인 혜택을 확인하세요
           </p>
         </div>
 
-        {/* 쿠폰 입력 카드 */}
+        {/* 체험권 입력 카드 */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Gift className="w-5 h-5" />
-              쿠폰 코드 입력
+              체험권 정보 입력
             </CardTitle>
             <CardDescription>
-              쿠폰에 표시된 코드를 정확히 입력해주세요
+              체험권 코드와 개인정보를 입력해주세요
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">쿠폰 코드</label>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(formatCouponCode(e.target.value))}
-                  placeholder="예: DC-1234-AB5C"
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-center text-lg font-mono tracking-wider"
-                  maxLength={12}
-                />
-                <Button 
-                  onClick={handleVerify}
-                  disabled={verifying || !couponCode}
-                  className="px-6"
-                >
-                  {verifying ? '확인 중...' : '확인'}
-                </Button>
-              </div>
+              <label className="text-sm font-medium">체험권 코드</label>
+              <input
+                type="text"
+                value={couponCode}
+                onChange={(e) => setCouponCode(formatCouponCode(e.target.value))}
+                placeholder="예: DC-1234-AB5C"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-center text-lg font-mono tracking-wider"
+                maxLength={12}
+              />
               <p className="text-xs text-muted-foreground">
                 * 하이픈(-)을 포함하여 입력해주세요
               </p>
             </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                전화번호
+              </label>
+              <input
+                type="tel"
+                value={userPhone}
+                onChange={(e) => setUserPhone(formatPhoneNumber(e.target.value))}
+                placeholder="예: 010-1234-5678"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                maxLength={13}
+              />
+              <p className="text-xs text-muted-foreground">
+                * 첫 체험 할인 확인을 위해 필요합니다
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">체험 프로그램 선택 (선택사항)</label>
+              <select
+                value={selectedProgram}
+                onChange={(e) => setSelectedProgram(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              >
+                <option value="">프로그램을 선택하세요</option>
+                {programs.map((program) => (
+                  <option key={program.value} value={program.value}>
+                    {program.label}
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-muted-foreground">
+                * 프로그램을 선택하면 할인 정보를 미리 확인할 수 있습니다
+              </p>
+            </div>
+
+            <Button 
+              onClick={handleVerify}
+              disabled={verifying || !couponCode || !userPhone}
+              className="w-full"
+            >
+              {verifying ? '확인 중...' : '체험권 확인'}
+            </Button>
           </CardContent>
         </Card>
 
@@ -288,25 +362,25 @@ export default function CouponVerifyPage() {
                 {verificationResult === 'valid' && (
                   <>
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    유효한 쿠폰
+                    유효한 체험권
                   </>
                 )}
                 {verificationResult === 'expired' && (
                   <>
                     <AlertCircle className="w-5 h-5 text-yellow-500" />
-                    만료된 쿠폰
+                    만료된 체험권
                   </>
                 )}
                 {verificationResult === 'used' && (
                   <>
                     <AlertCircle className="w-5 h-5 text-blue-500" />
-                    사용된 쿠폰
+                    사용된 체험권
                   </>
                 )}
                 {verificationResult === 'invalid' && (
                   <>
                     <XCircle className="w-5 h-5 text-red-500" />
-                    유효하지 않은 쿠폰
+                    유효하지 않은 체험권
                   </>
                 )}
               </CardTitle>
@@ -314,7 +388,7 @@ export default function CouponVerifyPage() {
             <CardContent>
               {couponDetails ? (
                 <div className="space-y-4">
-                  {/* 쿠폰 상태 배지 */}
+                  {/* 체험권 상태 배지 */}
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium">상태:</span>
                     {verificationResult === 'valid' && (
@@ -328,7 +402,31 @@ export default function CouponVerifyPage() {
                     )}
                   </div>
 
-                  {/* 쿠폰 상세 정보 */}
+                  {/* 할인 정보 (유효한 체험권인 경우) */}
+                  {verificationResult === 'valid' && discountInfo && (
+                    <div className="bg-primary/5 rounded-lg p-4 space-y-2">
+                      <h4 className="font-semibold flex items-center gap-2">
+                        <Info className="w-4 h-4" />
+                        할인 정보
+                      </h4>
+                      <div className="text-sm space-y-1">
+                        <p className={discountInfo.isFirstTime ? 'text-green-600 font-semibold' : 'text-orange-600'}>
+                          {discountInfo.message}
+                        </p>
+                        {discountInfo.isFirstTime ? (
+                          <>
+                            <p>정가: <span className="line-through text-muted-foreground">{discountInfo.regularPrice?.toLocaleString()}원</span></p>
+                            <p>할인율: <span className="font-semibold text-primary">{discountInfo.discountRate}%</span></p>
+                            <p>결제 금액: <span className="font-bold text-lg text-primary">{discountInfo.finalPrice?.toLocaleString()}원</span></p>
+                          </>
+                        ) : (
+                          <p>결제 금액: <span className="font-bold text-lg">{discountInfo.regularPrice?.toLocaleString()}원</span></p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 체험권 상세 정보 */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div className="flex items-center gap-2">
                       <Hash className="w-4 h-4 text-muted-foreground" />
@@ -358,12 +456,12 @@ export default function CouponVerifyPage() {
                       </span>
                     </div>
                     
-                    {couponDetails.usedDate && (
+                    {couponDetails.usedAt && (
                       <>
                         <div className="flex items-center gap-2">
                           <Calendar className="w-4 h-4 text-muted-foreground" />
                           <span className="text-muted-foreground">사용일:</span>
-                          <span className="font-semibold">{couponDetails.usedDate}</span>
+                          <span className="font-semibold">{couponDetails.usedAt}</span>
                         </div>
                         
                         {couponDetails.usedProgram && (
@@ -371,14 +469,6 @@ export default function CouponVerifyPage() {
                             <Gift className="w-4 h-4 text-muted-foreground" />
                             <span className="text-muted-foreground">사용 프로그램:</span>
                             <span className="font-semibold">{couponDetails.usedProgram}</span>
-                          </div>
-                        )}
-
-                        {couponDetails.usedBy && (
-                          <div className="flex items-center gap-2">
-                            <User className="w-4 h-4 text-muted-foreground" />
-                            <span className="text-muted-foreground">사용자:</span>
-                            <span className="font-semibold">{couponDetails.usedBy}</span>
                           </div>
                         )}
                       </>
@@ -400,25 +490,27 @@ export default function CouponVerifyPage() {
                           />
                         </div>
 
-                        <div>
-                          <label className="text-sm font-medium">체험 프로그램 선택 (나주 지역)</label>
-                          <select
-                            value={selectedProgram}
-                            onChange={(e) => setSelectedProgram(e.target.value)}
-                            className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                          >
-                            <option value="">프로그램을 선택하세요</option>
-                            {najuPrograms.map((program) => (
-                              <option key={program.value} value={program.value}>
-                                {program.label}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
+                        {!selectedProgram && (
+                          <div>
+                            <label className="text-sm font-medium">체험 프로그램 선택</label>
+                            <select
+                              value={selectedProgram}
+                              onChange={(e) => setSelectedProgram(e.target.value)}
+                              className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                            >
+                              <option value="">프로그램을 선택하세요</option>
+                              {programs.map((program) => (
+                                <option key={program.value} value={program.value}>
+                                  {program.label}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
 
                         {selectedProgram === 'other' && (
                           <div>
-                            <label className="text-sm font-medium">기타 프로그램 입력</label>
+                            <label className="text-sm font-medium">프로그램명 입력</label>
                             <input
                               type="text"
                               value={customProgram}
@@ -428,75 +520,197 @@ export default function CouponVerifyPage() {
                             />
                           </div>
                         )}
+
+                        {/* 데이터 수집 동의 */}
+                        <div className="bg-blue-50 rounded-lg p-4 space-y-3">
+                          <h4 className="font-semibold text-sm flex items-center gap-2">
+                            <Info className="w-4 h-4 text-blue-600" />
+                            프로그램 개선을 위한 안내
+                          </h4>
+                          <div className="space-y-2">
+                            <label className="flex items-start gap-2">
+                              <input
+                                type="checkbox"
+                                checked={dataAgreed}
+                                onChange={(e) => setDataAgreed(e.target.checked)}
+                                className="mt-1"
+                              />
+                              <span className="text-sm text-muted-foreground">
+                                프로그램 개선을 위한 데이터 수집에 동의합니다. (필수)
+                                <br />
+                                <span className="text-xs">
+                                  • 체험 프로그램 선호도 및 만족도
+                                  <br />
+                                  • 연령대, 지역 등 기본 통계 정보
+                                  <br />
+                                  • 수집된 정보는 프로그램 개선에만 활용됩니다
+                                </span>
+                              </span>
+                            </label>
+                            <label className="flex items-start gap-2">
+                              <input
+                                type="checkbox"
+                                checked={marketingAgreed}
+                                onChange={(e) => setMarketingAgreed(e.target.checked)}
+                                className="mt-1"
+                              />
+                              <span className="text-sm text-muted-foreground">
+                                마케팅 정보 수신에 동의합니다. (선택)
+                              </span>
+                            </label>
+                          </div>
+                        </div>
                       </div>
 
-                      <Button 
+                      <Button
                         onClick={handleUse}
+                        disabled={processingUse || !selectedProgram || !userName || !dataAgreed}
                         className="w-full"
-                        size="lg"
-                        disabled={processingUse}
                       >
-                        {processingUse ? '처리 중...' : '쿠폰 사용 처리하기'}
+                        {processingUse ? '처리 중...' : '체험권 사용하기'}
                       </Button>
-                      <p className="text-xs text-center text-muted-foreground">
-                        * 사용 처리 후에는 취소할 수 없습니다
-                      </p>
-                    </div>
-                  )}
-
-                  {verificationResult === 'expired' && (
-                    <div className="pt-4 border-t">
-                      <p className="text-sm text-yellow-600">
-                        이 쿠폰은 유효기간이 만료되었습니다.<br />
-                        새로운 쿠폰을 발급받아 주세요.
-                      </p>
-                    </div>
-                  )}
-
-                  {verificationResult === 'used' && (
-                    <div className="pt-4 border-t">
-                      <p className="text-sm text-blue-600">
-                        이 쿠폰은 이미 사용되었습니다.<br />
-                        한 쿠폰은 1회만 사용 가능합니다.
-                      </p>
                     </div>
                   )}
                 </div>
               ) : (
-                <div className="py-4">
-                  <p className="text-sm text-red-600">
-                    유효하지 않은 쿠폰 코드입니다.<br />
-                    코드를 다시 확인해주세요.
-                  </p>
-                </div>
+                <p className="text-center text-muted-foreground py-4">
+                  체험권 정보를 불러올 수 없습니다.
+                </p>
               )}
             </CardContent>
           </Card>
         )}
 
-        {/* 안내 사항 */}
-        <Card className="bg-gray-50">
-          <CardHeader>
-            <CardTitle className="text-base">쿠폰 사용 안내</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>• 드림캐쳐 모든 체험 프로그램에서 사용 가능합니다</p>
-            <p>• 각 쿠폰은 1인 1회만 사용할 수 있습니다</p>
-            <p>• 유효기간은 발급일로부터 15일입니다</p>
-            <p>• 쿠폰 사용 시 본인 확인이 필요할 수 있습니다</p>
-            <p>• 타인 양도는 불가능합니다</p>
-          </CardContent>
-        </Card>
-
         {/* 뒤로가기 버튼 */}
         <div className="text-center">
-          <Link href="/">
+          <Link href="/coupon">
             <Button variant="outline">
-              메인으로 돌아가기
+              체험권 페이지로 돌아가기
             </Button>
           </Link>
         </div>
       </div>
+
+      {/* 성공 모달 */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <Card className="max-w-md w-full">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <CardTitle>체험권 사용 완료</CardTitle>
+                    <CardDescription>체험권이 성공적으로 처리되었습니다</CardDescription>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowSuccessModal(false)}
+                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {useResult && (
+                <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Gift className="w-5 h-5 text-primary" />
+                    <span className="font-semibold">{useResult.programTitle}</span>
+                  </div>
+                  
+                  {useResult.isFirstTime ? (
+                    <div className="space-y-2">
+                      <p className="text-green-600 font-semibold">
+                        🎉 첫 체험 할인이 적용되었습니다!
+                      </p>
+                      <div className="text-sm space-y-1">
+                        <p>결제 금액: <span className="text-xl font-bold text-primary">{useResult.finalPrice?.toLocaleString()}원</span></p>
+                        <p className="text-xs text-muted-foreground">
+                          * 현장에서 위 금액으로 결제해주세요
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <p className="text-orange-600 font-semibold">
+                        재체험은 정가로 이용 가능합니다
+                      </p>
+                      <div className="text-sm">
+                        <p>결제 금액: <span className="text-xl font-bold">{useResult.finalPrice?.toLocaleString()}원</span></p>
+                        <p className="text-xs text-muted-foreground">
+                          * 현장에서 위 금액으로 결제해주세요
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => {
+                    setShowSuccessModal(false);
+                    // 상태 초기화
+                    setCouponCode('');
+                    setUserPhone('');
+                    setVerificationResult(null);
+                    setCouponDetails(null);
+                    setDiscountInfo(null);
+                    setSelectedProgram('');
+                    setCustomProgram('');
+                    setUserName('');
+                    setDataAgreed(false);
+                    setMarketingAgreed(false);
+                    setUseResult(null);
+                  }}
+                  className="flex-1"
+                >
+                  확인
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* 에러 모달 */}
+      {showErrorModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <Card className="max-w-md w-full">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <AlertCircle className="w-6 h-6 text-red-600" />
+                  </div>
+                  <div>
+                    <CardTitle>알림</CardTitle>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowErrorModal(false)}
+                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">{modalMessage}</p>
+              <Button
+                onClick={() => setShowErrorModal(false)}
+                className="w-full"
+              >
+                확인
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

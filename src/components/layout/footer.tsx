@@ -60,13 +60,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/programs#perfume" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  커스텀 향수 만들기
+                <Link href="/programs#cocktail" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  칵테일 클래스
                 </Link>
               </li>
               <li>
-                <Link href="/programs#personal-color" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  퍼스널 컬러 진단
+                <Link href="/programs#board-game" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  보드게임 체험
                 </Link>
               </li>
               <li>
@@ -113,7 +113,7 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-muted-foreground">
-              © 2024 청년문화단체 드림캐쳐. All rights reserved.
+              © 2024 드림캐쳐. All rights reserved.
             </div>
             <div className="flex space-x-6">
               <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">

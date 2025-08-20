@@ -30,38 +30,22 @@ export default function ProgramsPage() {
     },
     {
       id: 2,
-      title: "나만의 시그니처 향수 만들기",
-      subtitle: "전문 조향사와 함께하는 커스텀 향수",
-      description: "개인의 취향과 개성을 담은 세상에 단 하나뿐인 향수를 만들어보세요. 30가지 이상의 향료를 직접 블렌딩하며 나만의 시그니처 향수를 만드는 특별한 경험입니다.",
+      title: "칵테일 파티 체험",
+      subtitle: "전문 바텐더와 함께하는 나만의 칵테일",
+      description: "전문 바텐더에게 배우는 칵테일 제조 클래스. 다양한 칵테일의 역사와 제조법을 배우고, 직접 나만의 칵테일을 만들어 보세요. 파티 분위기에서 즐기는 특별한 체험입니다.",
       originalPrice: "80,000원",
       discountPrice: "10,000원",
       discount: "88%",
-      tags: ["체험", "창작", "힐링"],
+      tags: ["체험", "파티", "칵테일"],
       status: "체험 모집중",
       location: ["여수", "목포", "나주"],
       duration: "2시간",
       maxPeople: "8명",
       schedule: "매주 토요일 14:00",
-      programType: "perfume"
+      programType: "cocktail"
     },
     {
       id: 3,
-      title: "퍼스널 컬러 & 향수 컨설팅",
-      subtitle: "나를 빛나게 하는 컬러와 향기 찾기",
-      description: "전문가와 함께 나에게 어울리는 컬러를 찾고, 그에 맞는 향수까지 추천받는 토탈 컨설팅. 퍼스널 컬러 진단을 통해 나만의 스타일을 찾아보세요.",
-      originalPrice: "120,000원",
-      discountPrice: "10,000원",
-      discount: "92%",
-      tags: ["뷰티", "컨설팅", "스타일"],
-      status: "체험 모집중",
-      location: ["여수", "화순"],
-      duration: "3시간",
-      maxPeople: "6명",
-      schedule: "매주 일요일 13:00",
-      programType: "color"
-    },
-    {
-      id: 4,
       title: "홈베이킹 체험 클래스",
       subtitle: "직접 만드는 디저트와 빵",
       description: "쿠키, 마들렌, 파운드케이크 등 다양한 베이킹을 체험하고 나만의 레시피를 만들어보세요. 초보자도 쉽게 따라할 수 있는 친절한 수업입니다.",
@@ -77,7 +61,7 @@ export default function ProgramsPage() {
       programType: "baking"
     },
     {
-      id: 5,
+      id: 4,
       title: "석고방향제 만들기",
       subtitle: "나만의 향기로운 인테리어 소품",
       description: "석고를 활용한 아름다운 방향제를 만들며 집안을 향기롭게 꾸며보세요. 다양한 몰드와 천연 에센셜 오일을 사용합니다.",
@@ -93,13 +77,13 @@ export default function ProgramsPage() {
       programType: "craft"
     },
     {
-      id: 6,
-      title: "보드게임 카페",
+      id: 5,
+      title: "보드게임 체험",
       subtitle: "친구들과 함께 즐기는 보드게임",
       description: "50여종의 보드게임을 자유롭게 즐기며 청년들과 소통하는 문화 공간입니다. 게임 마스터가 친절하게 룰을 설명해드립니다.",
       originalPrice: "3,000원/시간",
-      discountPrice: "무료",
-      discount: "100%",
+      discountPrice: "2,000원/시간",
+      discount: "33%",
       tags: ["게임", "소통", "문화"],
       status: "체험 모집중",
       location: ["여수", "목포", "화순", "나주"],
@@ -109,7 +93,7 @@ export default function ProgramsPage() {
       programType: "boardgame"
     },
     {
-      id: 7,
+      id: 6,
       title: "청년 북클럽",
       subtitle: "함께 읽고 토론하는 독서 모임",
       description: "매월 선정된 도서를 함께 읽고 생각을 나누는 지적 교류의 장입니다. 다양한 분야의 책을 통해 시야를 넓혀보세요.",
@@ -125,9 +109,9 @@ export default function ProgramsPage() {
       programType: "bookclub"
     },
     {
-      id: 8,
-      title: "사진 촬영 워크샵",
-      subtitle: "스마트폰으로 전문가처럼 찍기",
+      id: 7,
+      title: "스마트폰 사진 클래스",
+      subtitle: "전문가처럼 사진 찍는 법",
       description: "기본 촬영 기법부터 보정까지, 일상을 예술로 담는 방법을 배워보세요. 스마트폰만 있으면 누구나 참여 가능합니다.",
       originalPrice: "50,000원",
       discountPrice: "5,000원",
@@ -141,7 +125,7 @@ export default function ProgramsPage() {
       programType: "photo"
     },
     {
-      id: 9,
+      id: 8,
       title: "한글 캘리그래피",
       subtitle: "아름다운 한글 손글씨 배우기",
       description: "전통 캘리그래피를 배우며 나만의 감성을 담은 작품을 만들어보세요. 기초부터 차근차근 배울 수 있습니다.",
@@ -310,14 +294,14 @@ export default function ProgramsPage() {
 
           {/* Location Filter */}
           <div className="flex justify-center mb-8">
-            <div className="inline-flex gap-2 p-1 bg-secondary rounded-lg">
+            <div className="inline-flex flex-wrap gap-2 p-1 bg-secondary rounded-lg max-w-full">
               {locations.map((location) => (
                 <Button
                   key={location}
                   variant={selectedLocation === location ? "default" : "ghost"}
                   size="sm"
                   onClick={() => setSelectedLocation(location)}
-                  className="min-w-[80px]"
+                  className="min-w-[60px] px-3 text-sm"
                 >
                   {location === "all" ? "전체" : location}
                 </Button>

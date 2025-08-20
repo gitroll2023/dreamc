@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Gift, Sparkles, ArrowRight, Lock, X, Ticket } from 'lucide-react';
+import { Gift, Sparkles, ArrowRight, Lock, X, Ticket, AlertCircle } from 'lucide-react';
 
 export default function CouponPage() {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -45,12 +45,12 @@ export default function CouponPage() {
   };
 
   const programs = [
-    '✨ 향수 만들기',
-    '🍰 홈베이킹 클래스',
-    '🎨 퍼스널컬러 진단',
-    '🎲 보드게임 카페',
-    '✍️ 캘리그래피',
-    '📸 사진 촬영 워크샵',
+    { name: '🍹 칵테일 파티 체험', discount: '88%', price: '10,000원' },
+    { name: '🍰 홈베이킹 클래스', discount: '83%', price: '10,000원' },
+    { name: '🎨 석고방향제 만들기', discount: '89%', price: '5,000원' },
+    { name: '🎲 보드게임 체험', discount: '33%', price: '2,000원/시간' },
+    { name: '✍️ 한글 캘리그래피', discount: '88%', price: '5,000원' },
+    { name: '📸 스마트폰 사진 클래스', discount: '90%', price: '5,000원' },
   ];
 
   return (
@@ -61,10 +61,10 @@ export default function CouponPage() {
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full mb-4">
             <Gift className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-4xl font-bold mb-4">드림캐쳐 체험권</h1>
+          <h1 className="text-4xl font-bold mb-4">드림캐쳐 할인 체험권</h1>
           <p className="text-xl text-muted-foreground">
-            지역 서포터즈를 통해 받은 쿠폰으로<br />
-            드림캐쳐의 다양한 체험 프로그램을 무료로 경험해보세요
+            지역 서포터즈를 통해 받은 체험권으로<br />
+            드림캐쳐의 다양한 프로그램을 특별 할인가로 경험해보세요
           </p>
         </div>
 
@@ -73,10 +73,10 @@ export default function CouponPage() {
           <CardHeader className="text-center bg-gradient-to-r from-primary/5 to-accent/5">
             <CardTitle className="text-2xl flex items-center justify-center gap-2">
               <Sparkles className="w-6 h-6 text-primary" />
-              무료 체험 프로그램
+              할인 체험 프로그램
             </CardTitle>
             <CardDescription className="text-base mt-2">
-              아래 프로그램 중 1개를 선택하여 무료로 체험하실 수 있습니다
+              프로그램별 첫 체험은 특별 할인가, 재체험은 정가로 이용 가능합니다
             </CardDescription>
           </CardHeader>
           <CardContent className="p-8">
@@ -84,9 +84,17 @@ export default function CouponPage() {
               {programs.map((program, index) => (
                 <div
                   key={index}
-                  className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <span className="text-lg">{program}</span>
+                  <div className="flex items-start justify-between">
+                    <span className="text-lg font-medium">{program.name}</span>
+                    <span className="text-sm font-bold text-primary bg-primary/10 px-2 py-1 rounded">
+                      {program.discount} 할인
+                    </span>
+                  </div>
+                  <div className="mt-2 text-sm text-muted-foreground">
+                    첫 체험가: <span className="font-semibold text-primary">{program.price}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -94,14 +102,14 @@ export default function CouponPage() {
             <div className="bg-accent/10 rounded-lg p-6 mb-8">
               <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                 <Ticket className="w-5 h-5 text-accent" />
-                쿠폰 사용 방법
+                할인 체험권 사용 방법
               </h3>
               <ol className="space-y-2 text-muted-foreground">
-                <li>1. 지역 서포터즈로부터 받은 쿠폰 코드를 준비합니다</li>
-                <li>2. 아래 &apos;쿠폰 입력하기&apos; 버튼을 클릭합니다</li>
-                <li>3. 쿠폰 코드를 입력하여 유효성을 확인합니다</li>
+                <li>1. 지역 서포터즈로부터 받은 체험권 코드를 준비합니다</li>
+                <li>2. 아래 &apos;체험권 입력하기&apos; 버튼을 클릭합니다</li>
+                <li>3. 체험권 코드와 개인정보를 입력합니다</li>
                 <li>4. 원하는 프로그램을 선택하여 예약합니다</li>
-                <li>5. 예약 당일 드림캐쳐를 방문하여 체험을 즐깁니다</li>
+                <li>5. 예약 당일 할인된 금액으로 체험을 즐깁니다</li>
               </ol>
             </div>
 
@@ -110,7 +118,7 @@ export default function CouponPage() {
               <Link href="/coupon/verify">
                 <Button size="lg" className="w-full sm:w-auto gap-2">
                   <Ticket className="w-5 h-5" />
-                  쿠폰 입력하기
+                  체험권 입력하기
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
@@ -134,17 +142,38 @@ export default function CouponPage() {
             <CardTitle className="text-base">유의사항</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>• 쿠폰은 발급일로부터 15일간 유효합니다</p>
-            <p>• 각 쿠폰은 1인 1회만 사용 가능합니다</p>
+            <p>• 체험권은 발급일로부터 15일간 유효합니다</p>
+            <p>• 각 프로그램별 첫 체험시에만 할인이 적용됩니다</p>
+            <p>• 재체험시에는 정가로 이용하실 수 있습니다</p>
             <p>• 프로그램 예약은 최소 1일 전까지 완료해주세요</p>
-            <p>• 쿠폰 사용 시 본인 확인이 필요할 수 있습니다</p>
+            <p>• 체험권 사용 시 본인 확인이 필요합니다</p>
             <p>• 타인에게 양도할 수 없습니다</p>
+          </CardContent>
+        </Card>
+
+        {/* 데이터 수집 안내 */}
+        <Card className="bg-blue-50 border-blue-200">
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-blue-600" />
+              프로그램 개선을 위한 안내
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 text-sm text-muted-foreground">
+            <p>드림캐쳐는 더 나은 청년 프로그램 제공을 위해 다음 정보를 수집합니다:</p>
+            <ul className="ml-4 space-y-1">
+              <li>• 체험 프로그램 선호도 및 만족도</li>
+              <li>• 연령대, 지역 등 기본 통계 정보</li>
+              <li>• 프로그램 참여 패턴 및 피드백</li>
+            </ul>
+            <p className="pt-2">수집된 정보는 프로그램 개선과 맞춤형 서비스 제공에만 활용되며,<br />
+            개인정보는 관련 법령에 따라 안전하게 보호됩니다.</p>
           </CardContent>
         </Card>
 
         {/* 문의 */}
         <div className="text-center text-sm text-muted-foreground">
-          <p>쿠폰 관련 문의사항이 있으신가요?</p>
+          <p>체험권 관련 문의사항이 있으신가요?</p>
           <Link href="/contact" className="text-primary hover:underline">
             문의하기 →
           </Link>

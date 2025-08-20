@@ -51,13 +51,17 @@ export async function POST(request: NextRequest) {
       }
     });
     
-    // 한국 시간으로 날짜 포맷팅
-    const issueDate = new Date(coupon.issueDate).toLocaleDateString('ko-KR', { 
-      timeZone: 'Asia/Seoul' 
-    });
-    const expiryDate = new Date(coupon.expiryDate).toLocaleDateString('ko-KR', { 
-      timeZone: 'Asia/Seoul' 
-    });
+    // 한국 시간으로 날짜 포맷팅 (올바른 형식으로 수정)
+    const formatDate = (date: Date) => {
+      const d = new Date(date);
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}.${month}.${day}`;
+    };
+    
+    const issueDate = formatDate(coupon.issueDate);
+    const expiryDate = formatDate(coupon.expiryDate);
     
     return NextResponse.json({
       success: true,

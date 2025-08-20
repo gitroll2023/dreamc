@@ -19,7 +19,7 @@ export default function HistoryPage() {
       date: '2024년 12월',
       title: '드림캐쳐의 시작',
       location: '여수시',
-      description: '전라남도 여수시에서 첫 발걸음을 내딛었습니다. 지역 청년 문화의 새로운 가능성을 보여주기 위한 여정이 시작되었습니다.',
+      description: '전라남도 여수시에서 문화 체험 플랫폼 서비스가 시작되었습니다.',
       milestone: true
     },
     {
@@ -82,13 +82,13 @@ export default function HistoryPage() {
   const supporterValues = [
     {
       icon: <Heart className="h-6 w-6" />,
-      title: '지역 청년과 함께',
-      description: '우리는 지역 청년들의 문화적 갈증을 해소하고, 그들이 자신의 터전에서도 꿈을 키울 수 있도록 돕습니다.'
+      title: '지역 청년 서비스',
+      description: '지역 청년들을 위한 문화 체험 프로그램을 제공하고 서비스를 개발합니다.'
     },
     {
       icon: <Users className="h-6 w-6" />,
-      title: '다양성의 힘',
-      description: '각자 다른 직업과 배경을 가진 서포터즈들이 모여 더 큰 시너지를 만들어냅니다.'
+      title: '전문가 네트워크',
+      description: '다양한 분야의 전문가들이 협력하여 고품질 프로그램을 제공합니다.'
     },
     {
       icon: <Target className="h-6 w-6" />,
@@ -97,8 +97,8 @@ export default function HistoryPage() {
     },
     {
       icon: <HandshakeIcon className="h-6 w-6" />,
-      title: '신뢰의 관계',
-      description: '후원 장학재단과의 특별한 인연으로 시작된 우리는 그 신뢰를 바탕으로 성장합니다.'
+      title: '파트너십 기반',
+      description: '협력 기관과의 파트너십을 통해 안정적인 운영 기반을 구축합니다.'
     }
   ];
 
@@ -109,8 +109,8 @@ export default function HistoryPage() {
       icon: <Building2 className="h-5 w-5" />
     },
     {
-      title: '서포터즈 네트워크',
-      description: '각 지역의 서포터즈들이 현지 상황을 가장 잘 이해하고 프로그램을 운영합니다.',
+      title: '지역별 운영팀',
+      description: '각 지역의 운영팀이 현지 상황을 반영하여 프로그램을 운영합니다.'
       icon: <Users className="h-5 w-5" />
     },
     {
@@ -136,10 +136,10 @@ export default function HistoryPage() {
               드림캐쳐 스토리
             </Badge>
             <h1 className="text-3xl md:text-5xl font-bold mb-6">
-              지역 청년 문화의 새로운 시작
+              문화 체험 플랫폼의 성장 스토리
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              인구감소 지역에 새로운 활력을 불어넣는 청년 문화 프로젝트의 여정
+              지역 청년들을 위한 문화 서비스 플랫폼의 발전 과정
             </p>
           </div>
 
@@ -196,9 +196,9 @@ export default function HistoryPage() {
                     특히 청년들이 떠나간 지역은 활력을 잃고, 문화적 인프라마저 사라지고 있습니다.
                   </p>
                   <p className="text-lg leading-relaxed mb-6">
-                    드림캐쳐는 <strong>&ldquo;지역 청년들도 즐길 수 있는 문화가 있어야 한다&rdquo;</strong>는 
-                    신념으로 시작되었습니다. 서울이 아니어도, 대도시가 아니어도 청년들이 
-                    자신의 꿈을 키우고 문화를 즐길 수 있는 환경을 만들고자 합니다.
+                    드림캐쳐는 <strong>&ldquo;지역 청년들을 위한 문화 서비스의 필요성&rdquo;</strong>을 
+                    인식하고 시작되었습니다. 데이터 기반으로 지역 청년들에게 
+                    맞춤형 문화 프로그램을 제공하고 있습니다.
                   </p>
                   <div className="bg-primary/5 border-l-4 border-primary p-6 my-8">
                     <p className="text-lg font-medium">
@@ -211,7 +211,7 @@ export default function HistoryPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">드림캐쳐가 추구하는 가치</CardTitle>
+                  <CardTitle className="text-2xl">운영 가치</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
@@ -227,9 +227,9 @@ export default function HistoryPage() {
                   </div>
                   <div className="mt-8 p-6 bg-accent/10 rounded-lg">
                     <p className="text-sm text-muted-foreground">
-                      <strong>함께하는 사람들:</strong> 드림캐쳐는 다양한 배경과 직업을 가진 서포터즈들이 
-                      함께 만들어가고 있습니다. 각자의 전문성과 경험을 바탕으로 지역 청년들에게 
-                      실질적인 도움을 제공하고 있습니다.
+                      <strong>운영팀:</strong> 드림캐쳐는 다양한 분야의 전문가들로 
+                      구성된 팀이 운영하고 있습니다. 각 분야의 전문성을 바탕으로 
+                      고품질 프로그램을 제공합니다.
                     </p>
                   </div>
                 </CardContent>
@@ -413,7 +413,7 @@ export default function HistoryPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">우리가 만들 변화</CardTitle>
+                  <CardTitle className="text-2xl">사업 목표</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6">
@@ -441,7 +441,7 @@ export default function HistoryPage() {
                       </div>
                       <h3 className="font-semibold mb-2">지속가능한</h3>
                       <p className="text-sm text-muted-foreground">
-                        지역 청년 문화 생태계
+                        비즈니스 모델 구축
                       </p>
                     </div>
                   </div>
@@ -455,13 +455,13 @@ export default function HistoryPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Heart className="w-5 h-5 text-primary" />
-                함께 만들어가는 변화
+                베타 테스트 참여 안내
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-lg leading-relaxed mb-6">
-                드림캐쳐는 지역 청년들과 함께 성장하는 프로젝트입니다. 
-                여러분의 참여와 응원이 지역 청년 문화의 새로운 미래를 만들어갑니다.
+                드림캐쳐는 지역 청년들을 위한 문화 서비스 플랫폼입니다. 
+                베타 테스트 참여자의 피드백을 통해 더 나은 서비스를 개발하고 있습니다.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <Card className="border-l-4 border-l-primary">

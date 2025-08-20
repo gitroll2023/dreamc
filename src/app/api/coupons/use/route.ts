@@ -3,7 +3,19 @@ import { prisma } from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
   try {
-    const { code, usedProgram, usedBy } = await request.json();
+    const { 
+      code, 
+      usedProgram, 
+      usedBy, 
+      phone, 
+      programType, 
+      programTitle,
+      originalPrice,
+      discountRate,
+      finalPrice,
+      dataCollectionAgreed = true,
+      marketingAgreed = false
+    } = await request.json();
     
     if (!code) {
       return NextResponse.json(
@@ -43,26 +55,74 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
-    // 쿠폰 사용 처리
-    const updatedCoupon = await prisma.coupon.update({
-      where: { id: coupon.id },
-      data: {
-        isUsed: true,
-        usedAt: new Date(),
-        usedProgram: usedProgram || '체험 프로그램',
-        usedBy: usedBy || undefined
+    // 사용자의 체험 이력 확인
+    let isFirstTime = true;
+    if (phone && programType) {
+      const previousExperience = await prisma.userExperienceHistory.findUnique({
+        where: {
+          userPhone_programType: {
+            userPhone: phone,
+            programType: programType
+          }
+        }
+      });
+      isFirstTime = !previousExperience;
+    }
+    
+    // 트랜잭션으로 쿠폰 사용 처리 및 체험 이력 저장
+    const result = await prisma.$transaction(async (tx) => {
+      // 쿠폰 사용 처리
+      const updatedCoupon = await tx.coupon.update({
+        where: { id: coupon.id },
+        data: {
+          isUsed: true,
+          usedAt: new Date(),
+          usedProgram: usedProgram || '체험 프로그램',
+          usedBy: usedBy || undefined,
+          recipientPhone: phone || undefined,
+          isFirstTime: isFirstTime,
+          discountRate: discountRate || undefined,
+          finalPrice: finalPrice || undefined
+        }
+      });
+      
+      // 체험 이력 저장 (전화번호와 프로그램 타입이 있는 경우)
+      if (phone && programType) {
+        await tx.userExperienceHistory.create({
+          data: {
+            userPhone: phone,
+            userName: usedBy || undefined,
+            programType: programType,
+            programTitle: programTitle || usedProgram || '체험 프로그램',
+            experienceDate: new Date(),
+            originalPrice: originalPrice || 0,
+            discountRate: discountRate || 0,
+            finalPrice: finalPrice || 0,
+            isFirstTime: isFirstTime,
+            couponCode: code,
+            dataCollectionAgreed: dataCollectionAgreed,
+            marketingAgreed: marketingAgreed
+          }
+        });
       }
+      
+      return updatedCoupon;
     });
     
     return NextResponse.json({
       success: true,
-      message: '쿠폰이 사용 처리되었습니다.',
+      message: isFirstTime 
+        ? '체험권이 사용 처리되었습니다. 첫 체험 할인이 적용되었습니다.' 
+        : '체험권이 사용 처리되었습니다.',
       coupon: {
-        code: updatedCoupon.code,
-        usedAt: new Date(updatedCoupon.usedAt!).toLocaleDateString('ko-KR', { 
+        code: result.code,
+        usedAt: new Date(result.usedAt!).toLocaleDateString('ko-KR', { 
           timeZone: 'Asia/Seoul' 
         }),
-        usedProgram: updatedCoupon.usedProgram
+        usedProgram: result.usedProgram,
+        isFirstTime: isFirstTime,
+        discountRate: result.discountRate,
+        finalPrice: result.finalPrice
       }
     });
   } catch (error) {

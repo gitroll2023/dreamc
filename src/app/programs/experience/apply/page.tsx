@@ -18,21 +18,21 @@ import {
 
 // 프로그램 정보
 const programInfo: Record<string, any> = {
-  'perfume': {
-    title: '나만의 향수 만들기',
+  'cocktail': {
+    title: '칵테일 파티 체험',
     icon: Heart,
     price: '10,000원',
     duration: '2시간',
     location: '미정',
     locationNote: '(추후 별도 공지)',
-    description: '30가지 재료를 블렌딩하여 나만의 시그니처 향수를 만들어보세요.',
+    description: '전문 바텐더와 함께 다양한 칵테일을 만들고 파티 분위기를 즐겨보세요.',
     materials: '모든 재료 제공',
     maxParticipants: 12
   },
   'baking': {
     title: '홈베이킹 클래스',
     icon: Coffee,
-    price: '8,000원',
+    price: '10,000원',
     duration: '3시간',
     location: '미정',
     locationNote: '(추후 별도 공지)',
@@ -40,21 +40,10 @@ const programInfo: Record<string, any> = {
     materials: '모든 재료 및 포장 박스 제공',
     maxParticipants: 10
   },
-  'personal-color': {
-    title: '퍼스널컬러 진단',
-    icon: Palette,
-    price: '5,000원',
-    duration: '1시간 30분',
-    location: '미정',
-    locationNote: '(추후 별도 공지)',
-    description: '전문가와 함께 나에게 어울리는 컬러를 찾아보세요',
-    materials: '컬러 진단 차트 제공',
-    maxParticipants: 8
-  },
   'board-game': {
-    title: '보드게임 모임',
+    title: '보드게임 체험',
     icon: Gamepad2,
-    price: '무료',
+    price: '2,000원/시간',
     duration: '3시간',
     location: '미정',
     locationNote: '(추후 별도 공지)',
@@ -65,7 +54,7 @@ const programInfo: Record<string, any> = {
   'calligraphy': {
     title: '캘리그래피 클래스',
     icon: PenTool,
-    price: '7,000원',
+    price: '5,000원',
     duration: '2시간',
     location: '미정',
     locationNote: '(추후 별도 공지)',
@@ -76,7 +65,7 @@ const programInfo: Record<string, any> = {
   'photo': {
     title: '스마트폰 사진 클래스',
     icon: Camera,
-    price: '무료',
+    price: '5,000원',
     duration: '2시간',
     location: '미정',
     locationNote: '(추후 별도 공지)',
@@ -85,24 +74,24 @@ const programInfo: Record<string, any> = {
     maxParticipants: 15
   },
   'humanities': {
-    title: '예네아서 인문학 (나주점)',
+    title: '동네에서 인문학? (나주편)',
     icon: BookOpen,
-    price: '보증금 30,000원',
+    price: '예치금 30,000원',
     priceNote: '(수료 시 환급)',
     duration: '기수별 진행 (월 1회)',
     location: '미정',
     locationNote: '(추후 별도 공지)',
-    description: '매번 다른 주제로 진행되는 깊이 있는 인문학 스터디입니다. 철학, 예술, 문학, 미술 등 다양한 주제로 함께 생각하고 토론합니다. 심포지엄 일정은 조율하여 진행됩니다',
+    description: '매번 다른 주제로 진행되는 깊이 있는 인문학 스터디입니다. 철학, 예술, 문학, 미술 등 다양한 주제로 함께 생각하고 토론합니다. 인문학 스터디 일정은 조율하여 진행됩니다',
     materials: '도서 및 자료 제공',
     maxParticipants: 15,
-    special: '보증금 제도: 과정을 100% 참여하시면 보증금 전액 환급'
+    special: '예치금 제도: 과정을 100% 참여하시면 예치금 전액 환급'
   }
 };
 
 export default function ExperienceApplyPage() {
   const searchParams = useSearchParams();
-  const programType = searchParams.get('type') || 'perfume';
-  const program = programInfo[programType] || programInfo['perfume'];
+  const programType = searchParams.get('type') || 'cocktail';
+  const program = programInfo[programType] || programInfo['cocktail'];
   const Icon = program.icon;
 
   const [formData, setFormData] = useState({
@@ -149,7 +138,7 @@ export default function ExperienceApplyPage() {
     e.preventDefault();
     
     if (programType === 'humanities' && !formData.depositAgreement) {
-      alert('보증금 정책에 동의해주세요.');
+      alert('예치금 정책에 동의해주세요.');
       return;
     }
     
@@ -194,7 +183,7 @@ export default function ExperienceApplyPage() {
       }
     } catch (error) {
       
-      alert('?�청 처리 �??�류가 발생?�습?�다. ?�시 ?�도?�주?�요.');
+      alert('신청 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -414,12 +403,12 @@ export default function ExperienceApplyPage() {
                   <Alert className="bg-primary/5">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>보증금 안내</strong><br/>
-                      • 보증금 30,000원은 프로그램 시작 전 입금해주셔야 합니다<br/>
+                      <strong>예치금 안내</strong><br/>
+                      • 예치금 30,000원은 프로그램 시작 전 입금해주셔야 합니다<br/>
                       • 전체 과정을 100% 출석하시면 전액 환급됩니다<br/>
-                      • 중도 포기 시 보증금은 환급되지 않습니다.<br/>
-                      • 심포지엄 일정은 조율하여 1:1 또는 소그룹으로 진행됩니다<br/>
-                      • 보증금은 더 나은 학습 환경과 참여자들의 책임감 있는 참여를 위한 제도입니다
+                      • 중도 포기 시 예치금은 환급되지 않습니다.<br/>
+                      • 인문학 스터디 일정은 조율하여 1:1 또는 소그룹으로 진행됩니다<br/>
+                      • 예치금은 더 나은 학습 환경과 참여자들의 책임감 있는 참여를 위한 제도입니다
                     </AlertDescription>
                   </Alert>
                 )}
@@ -450,7 +439,7 @@ export default function ExperienceApplyPage() {
                         required
                       />
                       <Label htmlFor="depositAgreement" className="text-sm">
-                        보증금 정책을 이해하고 동의합니다 *
+                        예치금 정책을 이해하고 동의합니다 *
                       </Label>
                     </div>
                   )}

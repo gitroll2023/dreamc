@@ -79,16 +79,16 @@ export default function Home() {
     },
     {
       id: 3,
-      title: "나만의 시그니처 향수 만들기",
-      subtitle: "전문 조향사와 함께하는 커스텀 향수",
-      description: "개인의 취향과 개성을 담은 세상에 단 하나뿐인 향수를 만들어보세요.",
+      title: "칵테일 클래스",
+      subtitle: "전문 바텐더와 함께하는 나만의 칵테일",
+      description: "전문 바텐더에게 배우는 칵테일 제조 클래스. 파티 분위기에서 즐기는 특별한 체험입니다.",
       originalPrice: "80,000원",
       discountPrice: "10,000원",
       discount: "88%",
       tags: ["체험", "창작", "힐링"],
       status: "체험 모집중",
       location: "여수, 목포, 나주",
-      programType: "perfume"
+      programType: "cocktail"
     },
     {
       id: 4,
@@ -105,29 +105,29 @@ export default function Home() {
     },
     {
       id: 5,
-      title: "퍼스널컬러 진단",
-      subtitle: "나를 빛나게 하는 컬러 찾기",
-      description: "전문가와 함께 나만의 퍼스널컬러를 찾아보세요.",
-      originalPrice: "50,000원",
+      title: "캘리그라피 클래스",
+      subtitle: "아름다운 손글씨 배우기",
+      description: "전문가와 함께 캘리그라피의 기초를 배워보세요.",
+      originalPrice: "40,000원",
       discountPrice: "5,000원",
-      discount: "90%",
-      tags: ["체험", "뷰티", "컨설팅"],
+      discount: "88%",
+      tags: ["체험", "예술", "취미"],
       status: "체험 모집중",
       location: "여수, 목포, 나주",
-      programType: "color"
+      programType: "calligraphy"
     },
     {
       id: 6,
-      title: "보드게임 카페",
-      subtitle: "함께하는 즐거운 게임",
+      title: "보드게임 체험",
+      subtitle: "다양한 보드게임 체험",
       description: "50여종의 보드게임과 함께 즐거운 시간을 보내세요.",
-      originalPrice: "3,000원/시간",
-      discountPrice: "무료",
-      discount: "100%",
+      originalPrice: "5,000원/시간",
+      discountPrice: "2,000원/시간",
+      discount: "60%",
       tags: ["체험", "게임", "네트워킹"],
       status: "체험 모집중",
       location: "여수, 목포, 나주",
-      programType: "boardgame"
+      programType: "board-game"
     }
   ];
 
@@ -143,12 +143,12 @@ export default function Home() {
               2026년 3월 정식 서비스 런칭 예정
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-              전라남도 청년들의<br />
-              <span className="text-primary">문화 커뮤니티</span> 드림캐쳐
+              전라남도 청년들을 위한<br />
+              <span className="text-primary">문화 체험 플랫폼</span> 드림캐쳐
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto px-4">
-              지역 소멸 위기 속에서 청년 문화의 새로운 가능성을 만들어갑니다.<br />
-              체험 기간 동안 <span className="font-semibold text-foreground">정가의 최대 90% 할인</span>된 가격으로 만나보세요.
+              다양한 문화 체험 프로그램을 통해 데이터를 수집하고 있습니다.<br />
+              베타 테스트 기간 동안 <span className="font-semibold text-foreground">체험가</span>로 참여하실 수 있습니다.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button size="lg" asChild className="text-base sm:text-lg px-6 sm:px-8">
@@ -163,7 +163,7 @@ export default function Home() {
             </div>
             <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 inline-block">
               <p className="text-sm font-medium text-accent">
-                🎉 현재 체험 기간 중! 정가의 최대 90% 할인된 가격으로 참여하세요
+                🎉 베타 테스트 참여자 모집 중! 체험가로 프로그램에 참여하세요
               </p>
             </div>
           </div>
@@ -174,20 +174,20 @@ export default function Home() {
       <section className="py-12 md:py-16 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">왜 지금 무료·할인 체험인가요?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">베타 테스트 참여 안내</h2>
             <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
-              드림캐쳐는 2026년 3월 정식 서비스 론칭을 준비하고 있습니다.<br />
-              더 나은 프로그램을 만들기 위해 여러분의 소중한 피드백과 데이터가 필요합니다.
+              드림캐쳐는 2026년 3월 정식 서비스 런칭을 준비하고 있습니다.<br />
+              서비스 개선을 위한 데이터 수집과 피드백이 필요한 시점입니다.
             </p>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               <Card className="border-primary/20">
                 <CardHeader>
                   <Users className="h-10 w-10 text-primary mb-2" />
-                  <CardTitle className="text-lg">체험단 운영</CardTitle>
+                  <CardTitle className="text-lg">베타 테스터</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    실제 참가자들의 경험을 통해 프로그램을 개선하고 있습니다.
+                    참가자들의 피드백을 바탕으로 서비스를 개선합니다.
                   </p>
                 </CardContent>
               </Card>
@@ -205,11 +205,11 @@ export default function Home() {
               <Card className="border-primary/20">
                 <CardHeader>
                   <Heart className="h-10 w-10 text-primary mb-2" />
-                  <CardTitle className="text-lg">장학회 후원</CardTitle>
+                  <CardTitle className="text-lg">파트너십</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    여러 장학회의 후원으로 체험 기간 동안 특별 가격을 제공합니다.
+                    협력 기관과의 파트너십을 통해 베타 테스트를 진행합니다.
                   </p>
                 </CardContent>
               </Card>
@@ -224,8 +224,8 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">체험 프로그램</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              전라남도 청년들을 위한 특별한 문화 프로그램<br />
-              체험 기간 동안 특별 할인가로 만나보세요
+              전라남도 청년들을 위한 문화 체험 프로그램<br />
+              베타 테스트 기간 중 체험가로 참여 가능합니다
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -318,9 +318,9 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">우리의 미션</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">사업 목표</h2>
               <p className="text-lg text-muted-foreground">
-                지역 소멸 위기 속에서 청년 문화의 새로운 가능성을 만들어갑니다
+                데이터 기반으로 지역 청년들을 위한 문화 서비스를 개발합니다
               </p>
             </div>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -346,8 +346,8 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">장학회 협력 네트워크</p>
-                      <p className="text-sm text-muted-foreground">다수 장학회의 후원으로 운영</p>
+                      <p className="font-medium">협력 기관 네트워크</p>
+                      <p className="text-sm text-muted-foreground">다양한 기관과의 파트너십 구축</p>
                     </div>
                   </div>
                 </CardContent>
@@ -374,7 +374,7 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <Calendar className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">지속가능한 청년 문화</p>
+                      <p className="font-medium">지속가능한 비즈니스 모델</p>
                       <p className="text-sm text-muted-foreground">지역별 맞춤형 문화 콘텐츠 개발</p>
                     </div>
                   </div>
@@ -431,12 +431,12 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-              청년 문화의 새로운 시작,<br />
-              함께 만들어가요
+              문화 체험 플랫폼<br />
+              베타 테스트 참여자 모집
             </h2>
             <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
-              체험 기간 동안 특별한 혜택으로 드림캐쳐의 프로그램을 경험해보세요.<br />
-              여러분의 참여가 지역 청년 문화의 미래를 만듭니다.
+              베타 테스트 기간 동안 다양한 프로그램을 체험가로 이용하실 수 있습니다.<br />
+              참여자의 피드백은 서비스 개선에 활용됩니다.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="text-lg px-8">
@@ -448,7 +448,7 @@ export default function Home() {
               </Button>
             </div>
             <p className="text-sm text-muted-foreground mt-6">
-              * 체험 프로그램은 재료비 및 최소 운영비만 받고 있습니다
+              * 베타 테스트 기간 중 재료비 및 운영비 수준의 체험가로 운영됩니다
             </p>
           </div>
         </div>

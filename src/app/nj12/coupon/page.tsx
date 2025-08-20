@@ -14,6 +14,7 @@ export default function CouponPage() {
   const [downloading, setDownloading] = useState(false);
   const [isIssued, setIsIssued] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const couponRef = useRef<HTMLDivElement>(null);
 
   const generateCoupon = async () => {
@@ -22,9 +23,10 @@ export default function CouponPage() {
       return;
     }
 
+    setGenerating(true);
+    
     try {
-      // DB에 쿠폰 저장
-      const response = await fetch('/api/coupons/issue', {
+      const response = await fetch('/api/coupons/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,10 +42,12 @@ export default function CouponPage() {
         setExpiryDate(data.coupon.expiryDate);
         setIsIssued(true);
       } else {
-        alert(data.error || '쿠폰 발급 중 오류가 발생했습니다.');
+        alert(data.error || '체험권 발급 중 오류가 발생했습니다.');
       }
     } catch (error) {
-      alert('쿠폰 발급 중 오류가 발생했습니다.');
+      alert('체험권 발급 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+    } finally {
+      setGenerating(false);
     }
   };
 
@@ -87,8 +91,8 @@ export default function CouponPage() {
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">드림캐쳐 체험권 발급 시스템</h1>
-          <p className="text-muted-foreground">서포터즈 전용 쿠폰 발급 페이지</p>
+          <h1 className="text-3xl font-bold mb-2">드림캐쳐 할인 체험권 발급 시스템</h1>
+          <p className="text-muted-foreground">서포터즈 전용 체험권 발급 페이지</p>
         </div>
 
         {!isIssued ? (
@@ -99,7 +103,7 @@ export default function CouponPage() {
                 <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-3">
                   <Ticket className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-xl font-semibold">새 체험권 발급</h2>
+                <h2 className="text-xl font-semibold">새 할인 체험권 발급</h2>
               </div>
 
               <div className="space-y-2">
@@ -114,9 +118,10 @@ export default function CouponPage() {
                   placeholder="예: 홍길동"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   autoFocus
+                  disabled={generating}
                 />
                 <p className="text-xs text-muted-foreground">
-                  쿠폰에 표시될 이름을 입력해주세요
+                  체험권에 표시될 이름을 입력해주세요
                 </p>
               </div>
 
@@ -124,11 +129,26 @@ export default function CouponPage() {
                 onClick={generateCoupon}
                 className="w-full"
                 size="lg"
-                disabled={!recipientName.trim()}
+                disabled={!recipientName.trim() || generating}
               >
-                <Sparkles className="w-4 h-4 mr-2" />
-                쿠폰 발행하기
+                {generating ? (
+                  <>
+                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    체험권 생성 중...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    체험권 발행하기
+                  </>
+                )}
               </Button>
+
+              {generating && (
+                <p className="text-sm text-center text-muted-foreground">
+                  체험권을 생성하고 있습니다. 잠시만 기다려주세요...
+                </p>
+              )}
             </div>
           </Card>
         ) : (
@@ -193,23 +213,23 @@ export default function CouponPage() {
                     {/* 메인 텍스트 */}
                     <div className="text-center py-2">
                       <h1 className="text-3xl font-bold text-gray-800">
-                        오프라인 1회 체험권
+                        할인 체험권
                       </h1>
                       <p className="text-sm text-gray-900 mt-1">
-                        드림캐쳐의 모든 체험 프로그램을 1회 무료로 참여하실 수 있습니다
+                        드림캐쳐의 모든 체험 프로그램을 특별 할인가로 체험하실 수 있습니다
                       </p>
                     </div>
 
                     {/* 프로그램 목록 */}
                     <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg p-3">
-                      <p className="text-xs font-semibold text-gray-700 mb-1">이용 가능 프로그램</p>
+                      <p className="text-xs font-semibold text-gray-700 mb-1">이용 가능 프로그램 (첫 체험 할인율)</p>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-gray-900" style={{ fontSize: '11px' }}>
-                        <span>✨ 향수 만들기</span>
-                        <span>🍰 홈베이킹 클래스</span>
-                        <span>🎨 퍼스널컬러 진단</span>
-                        <span>🎲 보드게임 카페</span>
-                        <span>✍️ 캘리그래피</span>
-                        <span>📸 사진 촬영 워크샵</span>
+                        <span>🍹 칵테일 파티 (88% 할인)</span>
+                        <span>🍰 홈베이킹 (83% 할인)</span>
+                        <span>🎨 석고방향제 (89% 할인)</span>
+                        <span>🎲 보드게임 (33% 할인)</span>
+                        <span>✍️ 캘리그래피 (88% 할인)</span>
+                        <span>📸 사진 클래스 (90% 할인)</span>
                       </div>
                     </div>
                   </div>
@@ -220,7 +240,7 @@ export default function CouponPage() {
                     <div className="rounded-lg px-4 py-3 border-2 border-dashed border-gray-400" style={{ backgroundColor: '#f9fafb' }}>
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-xs text-gray-800 mb-1">쿠폰 코드</p>
+                          <p className="text-xs text-gray-800 mb-1">체험권 코드</p>
                           <span className="text-xl font-bold tracking-wider text-primary">
                             {couponCode}
                           </span>
@@ -232,8 +252,8 @@ export default function CouponPage() {
                     {/* 날짜 정보 */}
                     <div className="flex justify-between items-center pt-2 border-t">
                       <div className="text-xs text-gray-800 space-y-0.5">
-                        <p>• 1인 1회 사용 가능</p>
-                        <p>• 타인 양도 금지</p>
+                        <p>• 첫 체험시 할인 적용</p>
+                        <p>• 재체험은 정가</p>
                       </div>
                       <div className="text-right">
                         <div className="flex gap-4">
@@ -252,101 +272,108 @@ export default function CouponPage() {
                         </div>
                       </div>
                     </div>
+
+                    {/* 하단 안내 */}
+                    <div className="text-center border-t pt-2">
+                      <p className="text-xs text-gray-600">사용 문의: 드림캐쳐 나주점</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* 액션 버튼들 */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+            <div className="flex gap-4 justify-center">
+              <Button
                 onClick={downloadCoupon}
-                size="lg"
                 className="gap-2"
                 disabled={downloading}
               >
                 {downloading ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
                     다운로드 중...
                   </>
                 ) : (
                   <>
                     <Download className="w-4 h-4" />
-                    이미지 다운로드
+                    이미지로 저장
                   </>
                 )}
               </Button>
               
-              <Button 
+              <Button
+                onClick={resetCoupon}
+                variant="outline"
+                className="gap-2"
+              >
+                <Sparkles className="w-4 h-4" />
+                새 체험권 발급
+              </Button>
+
+              <Button
                 onClick={() => setShowDeleteModal(true)}
                 variant="destructive"
-                size="lg"
                 className="gap-2"
               >
                 <Trash2 className="w-4 h-4" />
-                삭제하기
+                삭제
               </Button>
             </div>
 
-            {/* 안내 메시지 */}
-            <div className="bg-white/80 backdrop-blur rounded-lg p-4 text-center max-w-2xl mx-auto">
-              <p className="text-sm text-gray-900">
-                쿠폰을 이미지로 저장하여 카카오톡이나 문자로 전달하세요.<br />
-                받으신 분은 드림캐쳐의 모든 체험 프로그램을 1회 무료로 참여하실 수 있습니다.
-              </p>
-            </div>
+            {/* 안내사항 */}
+            <Card className="p-4 bg-yellow-50 border-yellow-200">
+              <div className="flex gap-3">
+                <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="font-semibold text-sm">체험권 발급 안내</p>
+                  <ul className="text-xs text-muted-foreground space-y-1">
+                    <li>• 발급된 체험권은 이미지로 저장하여 카카오톡 등으로 전달해주세요</li>
+                    <li>• 각 프로그램별 첫 체험시에만 할인이 적용됩니다</li>
+                    <li>• 재체험시에는 정가로 이용 가능합니다</li>
+                    <li>• 체험권은 발급일로부터 15일간 유효합니다</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
           </div>
         )}
 
         {/* 삭제 확인 모달 */}
         {showDeleteModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-red-100 rounded-full">
-                    <AlertTriangle className="w-6 h-6 text-red-600" />
+            <Card className="max-w-md w-full p-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <AlertTriangle className="w-5 h-5 text-red-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold">쿠폰을 삭제하시겠습니까?</h3>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      잘못 만드신 쿠폰을 삭제하고 처음부터 다시 시작합니다.
+                    <h3 className="font-semibold">체험권 삭제</h3>
+                    <p className="text-sm text-muted-foreground">
+                      현재 체험권을 삭제하고 새로 시작하시겠습니까?
                     </p>
                   </div>
                 </div>
-                <button
-                  onClick={() => setShowDeleteModal(false)}
-                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowDeleteModal(false)}
+                    className="flex-1"
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={handleDelete}
+                    className="flex-1"
+                  >
+                    삭제
+                  </Button>
+                </div>
               </div>
-              
-              <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                <p className="text-sm text-gray-900">
-                  <strong>수령인:</strong> {recipientName}님<br />
-                  <strong>쿠폰 코드:</strong> {couponCode}
-                </p>
-              </div>
-
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowDeleteModal(false)}
-                  className="flex-1"
-                >
-                  취소
-                </Button>
-                <Button 
-                  variant="destructive"
-                  onClick={handleDelete}
-                  className="flex-1"
-                >
-                  삭제하기
-                </Button>
-              </div>
-            </div>
+            </Card>
           </div>
         )}
       </div>

@@ -15,8 +15,8 @@ export default function AboutPage() {
     },
     {
       icon: Users,
-      title: "함께하는 성장",
-      description: "청년들과 함께 고민하고, 함께 성장하는 지속가능한 커뮤니티"
+      title: "데이터 기반 운영",
+      description: "참여자 데이터를 수집하고 분석하여 맞춤형 서비스 개발"
     },
     {
       icon: Award,
@@ -36,11 +36,11 @@ export default function AboutPage() {
               ABOUT DREAMCATCHER
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              지역 청년의 꿈을 잡아주는 <span className="text-primary">드림캐쳐</span>
+              지역 청년을 위한 문화 플랫폼 <span className="text-primary">드림캐쳐</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              드림캐쳐는 인구감소로 어려움을 겪는 지역에서 청년들이 즐길 수 있는<br />
-              문화를 만들어가는 청년문화단체입니다.
+              드림캐쳐는 인구감소 지역의 청년들을 위한<br />
+              문화 체험 프로그램을 제공하는 플랫폼입니다.
             </p>
           </div>
         </div>
@@ -60,9 +60,9 @@ export default function AboutPage() {
                 특히 청년들이 떠나간 지역은 활력을 잃고, 문화적 인프라마저 사라지고 있습니다.
               </p>
               <p className="mb-6">
-                드림캐쳐는 이러한 현실 속에서 &apos;지역 청년들도 즐길 수 있는 문화가 있어야 한다&apos;는 
-                신념으로 시작되었습니다. 서울이 아니어도, 대도시가 아니어도 청년들이 
-                자신의 꿈을 키우고 문화를 즐길 수 있는 환경을 만들고자 합니다.
+                드림캐쳐는 이러한 현실 속에서 지역 청년들을 위한 
+                문화 서비스의 필요성을 인식하고 시작되었습니다. 데이터 기반으로 
+                지역별 맞춤형 문화 프로그램을 개발하고 제공합니다.
               </p>
               <p className="mb-6">
                 현재 전라남도의 여수, 목포, 화순, 나주를 중심으로 다양한 체험 프로그램을 운영하며 
@@ -70,8 +70,8 @@ export default function AboutPage() {
                 2026년 3월, 더 체계적이고 지속가능한 청년 문화 프로그램을 선보일 예정입니다.
               </p>
               <p>
-                청년 여러분의 많은 관심과 참여를 부탁드립니다.<br />
-                함께 만들어가는 지역 청년 문화, 드림캐쳐가 시작합니다.
+                베타 테스트에 참여해 주시는 분들의 피드백을 바탕으로<br />
+                더 나은 서비스를 개발하겠습니다.
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function AboutPage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">미션과 비전</h2>
               <p className="text-lg text-muted-foreground">
-                드림캐쳐가 꿈꾸는 미래
+                드림캐쳐의 사업 목표
               </p>
             </div>
             
@@ -97,8 +97,8 @@ export default function AboutPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    인구감소 지역 청년들에게 문화적 경험과 성장의 기회를 제공하여,
-                    지역에서도 꿈을 실현할 수 있는 환경을 조성합니다.
+                    인구감소 지역 청년들에게 문화 체험 프로그램을 제공하고,
+                    수집된 데이터를 바탕으로 지속가능한 비즈니스 모델을 구축합니다.
                   </p>
                 </CardContent>
               </Card>
@@ -227,9 +227,9 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">함께하는 사람들</h2>
+              <h2 className="text-3xl font-bold mb-4">운영팀</h2>
               <p className="text-lg text-muted-foreground">
-                드림캐쳐와 함께 청년 문화를 만들어가는 사람들
+                드림캐쳐 서비스를 운영하는 전문가 그룹
               </p>
             </div>
 
@@ -239,10 +239,10 @@ export default function AboutPage() {
                   <Users className="h-16 w-16 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">드림캐쳐 팀</h3>
+                  <h3 className="text-2xl font-bold mb-4">운영 조직</h3>
                   <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-                    드림캐쳐는 지역 청년 문화 혁신을 위해 모인 다양한 분야의 전문가들과 
-                    청년 활동가들로 구성되어 있습니다.
+                    드림캐쳐는 문화 서비스 전문가들과 
+                    데이터 분석팀으로 구성되어 있습니다.
                   </p>
                   <div className="grid md:grid-cols-3 gap-6 text-left">
                     <div className="space-y-2">
@@ -258,9 +258,9 @@ export default function AboutPage() {
                       </p>
                     </div>
                     <div className="space-y-2">
-                      <h4 className="font-semibold">협력 네트워크</h4>
+                      <h4 className="font-semibold">파트너 네트워크</h4>
                       <p className="text-sm text-muted-foreground">
-                        장학회 및 지역 기관과의 협력을 통해 프로그램을 지원합니다.
+                        협력 기관과의 파트너십을 통해 프로그램을 운영합니다.
                       </p>
                     </div>
                   </div>
@@ -280,19 +280,19 @@ export default function AboutPage() {
       <section className="py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">후원 안내</h2>
+            <h2 className="text-3xl font-bold mb-6">파트너십 안내</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              드림캐쳐는 여러 장학회와 후원자님들의 지원으로 운영되고 있습니다.<br />
-              덕분에 체험 기간 동안 청년들에게 부담 없는 가격으로 프로그램을 제공할 수 있습니다.
+              드림캐쳐는 여러 기관과의 파트너십을 통해 운영되고 있습니다.<br />
+              베타 테스트 기간 동안 체험가로 프로그램을 제공하고 있습니다.
             </p>
             <Card className="p-8 bg-primary/5 border-primary/20">
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground">
-                  현재 체험 프로그램 운영을 위해 여러 장학회에서 후원해 주고 계십니다.
-                  정식 서비스 출범 시 후원 기관을 공식적으로 소개할 예정입니다.
+                  현재 베타 테스트를 위해 여러 기관과 협력하고 있습니다.
+                  정식 서비스 출범 시 파트너 기관을 공식적으로 소개할 예정입니다.
                 </p>
                 <p className="font-medium">
-                  청년 문화 혁신에 동참하고 싶으신 분들의 많은 관심 부탁드립니다.
+                  비즈니스 파트너십에 관심 있으신 기관의 문의를 환영합니다.
                 </p>
               </CardContent>
             </Card>
