@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import crypto from 'crypto';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin';
 const SESSION_DURATION = 20 * 60; // 20분 (초 단위)
 
@@ -16,7 +20,8 @@ export async function POST(request: NextRequest) {
       const currentTime = Date.now();
       
       // Set cookie with session token (20분 만료)
-      cookies().set('admin_session', sessionToken, {
+      const cookieStore = await cookies();
+      cookieStore.set('admin_session', sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
@@ -25,7 +30,7 @@ export async function POST(request: NextRequest) {
       });
       
       // Set session time cookie
-      cookies().set('admin_session_time', currentTime.toString(), {
+      cookieStore.set('admin_session_time', currentTime.toString(), {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
@@ -54,8 +59,9 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    cookies().delete('admin_session');
-    cookies().delete('admin_session_time');
+    const cookieStore = await cookies();
+    cookieStore.delete('admin_session');
+    cookieStore.delete('admin_session_time');
     return NextResponse.json({ 
       success: true, 
       message: '로그아웃 되었습니다.' 

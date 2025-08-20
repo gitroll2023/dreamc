@@ -3,16 +3,21 @@ import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { formatInTimeZone } from 'date-fns-tz';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 // Simple auth check
-function isAuthenticated() {
-  const sessionCookie = cookies().get('admin_session');
+async function isAuthenticated() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('admin_session');
   return !!sessionCookie?.value;
 }
 
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    if (!isAuthenticated()) {
+    if (!(await isAuthenticated())) {
       return NextResponse.json(
         { success: false, error: '인증이 필요합니다.' },
         { status: 401 }
@@ -143,7 +148,7 @@ export async function GET(request: NextRequest) {
 // Update application status
 export async function PATCH(request: NextRequest) {
   try {
-    if (!isAuthenticated()) {
+    if (!(await isAuthenticated())) {
       return NextResponse.json(
         { success: false, error: '인증이 필요합니다.' },
         { status: 401 }
@@ -188,7 +193,7 @@ export async function PATCH(request: NextRequest) {
 // Delete item
 export async function DELETE(request: NextRequest) {
   try {
-    if (!isAuthenticated()) {
+    if (!(await isAuthenticated())) {
       return NextResponse.json(
         { success: false, error: '인증이 필요합니다.' },
         { status: 401 }

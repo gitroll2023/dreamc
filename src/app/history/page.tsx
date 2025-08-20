@@ -104,13 +104,13 @@ export default function HistoryPage() {
 
   const operationModel = [
     {
-      title: '온라인 중심 운영',
-      description: '지역별 고정 장소 없이 온라인으로 효율적으로 소통하며 유연하게 운영합니다.',
+      title: '유연한 공간 활용',
+      description: '후원사의 지원으로 공유오피스를 대여하거나, 건물주와의 협의를 통해 우리의 목적에 맞는 공간을 활용합니다. 고정된 본부 사무실 대신 필요에 따라 유연하게 운영합니다.',
       icon: <Building2 className="h-5 w-5" />
     },
     {
-      title: '지역별 운영팀',
-      description: '각 지역의 운영팀이 현지 상황을 반영하여 프로그램을 운영합니다.',
+      title: '온라인 기반 협업',
+      description: '각 지역에 별도의 본부 사무실을 두지 않고, 온라인 회의를 통해 기획하고 협업합니다. 이를 통해 효율적으로 운영하며 각 지역에서 시범 프로그램을 진행합니다.',
       icon: <Users className="h-5 w-5" />
     },
     {
@@ -315,9 +315,18 @@ export default function HistoryPage() {
                     <div className="flex items-start gap-3">
                       <ChevronRight className="w-5 h-5 text-primary mt-0.5" />
                       <div>
-                        <p className="font-medium">온라인과 오프라인의 조화</p>
+                        <p className="font-medium">온라인 중심의 운영 체계</p>
                         <p className="text-sm text-muted-foreground">
-                          효율적인 온라인 소통과 따뜻한 오프라인 만남을 병행합니다
+                          각 지역에 고정된 본부 사무실 없이 온라인 회의를 통해 기획하고, 이를 기반으로 각 지역에서 시범 프로그램을 운영합니다
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <ChevronRight className="w-5 h-5 text-primary mt-0.5" />
+                      <div>
+                        <p className="font-medium">유연한 공간 활용</p>
+                        <p className="text-sm text-muted-foreground">
+                          후원사 지원을 통한 공유오피스 대여 또는 건물주와의 협의를 통해 목적에 맞는 공간을 활용합니다
                         </p>
                       </div>
                     </div>

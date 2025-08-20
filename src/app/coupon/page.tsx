@@ -45,8 +45,8 @@ export default function CouponPage() {
   };
 
   const programs = [
-    { name: '🍹 칵테일 파티 체험', discount: '88%', price: '10,000원' },
-    { name: '🍰 홈베이킹 클래스', discount: '83%', price: '10,000원' },
+    { name: '🍹 칵테일 파티 체험', discount: '90%', price: '5,000원' },
+    { name: '🍰 홈베이킹 클래스', discount: '90%', price: '5,000원' },
     { name: '🎨 석고방향제 만들기', discount: '89%', price: '5,000원' },
     { name: '🎲 보드게임 체험', discount: '33%', price: '2,000원/시간' },
     { name: '✍️ 한글 캘리그래피', discount: '88%', price: '5,000원' },

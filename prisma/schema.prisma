@@ -164,3 +164,29 @@ model UserExperienceHistory {
   @@index([programType])
   @@index([experienceDate])
 }
+
+model OutreachContact {
+  id                String   @id @default(cuid())
+  name              String
+  phone             String
+  interestedPrograms String[] // 관심 프로그램 배열
+  location          String   @default("나주")
+  preferredDay      String?  // 평일/주말/둘다
+  preferredTimes    String[] // 가능한 시간대 배열 (오전/오후/저녁/주말오전/주말오후/주말저녁)
+  specificTime      String?  // 구체적인 희망 시간 (예: "토요일 오후 2시")
+  supporterName     String   // 서포터즈 이름
+  supporterGroup    String   @default("나주") // 서포터즈 활동 지역
+  agreedAt          DateTime @default(now())
+  privacyAgreed     Boolean  @default(true)
+  marketingAgreed   Boolean  @default(false)
+  couponSent        Boolean  @default(false)
+  couponSentAt      DateTime?
+  notes             String?  // 추가 메모
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([phone])
+  @@index([supporterName])
+  @@index([createdAt])
+  @@index([location])
+}
