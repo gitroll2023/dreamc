@@ -43,9 +43,24 @@ export function middleware(request: NextRequest) {
     }
   }
   
+  // 서포터즈 대시보드 경로 체크
+  if (pathname.startsWith('/nj/sp/dashboard') || pathname.startsWith('/nj/sp/guide') || pathname.startsWith('/nj/sp/quick')) {
+    const supporterAuthCookie = request.cookies.get('supporters-auth');
+    
+    // 인증이 없으면 로그인 페이지로 리다이렉트
+    if (!supporterAuthCookie?.value || supporterAuthCookie.value !== 'true') {
+      return NextResponse.redirect(new URL('/nj/sp', request.url));
+    }
+  }
+  
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/nj/ad/min/dashboard/:path*']
+  matcher: [
+    '/nj/ad/min/dashboard/:path*',
+    '/nj/sp/dashboard/:path*',
+    '/nj/sp/guide/:path*',
+    '/nj/sp/quick/:path*'
+  ]
 };
