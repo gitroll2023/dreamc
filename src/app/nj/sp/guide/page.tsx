@@ -283,7 +283,7 @@ export default function SupportersGuidePage() {
                         쿠폰 등록 페이지 열기
                       </Button>
                     </Link>
-                    <p className="text-xs text-gray-600 mt-2 text-center">페이지에서 '쿠폰 등록하기' 버튼 클릭</p>
+                    <p className="text-xs text-gray-600 mt-2 text-center">페이지에서 &apos;쿠폰 등록하기&apos; 버튼 클릭</p>
                   </div>
                   <div className="bg-red-50 p-3 rounded-lg">
                     <p className="text-sm text-red-700">
