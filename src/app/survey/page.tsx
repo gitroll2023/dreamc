@@ -44,6 +44,9 @@ export default function SurveyPage() {
     recommendRating: '',
     participateAgain: '',
     
+    // 다음 체험 프로그램 선택
+    nextExperience: '',
+    
     // 추첨 이벤트
     participateLottery: false,
     phone: '',
@@ -165,6 +168,11 @@ export default function SurveyPage() {
       return false;
     }
     
+    // Check next experience selection (required)
+    if (!formData.nextExperience) {
+      return false;
+    }
+    
     // Check phone number if participating in lottery
     if (formData.participateLottery) {
       const phoneDigits = formData.phone.replace(/-/g, '');
@@ -176,14 +184,14 @@ export default function SurveyPage() {
     return true;
   };
 
+  // 나주에서 진행하는 체험 프로그램 목록
   const programs = [
-    '나만의 시그니처 향수 만들기',
-    '퍼스널 컬러 & 향수 컨설팅',
+    '동네북코칭 (구: 동네에서 인문학)',
+    '칵테일 파티 체험',
     '홈베이킹 체험 클래스',
     '석고방향제 만들기',
-    '보드게임 카페',
+    '보드게임 체험',
     '청년 북클럽',
-    '사진 촬영 워크샵',
     '한글 캘리그래피'
   ];
 
@@ -386,6 +394,47 @@ export default function SurveyPage() {
                     </div>
                   </RadioGroup>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* 다음 체험 프로그램 선택 */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-primary" />
+                  다음에 또 신청해볼만한 체험 프로그램
+                </CardTitle>
+                <CardDescription>
+                  다음에 참여해보고 싶은 프로그램을 선택해주세요 (필수 선택)
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RadioGroup value={formData.nextExperience} onValueChange={(value) => setFormData(prev => ({ ...prev, nextExperience: value }))}>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-muted/50">
+                      <RadioGroupItem value="ai-bootcamp" id="ai-bootcamp" />
+                      <Label htmlFor="ai-bootcamp" className="font-normal cursor-pointer flex-1">
+                        <div>
+                          <span className="font-semibold">AI 인문학 부트캠프</span>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            AI가 절대 가질 수 없는 인간만의 영역을 탐구하는 6개월 과정
+                          </p>
+                        </div>
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-muted/50">
+                      <RadioGroupItem value="book-coaching" id="book-coaching" />
+                      <Label htmlFor="book-coaching" className="font-normal cursor-pointer flex-1">
+                        <div>
+                          <span className="font-semibold">동네북코칭</span>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            청년 인문학 스터디 - 철학, 역사, 문학, 예술 등 다양한 주제로 함께 생각하고 토론
+                          </p>
+                        </div>
+                      </Label>
+                    </div>
+                  </div>
+                </RadioGroup>
               </CardContent>
             </Card>
 

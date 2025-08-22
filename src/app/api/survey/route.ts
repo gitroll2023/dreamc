@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
         satisfactionRating: data.satisfactionRating,
         recommendRating: data.recommendRating,
         participateAgain: data.participateAgain,
+        nextExperience: data.nextExperience || undefined,
         participateLottery: data.participateLottery,
         phone: data.phone || undefined,
         goodPoints: data.goodPoints || undefined,

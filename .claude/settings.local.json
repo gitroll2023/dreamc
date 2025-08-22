@@ -14,7 +14,8 @@
       "Bash(git push:*)",
       "Bash(git commit:*)",
       "Bash(copy:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "mcp__playwright__playwright_navigate"
     ],
     "deny": [],
     "ask": []

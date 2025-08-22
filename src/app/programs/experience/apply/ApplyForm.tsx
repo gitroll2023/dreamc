@@ -27,7 +27,7 @@ import Link from 'next/link';
 // 프로그램 정보
 const programInfo: Record<string, any> = {
   'humanities': {
-    title: '동네에서 인문학?',
+    title: '동네북코칭',
     icon: BookOpen,
     price: '예치금 30,000원',
     duration: '2시간',

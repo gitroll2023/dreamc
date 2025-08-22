@@ -794,6 +794,7 @@ export default function AdminDashboard() {
                         <TableHead>서포터즈</TableHead>
                         <TableHead>만족도</TableHead>
                         <TableHead>추천여부</TableHead>
+                        <TableHead>다음 참여</TableHead>
                         <TableHead>추첨참여</TableHead>
                         <TableHead>제출일</TableHead>
                         <TableHead>액션</TableHead>
@@ -809,6 +810,15 @@ export default function AdminDashboard() {
                           <TableCell>{survey.supporterGroup}</TableCell>
                           <TableCell>{survey.satisfactionRating}/3</TableCell>
                           <TableCell>{survey.recommendRating}/3</TableCell>
+                          <TableCell>
+                            {survey.nextExperience ? (
+                              <Badge variant="outline" className="text-xs">
+                                {survey.nextExperience === 'ai-bootcamp' ? 'AI' : '북코칭'}
+                              </Badge>
+                            ) : (
+                              '-'
+                            )}
+                          </TableCell>
                           <TableCell>
                             {survey.participateLottery ? (
                               <Badge variant="default">참여</Badge>
@@ -885,6 +895,16 @@ export default function AdminDashboard() {
                                         <div>
                                           <p className="text-sm font-medium mb-1">추첨 참여 연락처</p>
                                           <p>{selectedItem.phone}</p>
+                                        </div>
+                                      )}
+                                      {selectedItem.nextExperience && (
+                                        <div>
+                                          <p className="text-sm font-medium mb-1">다음 참여 희망 프로그램</p>
+                                          <Badge variant="outline">
+                                            {selectedItem.nextExperience === 'ai-bootcamp' 
+                                              ? 'AI 인문학 부트캠프' 
+                                              : '동네북코칭'}
+                                          </Badge>
                                         </div>
                                       )}
                                     </div>

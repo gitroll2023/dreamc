@@ -45,6 +45,7 @@ model Survey {
   satisfactionRating String
   recommendRating    String
   participateAgain   String
+  nextExperience     String?  // 새로운 필드: 다음 체험 프로그램 선택
   participateLottery Boolean  @default(false)
   phone              String?
   goodPoints         String?
