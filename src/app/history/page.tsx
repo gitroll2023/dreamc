@@ -50,8 +50,8 @@ export default function HistoryPage() {
     {
       date: '2026년 1월',
       title: 'AI 인문학 부트캠프 2기',
-      location: '나주·화순',
-      description: '후원사 주최로 나주·화순 통합 지역에서 AI 인문학 부트캠프 2기가 시작될 예정입니다.',
+      location: '나주시',
+      description: '후원사 주최로 나주시에서 AI 인문학 부트캠프 2기가 시작될 예정입니다.',
       future: true
     },
     {

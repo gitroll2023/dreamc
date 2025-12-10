@@ -68,7 +68,7 @@ export default function Home() {
       discount: "90%",
       tags: ["부트캠프", "협력프로그램", "6개월"],
       status: "2기 모집중",
-      location: "나주·화순 (2026년 1월)",
+      location: "나주 (2026년 1월)",
       isPartnership: true,
       partnerInfo: "※ 후원 기업 서포터즈와 함께하는 프로그램"
     },
