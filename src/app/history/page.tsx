@@ -48,7 +48,7 @@ export default function HistoryPage() {
       description: '네 번째 거점인 나주시로 활동 지역을 확대했습니다. 체험 프로그램을 통해 나주 지역 청년들과 만나고 있습니다.'
     },
     {
-      date: '2025년 9월',
+      date: '2026년 1월',
       title: 'AI 인문학 부트캠프 2기',
       location: '나주시',
       description: '후원사 주최로 나주시에서 AI 인문학 부트캠프 2기가 시작될 예정입니다.',

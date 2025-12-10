@@ -68,7 +68,7 @@ export default function Home() {
       discount: "90%",
       tags: ["부트캠프", "협력프로그램", "6개월"],
       status: "2기 모집중",
-      location: "나주 (2025년 9월)",
+      location: "나주 (2026년 1월)",
       isPartnership: true,
       partnerInfo: "※ 후원 기업 서포터즈와 함께하는 프로그램"
     },
@@ -384,6 +384,52 @@ export default function Home() {
                     <div>
                       <p className="font-medium">지속가능한 비즈니스 모델</p>
                       <p className="text-sm text-muted-foreground">지역별 맞춤형 문화 콘텐츠 개발</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Recent Activities Section */}
+      <section className="py-12 md:py-16 bg-secondary/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">최근 활동</h2>
+              <p className="text-lg text-muted-foreground">
+                지역 사회와 함께하는 드림캐쳐의 발걸음
+              </p>
+            </div>
+            <div className="space-y-4">
+              <Card className="border-l-4 border-l-primary">
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <Badge variant="secondary">2025</Badge>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-lg mb-1">전남 시민동호회 연합 가입</p>
+                      <p className="text-sm text-muted-foreground">
+                        전라남도 지역 시민동호회 연합에 정식 가입하여 지역 네트워크를 확대했습니다
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-l-4 border-l-accent">
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <Badge variant="secondary">2025</Badge>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-lg mb-1">나주 열림 문화센터 임시동호회 등록</p>
+                      <p className="text-sm text-muted-foreground">
+                        나주시 열림 문화센터에 임시동호회로 등록하여 지역 문화 활동 기반을 마련했습니다
+                      </p>
                     </div>
                   </div>
                 </CardContent>

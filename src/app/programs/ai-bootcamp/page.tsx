@@ -301,7 +301,7 @@ export default function AIBootcampPage() {
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center mb-10">
             <Badge className="mb-4" variant="secondary">2기 모집</Badge>
-            <h2 className="text-3xl font-bold mb-4">2025년 9월, 나주에서 2기가 시작됩니다</h2>
+            <h2 className="text-3xl font-bold mb-4">2026년 1월, 나주에서 2기가 시작됩니다</h2>
             <p className="text-lg text-muted-foreground">1기의 성공적인 수료 이후, 2026년 3월 정식 런칭 전 마지막 시범 운영</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -331,7 +331,7 @@ export default function AIBootcampPage() {
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">지역별 오픈</h3>
-                <p className="text-sm text-muted-foreground">9월 나주 시작, 10월부터 전 지역</p>
+                <p className="text-sm text-muted-foreground">1월 나주 시작, 2월부터 전 지역</p>
               </CardContent>
             </Card>
           </div>
@@ -356,7 +356,7 @@ export default function AIBootcampPage() {
               <Alert className="mt-4 text-left flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 flex-shrink-0" />
                 <AlertDescription className="flex-1">
-                  <strong>10월부터 12월까지 지역별로 순차적으로 오픈 예정입니다.</strong><br/>
+                  <strong>2월부터 4월까지 지역별로 순차적으로 오픈 예정입니다.</strong><br/>
                   2026년 3월 정식 런칭 전, 여러분의 소중한 피드백이 필요합니다.
                 </AlertDescription>
               </Alert>
@@ -372,28 +372,28 @@ export default function AIBootcampPage() {
                   onClick={() => setSelectedMonth('9')}
                   className="w-full"
                 >
-                  9월
+                  1월
                 </Button>
                 <Button
                   variant="outline"
                   disabled
                   className="w-full opacity-50"
                 >
-                  10월
+                  2월
                 </Button>
                 <Button
                   variant="outline"
                   disabled
                   className="w-full opacity-50"
                 >
-                  11월
+                  3월
                 </Button>
                 <Button
                   variant="outline"
                   disabled
                   className="w-full opacity-50"
                 >
-                  12월
+                  4월
                 </Button>
               </div>
             </div>
@@ -401,7 +401,7 @@ export default function AIBootcampPage() {
             {/* Location Selection */}
             <div>
               <label className="text-sm font-medium mb-2 block">
-                지역 선택 <span className="text-muted-foreground">(2025년 9월은 나주시만 가능)</span>
+                지역 선택 <span className="text-muted-foreground">(2026년 1월은 나주시만 가능)</span>
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <Button
@@ -440,7 +440,7 @@ export default function AIBootcampPage() {
             <div className="mt-6 p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
               <p className="font-semibold text-lg mb-3">선택하신 정보</p>
               <p className="text-muted-foreground mb-4">
-                📅 2025년 {selectedMonth}월 시작 · 📍 {locations.find(l => l.id === selectedLocation)?.name} · ⏱️ 6개월 과정
+                📅 2026년 {selectedMonth === '9' ? '1' : selectedMonth === '10' ? '2' : selectedMonth === '11' ? '3' : '4'}월 시작 · 📍 {locations.find(l => l.id === selectedLocation)?.name} · ⏱️ 6개월 과정
               </p>
               <Link href="/programs/ai-bootcamp/apply">
                 <Button size="lg" className="w-full sm:w-auto inline-flex items-center justify-center">
