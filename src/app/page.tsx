@@ -426,9 +426,9 @@ export default function Home() {
                       <Badge variant="secondary">2025</Badge>
                     </div>
                     <div className="flex-1">
-                      <p className="font-semibold text-lg mb-1">나주 열림 문화센터 임시동호회 등록</p>
+                      <p className="font-semibold text-lg mb-1">나주 열림 문화센터 예비 단체 등록</p>
                       <p className="text-sm text-muted-foreground">
-                        나주시 열림 문화센터에 임시동호회로 등록하여 지역 문화 활동 기반을 마련했습니다
+                        나주시 열림 문화센터에 예비 단체로 등록하여 지역 문화 활동 기반을 마련했습니다
                       </p>
                     </div>
                   </div>
