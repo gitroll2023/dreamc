@@ -75,7 +75,7 @@ export default function Home() {
     {
       id: 2,
       title: "동네북코칭",
-      subtitle: "청년 인문학 스터디 (나주편)",
+      subtitle: "청년 인문학 스터디",
       description: "매주 다른 주제로 진행되는 인문학 과정. 철학, 역사, 문학, 예술 등 다양한 주제로 함께 생각하고 토론합니다.",
       originalPrice: "200,000원",
       discountPrice: "예치금 30,000원",
