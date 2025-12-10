@@ -29,10 +29,7 @@ export default function AIBootcampPage() {
   };
 
   const locations = [
-    { id: 'naju', name: '나주시', available: ['9'] },
-    { id: 'yeosu', name: '여수시', available: [] },
-    { id: 'mokpo', name: '목포시', available: [] },
-    { id: 'hwasun', name: '화순군', available: [] },
+    { id: 'naju-hwasun', name: '나주·화순', available: ['9'] },
   ];
 
   const reviews = [
@@ -301,7 +298,7 @@ export default function AIBootcampPage() {
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center mb-10">
             <Badge className="mb-4" variant="secondary">2기 모집</Badge>
-            <h2 className="text-3xl font-bold mb-4">2026년 1월, 나주에서 2기가 시작됩니다</h2>
+            <h2 className="text-3xl font-bold mb-4">2026년 1월, 나주·화순에서 2기가 시작됩니다</h2>
             <p className="text-lg text-muted-foreground">1기의 성공적인 수료 이후, 2026년 3월 정식 런칭 전 마지막 시범 운영</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -401,7 +398,7 @@ export default function AIBootcampPage() {
             {/* Location Selection */}
             <div>
               <label className="text-sm font-medium mb-2 block">
-                지역 선택 <span className="text-muted-foreground">(2026년 1월은 나주시만 가능)</span>
+                지역 선택 <span className="text-muted-foreground">(2026년 1월은 나주·화순 통합 운영)</span>
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <Button

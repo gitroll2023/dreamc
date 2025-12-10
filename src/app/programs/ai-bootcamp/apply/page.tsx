@@ -152,7 +152,7 @@ export default function ApplyPage() {
               ※ &quot;AI 시대에서 살아남기 인문학 부트캠프&quot;는 가칭입니다
             </p>
             <p className="text-lg text-muted-foreground">
-              2기 신청서 작성 (2026년 1월 나주 시작)
+              2기 신청서 작성 (2026년 1월 나주·화순 시작)
             </p>
           </div>
         </div>
@@ -293,7 +293,7 @@ export default function ApplyPage() {
                     <Alert className="mb-4 flex items-center gap-2">
                       <AlertCircle className="h-4 w-4 flex-shrink-0" />
                       <AlertDescription className="flex-1">
-                        <strong>2026년 1월 나주에서 2기가 시작됩니다</strong><br/>
+                        <strong>2026년 1월 나주·화순에서 2기가 시작됩니다</strong><br/>
                         1기의 성공적인 수료 이후, 2026년 3월 정식 런칭 전 마지막 시범 운영입니다
                       </AlertDescription>
                     </Alert>
@@ -305,7 +305,7 @@ export default function ApplyPage() {
                           <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-muted/50">
                             <RadioGroupItem value="9" id="month9" />
                             <Label htmlFor="month9" className="font-normal cursor-pointer">
-                              2026년 1월 (2기)
+                              2026년 1월 (2기, 나주·화순)
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">

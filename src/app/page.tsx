@@ -68,7 +68,7 @@ export default function Home() {
       discount: "90%",
       tags: ["부트캠프", "협력프로그램", "6개월"],
       status: "2기 모집중",
-      location: "나주 (2026년 1월)",
+      location: "나주·화순 (2026년 1월)",
       isPartnership: true,
       partnerInfo: "※ 후원 기업 서포터즈와 함께하는 프로그램"
     },
@@ -82,7 +82,7 @@ export default function Home() {
       discount: "수료시 환급",
       tags: ["인문학", "토론", "스터디"],
       status: "체험 모집중",
-      location: "나주",
+      location: "나주·화순",
       programType: "humanities"
     },
     {
@@ -95,7 +95,7 @@ export default function Home() {
       discount: "90%",
       tags: ["체험", "창작", "힐링"],
       status: "체험 모집중",
-      location: "여수, 목포, 나주",
+      location: "나주·화순",
       programType: "cocktail"
     },
     {
@@ -108,7 +108,7 @@ export default function Home() {
       discount: "90%",
       tags: ["체험", "베이킹", "디저트"],
       status: "체험 모집중",
-      location: "여수, 목포, 나주",
+      location: "나주·화순",
       programType: "baking"
     },
     {
@@ -121,7 +121,7 @@ export default function Home() {
       discount: "88%",
       tags: ["체험", "예술", "취미"],
       status: "체험 모집중",
-      location: "여수, 목포, 나주",
+      location: "나주·화순",
       programType: "calligraphy"
     },
     {
@@ -134,7 +134,7 @@ export default function Home() {
       discount: "60%",
       tags: ["체험", "게임", "네트워킹"],
       status: "체험 모집중",
-      location: "여수, 목포, 나주",
+      location: "나주·화순",
       programType: "board-game"
     }
   ];
@@ -151,11 +151,11 @@ export default function Home() {
               2026년 3월 정식 서비스 런칭 예정
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-              전라남도 청년들을 위한<br />
-              <span className="text-primary">문화 체험 플랫폼</span> 드림캐쳐
+              나주·화순 청년들을 위한<br />
+              <span className="text-primary">문화 체험 플랫폼</span> 나주×화순 드림캐쳐
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto px-4">
-              다양한 문화 체험 프로그램을 통해 데이터를 수집하고 있습니다.<br />
+              2025년 12월 5일부터 나주와 화순이 통합 운영됩니다.<br />
               베타 테스트 기간 동안 <span className="font-semibold text-foreground">체험가</span>로 참여하실 수 있습니다.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -232,7 +232,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">체험 프로그램</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              전라남도 청년들을 위한 문화 체험 프로그램<br />
+              나주·화순 청년들을 위한 문화 체험 프로그램<br />
               베타 테스트 기간 중 체험가로 참여 가능합니다
             </p>
           </div>
@@ -340,8 +340,8 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">전라남도 4개 도시 활동</p>
-                      <p className="text-sm text-muted-foreground">여수, 목포, 화순, 나주 중심 프로그램 운영</p>
+                      <p className="font-medium">나주·화순 통합 운영</p>
+                      <p className="text-sm text-muted-foreground">본사 지침에 따라 2개 지역 통합 프로그램 운영</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
