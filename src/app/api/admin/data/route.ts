@@ -34,8 +34,8 @@ export async function GET(request: NextRequest) {
       const bootcampApplications = await prisma.application.findMany({
         orderBy: { createdAt: 'desc' },
       });
-      
-      data.bootcampApplications = bootcampApplications.map(app => ({
+
+      data.bootcampApplications = bootcampApplications.map((app: any) => ({
         ...app,
         createdAtKST: formatInTimeZone(app.createdAt, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
         applicationDateKST: formatInTimeZone(app.applicationDate, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
@@ -47,8 +47,8 @@ export async function GET(request: NextRequest) {
       const experienceApplications = await prisma.experienceApplication.findMany({
         orderBy: { createdAt: 'desc' },
       });
-      
-      data.experienceApplications = experienceApplications.map(app => ({
+
+      data.experienceApplications = experienceApplications.map((app: any) => ({
         ...app,
         createdAtKST: formatInTimeZone(app.createdAt, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
         applicationDateKST: formatInTimeZone(app.applicationDate, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
@@ -60,8 +60,8 @@ export async function GET(request: NextRequest) {
       const surveys = await prisma.survey.findMany({
         orderBy: { submittedAt: 'desc' },
       });
-      
-      data.surveys = surveys.map(survey => ({
+
+      data.surveys = surveys.map((survey: any) => ({
         ...survey,
         submittedAtKST: formatInTimeZone(survey.submittedAt, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
         createdAtKST: formatInTimeZone(survey.createdAt, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
@@ -78,8 +78,8 @@ export async function GET(request: NextRequest) {
         },
         orderBy: { publishedAt: 'desc' },
       });
-      
-      data.announcements = announcements.map(ann => ({
+
+      data.announcements = announcements.map((ann: any) => ({
         ...ann,
         publishedAtKST: formatInTimeZone(ann.publishedAt, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
         createdAtKST: formatInTimeZone(ann.createdAt, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
@@ -91,24 +91,24 @@ export async function GET(request: NextRequest) {
       const coupons = await prisma.coupon.findMany({
         orderBy: { createdAt: 'desc' },
       });
-      
+
       const formatKoreanDate = (date: Date) => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}년 ${month}월 ${day}일`;
       };
-      
-      data.coupons = coupons.map(coupon => {
+
+      data.coupons = coupons.map((coupon: any) => {
         const now = new Date();
         let status = '사용가능';
-        
+
         if (coupon.isUsed) {
           status = '사용완료';
         } else if (coupon.expiryDate < now) {
           status = '만료';
         }
-        
+
         return {
           ...coupon,
           issueDate: formatKoreanDate(coupon.issueDate),
@@ -131,8 +131,8 @@ export async function GET(request: NextRequest) {
       unusedCoupons: await prisma.coupon.count({ where: { isUsed: false } }),
     };
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       data,
       stats
     });
@@ -177,9 +177,9 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      data: updatedItem 
+    return NextResponse.json({
+      success: true,
+      data: updatedItem
     });
   } catch (error) {
     console.error('Error updating status:', error);
@@ -228,9 +228,9 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      message: '삭제되었습니다.' 
+    return NextResponse.json({
+      success: true,
+      message: '삭제되었습니다.'
     });
   } catch (error) {
     console.error('Error deleting item:', error);
