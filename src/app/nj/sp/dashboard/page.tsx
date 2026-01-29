@@ -338,13 +338,14 @@ export default function SupportersDashboard() {
   };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('ko-KR', {
+    return new Date(dateString).toLocaleString('ko-KR', {
+      timeZone: 'Asia/Seoul',
       month: 'numeric',
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
-    }).format(date);
+      hour12: true,
+    });
   };
 
   if (loading) {
