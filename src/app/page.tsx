@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Users, Sparkles, Heart, MapPin, Calendar, CheckCircle, AlertCircle, ExternalLink } from "lucide-react"
+import { ArrowRight, Users, Sparkles, Heart, MapPin, Calendar, CheckCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -70,8 +70,7 @@ export default function Home() {
       tags: ["VISION", "GROWTH", "HEALING"],
       status: "사전 신청중",
       location: "나주·화순",
-      isChallenge: true,
-      challengeUrl: "https://smore.im/form/BemsfOOO8J"
+      isChallenge: true
     },
     {
       id: 2,
@@ -298,10 +297,7 @@ export default function Home() {
                 <CardFooter>
                   {program.isChallenge ? (
                     <Button className="w-full bg-green-600 hover:bg-green-700" asChild>
-                      <a href={program.challengeUrl} target="_blank" rel="noopener noreferrer">
-                        사전 신청하기
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </a>
+                      <Link href="/programs">자세히 보기</Link>
                     </Button>
                   ) : program.programType ? (
                     <Button className="w-full" variant="outline" asChild>
@@ -472,10 +468,7 @@ export default function Home() {
                     <Badge variant="outline" className="border-green-300 text-green-700">#HEALING</Badge>
                   </div>
                   <Button asChild className="w-fit bg-green-600 hover:bg-green-700">
-                    <a href="https://smore.im/form/BemsfOOO8J" target="_blank" rel="noopener noreferrer">
-                      사전 신청하기
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
+                    <Link href="/programs">자세히 보기</Link>
                   </Button>
                 </div>
               </div>

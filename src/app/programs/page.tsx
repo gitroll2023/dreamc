@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { MapPin, Calendar, Users, Clock, CheckCircle, AlertCircle, ExternalLink } from "lucide-react"
+import { MapPin, Calendar, Users, Clock, CheckCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -163,8 +163,7 @@ export default function ProgramsPage() {
       maxPeople: "추후 안내",
       schedule: "추후 안내",
       programType: "",
-      isChallenge: true,
-      challengeUrl: "https://smore.im/form/BemsfOOO8J"
+      isChallenge: true
     }
   ]
 
@@ -395,11 +394,8 @@ export default function ProgramsPage() {
                   )}
 
                   {program.isChallenge ? (
-                    <Button className="w-full mt-4 bg-green-600 hover:bg-green-700" asChild>
-                      <a href={program.challengeUrl} target="_blank" rel="noopener noreferrer">
-                        사전 신청하기
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </a>
+                    <Button className="w-full mt-4 bg-green-600 hover:bg-green-700" disabled>
+                      준비중
                     </Button>
                   ) : (
                     <Button className="w-full mt-4" asChild>

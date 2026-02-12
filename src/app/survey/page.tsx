@@ -441,15 +441,6 @@ export default function SurveyPage() {
                           <p className="text-sm text-muted-foreground mt-1">
                             비전 플래너와 함께하는 목표 설정, 감정관리, 자기개선 프로그램
                           </p>
-                          <a
-                            href="https://smore.im/form/BemsfOOO8J"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center text-sm text-green-600 hover:text-green-700 font-medium mt-2"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            사전 신청 설문 바로가기 →
-                          </a>
                         </div>
                       </Label>
                     </div>
