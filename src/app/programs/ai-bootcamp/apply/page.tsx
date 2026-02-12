@@ -294,7 +294,7 @@ export default function ApplyPage() {
                       <AlertCircle className="h-4 w-4 flex-shrink-0" />
                       <AlertDescription className="flex-1">
                         <strong>2026년 1월 나주에서 2기가 시작됩니다</strong><br/>
-                        1기의 성공적인 수료 이후, 2026년 3월 정식 런칭 전 마지막 시범 운영입니다
+                        1기의 성공적인 수료 이후, 2026년 여름 정식 런칭 전 시범 운영입니다
                       </AlertDescription>
                     </Alert>
                     
@@ -317,7 +317,7 @@ export default function ApplyPage() {
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">
                             <RadioGroupItem value="11" id="month11" disabled />
                             <Label htmlFor="month11" className="font-normal">
-                              2026년 3월 (예정)
+                              2026년 여름 (예정)
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2 p-4 border rounded-lg opacity-50">

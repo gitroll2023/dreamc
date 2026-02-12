@@ -433,6 +433,26 @@ export default function SurveyPage() {
                         </div>
                       </Label>
                     </div>
+                    <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-muted/50">
+                      <RadioGroupItem value="challenge-of-2026" id="challenge-of-2026" />
+                      <Label htmlFor="challenge-of-2026" className="font-normal cursor-pointer flex-1">
+                        <div>
+                          <span className="font-semibold">챌린지 오브 2026</span>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            비전 플래너와 함께하는 목표 설정, 감정관리, 자기개선 프로그램
+                          </p>
+                          <a
+                            href="https://smore.im/form/BemsfOOO8J"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center text-sm text-green-600 hover:text-green-700 font-medium mt-2"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            사전 신청 설문 바로가기 →
+                          </a>
+                        </div>
+                      </Label>
+                    </div>
                   </div>
                 </RadioGroup>
               </CardContent>

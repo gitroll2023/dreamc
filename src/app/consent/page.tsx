@@ -203,7 +203,7 @@ export default function ConsentPage() {
                   </p>
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">
-                  2026년 3월 정식 서비스 론칭 시 홍보 자료로 사용될 수 있습니다.
+                  2026년 여름 정식 서비스 론칭 시 홍보 자료로 사용될 수 있습니다.
                 </p>
                 <RadioGroup 
                   value={formData.photoConsent}

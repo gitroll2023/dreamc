@@ -103,7 +103,7 @@ export function Footer() {
             <div className="mt-4 p-3 bg-primary/5 rounded-lg">
               <p className="text-xs text-muted-foreground">
                 현재 체험 프로그램 운영 중<br />
-                2026년 3월 정식 서비스 예정
+                2026년 여름 정식 서비스 예정
               </p>
             </div>
           </div>

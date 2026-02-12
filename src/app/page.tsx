@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from "next/link"
-import { ArrowRight, Users, Sparkles, Heart, MapPin, Calendar, CheckCircle, AlertCircle } from "lucide-react"
+import Image from "next/image"
+import { ArrowRight, Users, Sparkles, Heart, MapPin, Calendar, CheckCircle, AlertCircle, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -60,17 +61,17 @@ export default function Home() {
   const programs = [
     {
       id: 1,
-      title: "AI 시대에서 살아남기 인문학 부트캠프",
-      subtitle: "AI가 대체할 수 없는 인간만의 가치 발견",
-      description: "만 19세 이상 전연령이 함께하는 6개월 인문학 과정. AI 시대에 인간만의 고유한 가치와 역량을 개발합니다.",
-      originalPrice: "월 200,000원",
-      discountPrice: "월 20,000원",
-      discount: "90%",
-      tags: ["부트캠프", "협력프로그램", "6개월"],
-      status: "2기 모집중",
-      location: "나주 (2026년 1월)",
-      isPartnership: true,
-      partnerInfo: "※ 후원 기업 서포터즈와 함께하는 프로그램"
+      title: "챌린지 오브 2026",
+      subtitle: "비전 플래너와 함께하는 성장 프로그램",
+      description: "현실적인 목표 세팅, 감정관리 및 스트레스 관리, 나의 개선점 발견까지. 우연히 만난 네잎클로버처럼 당신에게 작은 행운이 됩니다.",
+      originalPrice: "",
+      discountPrice: "사전 신청",
+      discount: "NEW",
+      tags: ["VISION", "GROWTH", "HEALING"],
+      status: "사전 신청중",
+      location: "나주·화순",
+      isChallenge: true,
+      challengeUrl: "https://smore.im/form/BemsfOOO8J"
     },
     {
       id: 2,
@@ -148,7 +149,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto text-center">
             <Badge className="mb-4 px-4 py-1.5" variant="secondary">
               <Sparkles className="w-3 h-3 mr-1" />
-              2026년 3월 정식 서비스 런칭 예정
+              2026년 여름 정식 서비스 런칭 예정
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
               나주·화순 청년들을 위한<br />
@@ -184,8 +185,8 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">베타 테스트 참여 안내</h2>
             <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
-              드림캐쳐는 2026년 3월 정식 서비스 런칭을 준비하고 있습니다.<br />
-              서비스 개선을 위한 데이터 수집과 피드백이 필요한 시점입니다.
+              드림캐쳐는 2026년 여름 정식 서비스 런칭을 준비하고 있습니다.<br />
+              더 많은 데이터 수집과 정확한 분석을 위해 테스터 기간을 확장하여 운영 중입니다.
             </p>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               <Card className="border-primary/20">
@@ -238,11 +239,17 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {programs.map((program) => (
-              <Card key={program.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
-                <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-4">
-                  <Badge className="mb-2" variant="destructive">
-                    {program.discount} 할인
-                  </Badge>
+              <Card key={program.id} className={`overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full ${program.isChallenge ? 'border-green-200' : ''}`}>
+                <div className={`p-4 ${program.isChallenge ? 'bg-gradient-to-r from-green-50 to-emerald-50' : 'bg-gradient-to-r from-primary/10 to-accent/10'}`}>
+                  {program.isChallenge ? (
+                    <Badge className="mb-2 bg-green-600 hover:bg-green-700">
+                      {program.discount}
+                    </Badge>
+                  ) : (
+                    <Badge className="mb-2" variant="destructive">
+                      {program.discount} 할인
+                    </Badge>
+                  )}
                   <Badge className="mb-2 ml-2" variant="outline">
                     {program.status}
                   </Badge>
@@ -259,33 +266,23 @@ export default function Home() {
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {program.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary">
+                      <Badge key={tag} variant="secondary" className={program.isChallenge ? 'border-green-300 text-green-700 bg-green-50' : ''}>
                         {tag}
                       </Badge>
                     ))}
                   </div>
-                  {program.isPartnership ? (
-                    <div className="space-y-3">
-                      <div className="space-y-2">
+                  {program.isChallenge ? (
+                    <div className="text-center py-2">
+                      <span className="text-lg font-bold text-green-600">사전 신청 진행중</span>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {program.originalPrice && (
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-muted-foreground line-through">정가</span>
                           <span className="text-sm line-through">{program.originalPrice}</span>
                         </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-semibold">체험가</span>
-                          <span className="text-lg font-bold text-primary">{program.discountPrice}</span>
-                        </div>
-                      </div>
-                      <div className="text-xs text-muted-foreground border-t pt-3">
-                        {program.partnerInfo}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground line-through">정가</span>
-                        <span className="text-sm line-through">{program.originalPrice}</span>
-                      </div>
+                      )}
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-semibold">체험가</span>
                         <span className="text-lg font-bold text-primary">{program.discountPrice}</span>
@@ -299,9 +296,12 @@ export default function Home() {
                   )}
                 </CardContent>
                 <CardFooter>
-                  {program.isPartnership ? (
-                    <Button className="w-full" asChild>
-                      <Link href="/programs">자세히 보기</Link>
+                  {program.isChallenge ? (
+                    <Button className="w-full bg-green-600 hover:bg-green-700" asChild>
+                      <a href={program.challengeUrl} target="_blank" rel="noopener noreferrer">
+                        사전 신청하기
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </a>
                     </Button>
                   ) : program.programType ? (
                     <Button className="w-full" variant="outline" asChild>
@@ -368,7 +368,7 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <Calendar className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">2026년 3월 정식 서비스</p>
+                      <p className="font-medium">2026년 여름 정식 서비스</p>
                       <p className="text-sm text-muted-foreground">체계적인 청년 문화 프로그램 론칭</p>
                     </div>
                   </div>
@@ -435,6 +435,51 @@ export default function Home() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Challenge of 2026 Section */}
+      <section className="py-12 md:py-16 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <Card className="overflow-hidden border-green-200/50">
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-2/5 relative">
+                  <div className="aspect-[3/4] md:aspect-auto md:h-full relative">
+                    <Image
+                      src="/event1/2026 main.png"
+                      alt="챌린지 오브 2026"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                  <Badge className="w-fit mb-3 bg-green-100 text-green-700 hover:bg-green-200" variant="secondary">
+                    행사
+                  </Badge>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3">챌린지 오브 2026</h3>
+                  <p className="text-muted-foreground mb-2">
+                    우연히 만난 네잎클로버처럼, 당신에게 작은 행운이 됩니다.
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    비전 플래너와 함께 현실적인 목표 세팅, 감정관리 및 스트레스 관리, 나의 개선점 발견을 경험해보세요.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <Badge variant="outline" className="border-green-300 text-green-700">#VISION</Badge>
+                    <Badge variant="outline" className="border-green-300 text-green-700">#GROWTH</Badge>
+                    <Badge variant="outline" className="border-green-300 text-green-700">#HEALING</Badge>
+                  </div>
+                  <Button asChild className="w-fit bg-green-600 hover:bg-green-700">
+                    <a href="https://smore.im/form/BemsfOOO8J" target="_blank" rel="noopener noreferrer">
+                      사전 신청하기
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>

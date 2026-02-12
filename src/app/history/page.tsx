@@ -55,10 +55,10 @@ export default function HistoryPage() {
       future: true
     },
     {
-      date: '2026년 3월',
+      date: '2026년 여름',
       title: '정식 서비스 론칭',
       location: '전라남도',
-      description: '체험 기간을 거쳐 정식 서비스를 론칭합니다.',
+      description: '테스터 기간 확장을 거쳐 정식 서비스를 론칭합니다.',
       future: true,
       milestone: true
     },
@@ -93,7 +93,7 @@ export default function HistoryPage() {
     {
       icon: <Target className="h-6 w-6" />,
       title: '명확한 목표',
-      description: '2026년 정식 서비스 론칭을 위해 체계적으로 준비하고 데이터를 수집합니다.'
+      description: '2026년 여름 정식 서비스 론칭을 위해 체계적으로 준비하고 데이터를 수집합니다.'
     },
     {
       icon: <HandshakeIcon className="h-6 w-6" />,
@@ -202,7 +202,7 @@ export default function HistoryPage() {
                   </p>
                   <div className="bg-primary/5 border-l-4 border-primary p-6 my-8">
                     <p className="text-lg font-medium">
-                      2026년 3월 정식 서비스 론칭을 목표로, 현재는 체험 프로그램을 통해 
+                      2026년 여름 정식 서비스 론칭을 목표로, 현재는 체험 프로그램을 통해
                       청년들의 목소리를 듣고 더 나은 서비스를 만들어가고 있습니다.
                     </p>
                   </div>
@@ -373,7 +373,7 @@ export default function HistoryPage() {
                   <div className="space-y-6">
                     <div className="p-6 bg-primary/5 rounded-lg border border-primary/20">
                       <div className="flex items-center gap-3 mb-3">
-                        <Badge className="bg-primary text-primary-foreground">2026년 3월</Badge>
+                        <Badge className="bg-primary text-primary-foreground">2026년 여름</Badge>
                         <h3 className="font-semibold">정식 서비스 론칭</h3>
                       </div>
                       <p className="text-muted-foreground mb-3">

@@ -524,7 +524,7 @@ export default function ApplyDiscountPage() {
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-blue-900">프로그램 개선을 위한 안내</p>
                     <p className="text-xs text-blue-700">
-                      드림캐쳐는 2026년 3월 정식 서비스 론칭을 준비하고 있습니다.
+                      드림캐쳐는 2026년 여름 정식 서비스 론칭을 준비하고 있습니다.
                       여러분의 소중한 의견을 바탕으로 더 나은 청년 문화 프로그램을 만들어가겠습니다.
                     </p>
                   </div>

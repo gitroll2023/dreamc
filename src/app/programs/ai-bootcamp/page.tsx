@@ -299,7 +299,7 @@ export default function AIBootcampPage() {
           <div className="text-center mb-10">
             <Badge className="mb-4" variant="secondary">2기 모집</Badge>
             <h2 className="text-3xl font-bold mb-4">2026년 1월, 나주에서 2기가 시작됩니다</h2>
-            <p className="text-lg text-muted-foreground">1기의 성공적인 수료 이후, 2026년 3월 정식 런칭 전 마지막 시범 운영</p>
+            <p className="text-lg text-muted-foreground">1기의 성공적인 수료 이후, 2026년 여름 정식 런칭 전 시범 운영</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <Card className="border-primary/20 hover:shadow-lg transition-shadow">
@@ -354,7 +354,7 @@ export default function AIBootcampPage() {
                 <AlertCircle className="h-4 w-4 flex-shrink-0" />
                 <AlertDescription className="flex-1">
                   <strong>2월부터 4월까지 지역별로 순차적으로 오픈 예정입니다.</strong><br/>
-                  2026년 3월 정식 런칭 전, 여러분의 소중한 피드백이 필요합니다.
+                  2026년 여름 정식 런칭 전, 여러분의 소중한 피드백이 필요합니다.
                 </AlertDescription>
               </Alert>
             </CardHeader>

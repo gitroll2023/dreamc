@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { MapPin, Calendar, Users, Clock, CheckCircle, AlertCircle } from "lucide-react"
+import { MapPin, Calendar, Users, Clock, CheckCircle, AlertCircle, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -147,6 +147,24 @@ export default function ProgramsPage() {
       maxPeople: "8명",
       schedule: "매주 금요일 19:00",
       programType: "calligraphy"
+    },
+    {
+      id: 9,
+      title: "챌린지 오브 2026",
+      subtitle: "비전 플래너와 함께하는 성장 프로그램",
+      description: "현실적인 목표 세팅, 감정관리 및 스트레스 관리, 나의 개선점 발견까지. 우연히 만난 네잎클로버처럼 당신에게 작은 행운이 됩니다.",
+      originalPrice: "",
+      discountPrice: "",
+      discount: "NEW",
+      tags: ["VISION", "GROWTH", "HEALING"],
+      status: "사전 신청중",
+      location: ["나주", "화순"],
+      duration: "추후 안내",
+      maxPeople: "추후 안내",
+      schedule: "추후 안내",
+      programType: "",
+      isChallenge: true,
+      challengeUrl: "https://smore.im/form/BemsfOOO8J"
     }
   ]
 
@@ -320,10 +338,14 @@ export default function ProgramsPage() {
           {/* Program Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPrograms.map((program) => (
-              <Card key={program.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card key={program.id} className={`overflow-hidden hover:shadow-lg transition-shadow ${program.isChallenge ? 'border-green-200' : ''}`}>
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
-                    <Badge variant="destructive">{program.discount} 할인</Badge>
+                    {program.isChallenge ? (
+                      <Badge className="bg-green-600 hover:bg-green-700">{program.discount}</Badge>
+                    ) : (
+                      <Badge variant="destructive">{program.discount} 할인</Badge>
+                    )}
                     <Badge variant="outline">{program.status}</Badge>
                   </div>
                   <CardTitle>{program.title}</CardTitle>
@@ -331,7 +353,7 @@ export default function ProgramsPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">{program.description}</p>
-                  
+
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4 text-muted-foreground" />
@@ -349,28 +371,43 @@ export default function ProgramsPage() {
 
                   <div className="flex flex-wrap gap-2 mb-4">
                     {program.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary">
+                      <Badge key={tag} variant="secondary" className={program.isChallenge ? 'border-green-300 text-green-700 bg-green-50' : ''}>
                         {tag}
                       </Badge>
                     ))}
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground line-through">정가</span>
-                      <span className="text-sm text-muted-foreground line-through">{program.originalPrice}</span>
+                  {program.isChallenge ? (
+                    <div className="text-center py-2">
+                      <span className="text-lg font-bold text-green-600">사전 신청 진행중</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-primary">체험가</span>
-                      <span className="text-2xl font-bold text-primary">{program.discountPrice}</span>
+                  ) : (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-muted-foreground line-through">정가</span>
+                        <span className="text-sm text-muted-foreground line-through">{program.originalPrice}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-lg font-bold text-primary">체험가</span>
+                        <span className="text-2xl font-bold text-primary">{program.discountPrice}</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  <Button className="w-full mt-4" asChild>
-                    <Link href={`/programs/experience/apply?type=${program.programType}`}>
-                      체험 신청하기
-                    </Link>
-                  </Button>
+                  {program.isChallenge ? (
+                    <Button className="w-full mt-4 bg-green-600 hover:bg-green-700" asChild>
+                      <a href={program.challengeUrl} target="_blank" rel="noopener noreferrer">
+                        사전 신청하기
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button className="w-full mt-4" asChild>
+                      <Link href={`/programs/experience/apply?type=${program.programType}`}>
+                        체험 신청하기
+                      </Link>
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             ))}

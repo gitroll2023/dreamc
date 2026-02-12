@@ -67,7 +67,7 @@ export default function AboutPage() {
               <p className="mb-6">
                 현재 전라남도의 여수, 목포, 화순, 나주를 중심으로 다양한 체험 프로그램을 운영하며 
                 청년들의 목소리를 듣고 있습니다. 이러한 데이터와 경험을 바탕으로 
-                2026년 3월, 더 체계적이고 지속가능한 청년 문화 프로그램을 선보일 예정입니다.
+                2026년 여름, 더 체계적이고 지속가능한 청년 문화 프로그램을 선보일 예정입니다.
               </p>
               <p>
                 베타 테스트에 참여해 주시는 분들의 피드백을 바탕으로<br />
@@ -200,7 +200,7 @@ export default function AboutPage() {
                         <span className="text-sm">나주시 2기 시작</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <Badge variant="default">2026.03</Badge>
+                        <Badge variant="default">2026 여름</Badge>
                         <span className="text-sm font-medium">정식 서비스 론칭 (예정)</span>
                       </div>
                     </div>
